@@ -3,7 +3,7 @@
   Input parameter: url
 {%- endcomment -%}
 
-{%- assign languages_array = site.languages | split: ", " -%}
+{%- assign languages_array = site.languages -%}
 {%- assign current_language = languages_array | first -%}
 {%- assign url_parts = include.url | split: "/" -%}
 {%- assign url_language = url_parts[1] -%}

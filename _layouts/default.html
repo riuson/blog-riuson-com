@@ -1,0 +1,21 @@
+{%- include header.html -%}
+
+{%- include navbar.html -%}
+
+<main class="page">
+  <section class="clean-block">
+    <div class="container">
+      <div class="block-heading">
+        <h3 class="text-info page-title">
+          {{ page.title }} 
+          <a href="{{ site.cotributeurl | append: '/' | append: page.path }}" target="_blank" class="contribute-link">
+            <span class='far fa-edit'></span>
+          </a>
+        </h3>
+      </div>
+      {{ content }}
+    </div>
+  </section>
+</main>
+
+{%- include footer.html -%}

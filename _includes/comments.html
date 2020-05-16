@@ -1,0 +1,12 @@
+{%- assign url_uni = page.url | replace_first: current_lang_mask, '/' -%}
+<!--//
+  Unique ID - page url without language code: {{ url_uni }} 
+//-->
+<script src="https://utteranc.es/client.js"
+  repo="riuson/lcd-image-converter-docs"
+  issue-term="{{ url_uni }}"
+  label="comments"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script>

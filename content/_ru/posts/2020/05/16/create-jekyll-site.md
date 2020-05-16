@@ -7,6 +7,7 @@ categories: jekyll
 gem install bundler:2.1.4
 bundle init
 bundle add jekyll -v 3.8.5
+ gem "github-pages", "~> 204", group: :jekyll_plugins
 bundle update
 bundle exec jekyll –version
 bundle add jekyll new . --force

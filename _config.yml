@@ -27,9 +27,14 @@ github_username:  riuson
 
 # Build settings
 markdown: kramdown
-theme: minima
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  # styles for rogue: https://spsarolkar.github.io/rouge-theme-preview/ , https://github.com/spsarolkar/rouge-theme-preview
+
 plugins:
   - jekyll-feed
+  - jekyll-redirect-from
 
 collections:
   en:
@@ -39,7 +44,11 @@ collections:
 collections_dir: content
 
 
-languages: "en, ru"
+languages:
+  - "en"
+  - "ru"
+
+date_format: "%Y-%m-%d"
 
 defaults:
   - scope:

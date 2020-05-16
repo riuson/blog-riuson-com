@@ -1,0 +1,6 @@
+{%- for image in site.static_files -%}
+    {%- if image.path contains '/assets/images/favicons/favicon' %}
+      {%- assign size = image.path | replace: '/assets/images/favicons/favicon', '' | replace: '.png', '' -%}
+      <link rel="icon" type="image/png" href="{{ image.path }}" sizes="{{ size }}x{{ size }}">
+    {% endif -%}
+{%- endfor -%}
