@@ -1,0 +1,22 @@
+{%- comment -%}
+  Finds current language
+  Input parameter: url
+{%- endcomment -%}
+
+{%- assign languages_array = site.languages | split: ", " -%}
+{%- assign current_language = languages_array | first -%}
+{%- assign url_parts = include.url | split: "/" -%}
+{%- assign url_language = url_parts[1] -%}
+
+{%- for language in languages_array -%}
+  {%- if url_language == language -%}
+    {%- assign current_language = language -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign current_language_mask = '/' | append: current_language | append: '/' -%}
+
+{%- comment -%}
+  Output variables: current_language, current_language_mask, languages_array
+{%- endcomment -%}

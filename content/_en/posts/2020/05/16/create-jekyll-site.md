@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Creating Jekyll site"
 date:   2020-05-16 13:22:00 +0500
 categories: jekyll
