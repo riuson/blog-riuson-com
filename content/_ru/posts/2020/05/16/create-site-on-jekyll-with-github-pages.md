@@ -1,8 +1,10 @@
 ---
-title:  "Creating Jekyll site"
+title:  "Создание сайта на GitHub Pages"
 date:   2020-05-16 13:22:00 +0500
 categories: jekyll
 ---
+Настройка Jekyll для GitHub Pages на локальной машине.
+<!-- more -->
 {% highlight bash %}
 gem install bundler:2.1.4
 bundle init

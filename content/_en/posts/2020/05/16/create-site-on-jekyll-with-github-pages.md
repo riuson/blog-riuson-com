@@ -1,8 +1,10 @@
 ---
-title:  "Creating Jekyll site"
+title:  "Creating Jekyll site with GitHub Pages"
 date:   2020-05-16 13:22:00 +0500
 categories: jekyll
 ---
+How to setup Jekyll for GitHub Pages on local machine.
+<!-- more -->
 {% highlight bash %}
 gem install bundler:2.1.4
 bundle init
