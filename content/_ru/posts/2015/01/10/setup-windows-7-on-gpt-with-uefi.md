@@ -1,11 +1,9 @@
----
-title:  "Установка Windows 7 на GPT и UEFI BIOS"
-date:   2015-01-10 02:57:00 +0500
-categories:
-  - "Windows 7"
-  - "GPT"
-  - "UEFI"
----
+{
+  "title": "Установка Windows 7 на GPT и UEFI BIOS",
+  "date": "2015-01-10 02:57:00 +0500",
+  "categories": [ "Windows 7", "GPT", "UEFI" ]
+}
+
 Как сделать из обычного диска Windows 7 установочный диск для UEFI/GPT.
 <!-- more -->
 

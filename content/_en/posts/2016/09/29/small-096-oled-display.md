@@ -1,9 +1,9 @@
----
-title:  "Graphic OLED display 0.96"
-date:   2016-09-29 15:50:00 +0500
-categories:
-  - "LCD Image Converter"
----
+{
+  "title": "Graphic OLED display 0.96",
+  "date": "2016-09-29 15:50:00 +0500",
+  "categories": [ "LCD Image Converter" ]
+}
+
 Small display from AliExpress.
 0.96", 128x64 pixels. Controller SSD1306.
 <!-- more -->

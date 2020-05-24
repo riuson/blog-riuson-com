@@ -1,9 +1,9 @@
----
-title:  "Графический OLED дисплей 0.96"
-date:   2016-09-29 15:50:00 +0500
-categories:
-  - "LCD Image Converter"
----
+{
+  "title": "Графический OLED дисплей 0.96",
+  "date": "2016-09-29 15:50:00 +0500",
+  "categories": [ "LCD Image Converter" ]
+}
+
 Пришла такая штука с AliExpress.
 Диагональ 0.96". Разрешение 128x64. Контроллер SSD1306.
 <!-- more -->

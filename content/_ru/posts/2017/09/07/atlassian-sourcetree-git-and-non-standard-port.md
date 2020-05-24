@@ -1,10 +1,10 @@
----
-title:  "Atlassian SourceTree, Git и нестандартный порт"
-date:   2017-09-07 19:05:00 +0500
-categories:
-  - Git
-excerpt: "Как указать порт к Git репозиторию в Atlassian SourceTree."
----
+{
+  "title": "Atlassian SourceTree, Git и нестандартный порт",
+  "date": "2017-09-07 19:05:00 +0500",
+  "categories": [ "Git" ],
+  "excerpt": "Как указать порт к Git репозиторию в Atlassian SourceTree."
+}
+
 Обычный url репозитория:
 ```bash
 git@github.com:riuson/lcd-image-converter.git

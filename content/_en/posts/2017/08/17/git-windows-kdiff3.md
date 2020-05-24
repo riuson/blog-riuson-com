@@ -1,10 +1,10 @@
----
-title:  "Git for Windows + KDiff3"
-date:   2017-08-17 18:05:00 +0500
-categories:
-  - Git
-excerpt: "How to setup KDiff3 as mergetool and difftool in Git for Windows."
----
+{
+  "title": "Git for Windows + KDiff3",
+  "date": "2017-08-17 18:05:00 +0500",
+  "categories": [ "Git" ],
+  "excerpt": "How to setup KDiff3 as mergetool and difftool in Git for Windows."
+}
+
 Setup KDiff3 as mergetool and difftool in Git for Windows.
 
 Download and install [KDiff3](https://sourceforge.net/projects/kdiff3).

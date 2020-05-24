@@ -1,8 +1,9 @@
----
-title:  "Zyxel Keenetic + NameCheap DDNS"
-date:   2017-06-10 12:55:00 +0500
-excerpt: Настройка DDNS от Namecheap на роутере Zyxel Keenetic.
----
+{
+  "title": "Zyxel Keenetic + NameCheap DDNS",
+  "date": "2017-06-10 12:55:00 +0500",
+  "excerpt": "Настройка DDNS от Namecheap на роутере Zyxel Keenetic."
+}
+
 Выбор провайдеров DDNS в роутере оказался на удивление малым:
 
 ![List of providers]({{ '/assets/images/posts/2017/06/10/zyxel-keenetic-namecheap-ddns-1.png' | relative_url }}){:class="img-fluid"}

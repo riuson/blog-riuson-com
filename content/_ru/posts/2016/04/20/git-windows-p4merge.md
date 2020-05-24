@@ -1,9 +1,9 @@
----
-title:  "Git for Windows and P4merge"
-date:   2016-04-20 00:00:00 +0500
-categories:
-  - "Git"
----
+{
+  "title": "Git for Windows and P4merge",
+  "date": "2016-04-20 00:00:00 +0500",
+  "categories": [ "Git" ]
+}
+
 Настройка использования p4merge в Git for Windows в качестве mergetool.
 Применять такую утилиту приходится крайне редко, т.к. Git прекрасно проводит слияние веток, если они заранее были правильно организованы.
 <!-- more -->

@@ -1,10 +1,9 @@
----
-title:  "Creating image for STM32 Discovery BSP"
-date:   2016-09-18 15:50:00 +0500
-categories:
-  - "STM32"
-excerpt: "How to create an image in \"С\" format for using with STM32F429I-Disco and same boards with BSP (Board Support Package)."
----
+{
+  "title": "Creating image for STM32 Discovery BSP",
+  "date": "2016-09-18 15:50:00 +0500",
+  "categories": [ "STM32" ],
+  "excerpt": "How to create an image in С format for using with STM32F429I-Disco and same boards with BSP (Board Support Package)."
+}
 
 ## Исходные данные
 

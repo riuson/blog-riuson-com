@@ -1,9 +1,9 @@
----
-title:  "Installation and setup Eclipse, STM32CubeMX under Windows (v2)."
-date:   2017-02-21 23:00:00 +0500
-categories:
-  - "STM32"
----
+{
+  "title": "Installation and setup Eclipse, STM32CubeMX under Windows (v2).",
+  "date": "2017-02-21 23:00:00 +0500",
+  "categories": [ "STM32" ]
+}
+
 Manual was updated due to changes from previous version of CubeMX.
 
 Installation and setup development environment for STM32, with Eclipse, STM32CubeMX, GNU ARM Embedded, GNU ARM Eclipse Plugins.<br>

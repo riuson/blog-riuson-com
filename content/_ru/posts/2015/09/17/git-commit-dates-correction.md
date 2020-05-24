@@ -1,12 +1,11 @@
----
-title:  "Git: корректировка дат в коммитах"
-date:   2015-09-17 00:00:00 +0500
-categories:
-  - Git
-excerpt: "Как сменить дату коммита в Git"
----
-<!-- more -->
+{
+  "title": "Git: корректировка дат в коммитах",
+  "date": "2015-09-17 00:00:00 +0500",
+  "categories": [ "Git" ],
+  "excerpt": "Как сменить дату коммита в Git"
+}
 
+<!-- more -->
 ### Замена дат в предыдущих коммитах.
 
 [Changing the timestamp of a previous Git commit](http://eddmann.com/posts/changing-the-timestamp-of-a-previous-git-commit/)

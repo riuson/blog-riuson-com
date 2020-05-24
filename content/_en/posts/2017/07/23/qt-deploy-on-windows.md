@@ -1,10 +1,10 @@
----
-title:  "Qt Deploy on Windows"
-date:   2017-07-23 21:19:00 +0500
-categories:
-  - Qt
-excerpt: "How to collect DLLs, what are required to run Qt application with dinamic linking."
----
+{
+  "title": "Qt Deploy on Windows",
+  "date": "2017-07-23 21:19:00 +0500",
+  "categories": [ "Qt" ],
+  "excerpt": "How to collect DLLs, what are required to run Qt application with dinamic linking."
+}
+
 ## How to deploy dynamically linked application with DLLs.
 
 Source article: [Qt for Windows - Deployment](http://doc.qt.io/qt-5/windows-deployment.html)

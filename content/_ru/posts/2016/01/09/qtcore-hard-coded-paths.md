@@ -1,10 +1,10 @@
----
-title:  "Hard-coded пути в QtCore.dll"
-date:   2016-01-09 00:00:00 +0500
-categories:
-  - Qt
-excerpt: "Hard-coded путь qt_prfxpath в библиотеке QtCore под Windows."
----
+{
+  "title": "Hard-coded пути в QtCore.dll",
+  "date": "2016-01-09 00:00:00 +0500",
+  "categories": [ "Qt" ],
+  "excerpt": "Hard-coded путь qt_prfxpath в библиотеке QtCore под Windows."
+}
+
 <!-- more -->
 После обновления Qt 5.5.0 до Qt 5.5.1 оказалось, что приложение перестало работать.
 Выдаваемые ошибки:

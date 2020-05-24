@@ -1,7 +1,8 @@
----
-title:  "Samsung Galaxy S3 & Beeline"
-date:   2015-05-01 00:00:00 +0500
----
+{
+  "title": "Samsung Galaxy S3 & Beeline",
+  "date": "2015-05-01 00:00:00 +0500"
+}
+
 Восстановление мобильного интернета Beeline на Samsung Galaxy S III.
 <!-- more -->
 

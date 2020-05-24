@@ -1,10 +1,9 @@
----
-title:  "BB & Qt — Установка Debian на BeagleBone"
-date:   2014-07-15 02:00:00 +0500
-categories:
-  - BeagleBone
-  - Qt
----
+{
+  "title": "BB & Qt — Установка Debian на BeagleBone",
+  "date": "2014-07-15 02:00:00 +0500",
+  "categories": [ "BeagleBone", "Qt" ]
+}
+
 Установка системы Debian 7.5 Wheezy на SD Card для загрузки BeageBone Black.
 <!-- more -->
 

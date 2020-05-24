@@ -1,10 +1,10 @@
----
-title:  "BB & Qt — UART"
-date:   2014-07-21 10:13:00 +0500
-categories:
-  - BeagleBone
-excerpt: Подключение UART интерфейса.
----
+{
+  "title": "BB & Qt — UART",
+  "date": "2014-07-21 10:13:00 +0500",
+  "categories": [ "BeagleBone" ],
+  "excerpt": "Подключение UART интерфейса."
+}
+
 ### Настройка пинов
 
 В комплекте с исходниками ядра можно найти файлы BB-UART1-00A0.dts, BB-UART2-00A0.dts, BB-UART4-00A0.dts, BB-UART4-RTSCTS-00A0.dts, BB-UART5-00A0.dts.

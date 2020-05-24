@@ -1,9 +1,9 @@
----
-title:  "Ubuntu и Asus E35M1-M, проблема с сетью"
-date:   2016-02-02 00:00:00 +0500
-categories:
-  - Ubuntu
----
+{
+  "title": "Ubuntu и Asus E35M1-M, проблема с сетью",
+  "date": "2016-02-02 00:00:00 +0500",
+  "categories": [ "Ubuntu" ]
+}
+
 Плата [Asus E35M1-M](https://www.asus.com/ru/Motherboards/E35M1M/) формата Micro-ATX с распаянным процессором AMD APU E-350 Dual-Core.
 
 Проблема: ухудшение пинга со временем (с 1 мс до 10 **секунд** и далее), падение скорости, потери пакетов, отваливание сети.

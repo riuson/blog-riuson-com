@@ -1,10 +1,9 @@
----
-title:  "BB & Qt — Сборка Qt 5"
-date:   2014-07-15 22:02:00 +0500
-categories:
-  - BeagleBone
-  - Qt
----
+{
+  "title": "BB & Qt — Сборка Qt 5",
+  "date": "2014-07-15 22:02:00 +0500",
+  "categories": [ "BeagleBone", "Qt" ]
+}
+
 Сборка Qt 5 для Debian и BeagleBone.
 <!-- more -->
 

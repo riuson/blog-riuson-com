@@ -1,9 +1,9 @@
----
-title:  "Установка и настройка Eclipse, STM32CubeMX под Windows (v2)."
-date:   2017-02-21 23:00:00 +0500
-categories:
-  - "STM32"
----
+{
+  "title": "Установка и настройка Eclipse, STM32CubeMX под Windows (v2).",
+  "date": "2017-02-21 23:00:00 +0500",
+  "categories": [ "STM32" ]
+}
+
 Здесь описываю настройку среды разработки для микроконтроллеров STM32, с использованием Eclipse, STM32CubeMX, GNU ARM Embedded, GNU ARM Eclipse Plugins.<br>
 На примере микроконтроллера STM32F103RET6.
 

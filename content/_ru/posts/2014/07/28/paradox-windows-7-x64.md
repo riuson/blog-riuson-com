@@ -1,10 +1,10 @@
----
-title:  "Paradox & Windows 7 x64"
-date:   2014-07-28 00:00:00 +0500
-categories:
-  - "Windows 7"
-excerpt: Костыли для установки этого анахронизма на Windows 7 x64.
----
+{
+  "title": "Paradox & Windows 7 x64",
+  "date": "2014-07-28 00:00:00 +0500",
+  "categories": [ "Windows 7" ],
+  "excerpt": "Костыли для установки этого анахронизма на Windows 7 x64."
+}
+
 Настройка BDE на Windows 7 x64
 
 Идём на сайт Inno Setup.

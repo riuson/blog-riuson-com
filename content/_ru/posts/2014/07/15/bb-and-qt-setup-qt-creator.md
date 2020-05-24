@@ -1,10 +1,9 @@
----
-title:  "BB & Qt — Установка Qt Creator"
-date:   2014-07-15 01:00:00 +0500
-categories:
-  - BeagleBone
-  - Qt
----
+{
+  "title": "BB & Qt — Установка Qt Creator",
+  "date": "2014-07-15 01:00:00 +0500",
+  "categories": [ "BeagleBone", "Qt" ]
+}
+
 Подготовка Qt Creator для сборки проектов под BeagleBone.
 <!-- more -->
 

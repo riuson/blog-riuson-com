@@ -1,10 +1,10 @@
----
-title:  "Qt Static Build on Windows with MinGW"
-date:   2017-07-19 19:00:00 +0500
-categories:
-  - Qt
-excerpt: "How to build Qt Static on Windows with MinGW to get Qt application without depencies from Qt dynamic link libraries."
----
+{
+  "title": "Qt Static Build on Windows with MinGW",
+  "date": "2017-07-19 19:00:00 +0500",
+  "categories": [ "Qt" ],
+  "excerpt": "How to build Qt Static on Windows with MinGW to get Qt application without depencies from Qt dynamic link libraries."
+}
+
 Source: [Building a static Qt for Windows using MinGW](https://wiki.qt.io/Building_a_static_Qt_for_Windows_using_MinGW)
 
 Download Qt and install it. Also select toolchain MinGW:

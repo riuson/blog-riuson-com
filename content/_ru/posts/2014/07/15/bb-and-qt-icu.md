@@ -1,10 +1,9 @@
----
-title:  "BB & Qt — ICU"
-date:   2014-07-15 21:58:00 +0500
-categories:
-  - BeagleBone
-  - Qt
----
+{
+  "title": "BB & Qt — ICU",
+  "date": "2014-07-15 21:58:00 +0500",
+  "categories": [ "BeagleBone", "Qt" ]
+}
+
 Сборка International Components for Unicode (ICU) для ARMv7. Используется в Qt с 5 версии.
 <!-- more -->
 

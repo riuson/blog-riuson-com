@@ -1,10 +1,9 @@
----
-title:  "BB & Qt — Tslib"
-date:   2014-07-15 21:54:00 +0500
-categories:
-  - BeagleBone
-  - Qt
----
+{
+  "title": "BB & Qt — Tslib",
+  "date": "2014-07-15 21:54:00 +0500",
+  "categories": [ "BeagleBone", "Qt" ]
+}
+
 Сборка Tslib для Qt.
 <!-- more -->
 

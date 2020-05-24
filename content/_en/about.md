@@ -1,6 +1,6 @@
----
-title: About
----
+{
+  "title": "About"
+}
 
 Just notes about anything that I would not like to forget.
 

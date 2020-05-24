@@ -1,8 +1,6 @@
----
-layout: home
-title: ""
-type: "home"
-redirect_from:
-  - /
-  - /en
----
+{
+  "layout": "home",
+  "title": "",
+  "type": "home",
+  "redirect_from": [ "/", "/en" ]
+}

@@ -1,10 +1,10 @@
----
-title:  "Статическая сборка Qt на Windows с MinGW"
-date:   2017-07-19 19:00:00 +0500
-categories:
-  - Qt
-excerpt: "Сборка статического комплекта Qt для получения приложения без зависимостей от других библиотек Qt."
----
+{
+  "title": "Статическая сборка Qt на Windows с MinGW",
+  "date": "2017-07-19 19:00:00 +0500",
+  "categories": [ "Qt" ],
+  "excerpt": "Сборка статического комплекта Qt для получения приложения без зависимостей от других библиотек Qt."
+}
+
 Оригинал: [Building a static Qt for Windows using MinGW](https://wiki.qt.io/Building_a_static_Qt_for_Windows_using_MinGW)
 
 Загрузить и установить Qt. Не забыть выбрать набор MinGW:
