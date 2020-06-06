@@ -6,13 +6,13 @@
 }
 
 Обычный url репозитория:
-```bash
+```
 git@github.com:riuson/lcd-image-converter.git
 ```
 
 Url репозитория с указанием порта:
-```bash
+```
 ssh://git@github.com:22/riuson/lcd-image-converter.git
 ```
 
-![Git Port]({{ '/assets/images/posts/2017/09/07/atlassian-sourcetree-git-and-non-standard-port-1.png' | relative_url }}){:class="img-fluid"}
+![Git Port](assets/images/posts/2017/09/07/atlassian-sourcetree-git-and-non-standard-port-1.png){ .img-fluid }

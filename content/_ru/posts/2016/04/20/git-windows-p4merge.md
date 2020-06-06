@@ -12,7 +12,7 @@
 Качаем **Helix P4Merge: Visual Merge Tool** и устанавливаем.
 
 Выполняем команды
-```bash
+```
 $ git config --global merge.tool p4merge
 $ git config --global mergetool.p4merge.path "C:/Program Files/Perforce/p4merge.exe"
 ```
@@ -24,7 +24,7 @@ $ git config --global mergetool.p4merge.path "C:/Program Files/Perforce/p4merge.
 ```
 
 После выполнения merge может возникнуть конфликт
-```bash
+```
 user@desktop MINGW32 /c/projects/project (develop)
 $ git merge --no-ff --no-commit feature-branch
 
@@ -37,7 +37,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ```
 
 Запускаем mergetool
-```bash
+```
 user@desktop MINGW32 /c/projects/project (develop|MERGING)
 $ git mergetool
 ```
@@ -48,6 +48,6 @@ Git показывает список файлов с конфликтами и 
   * <span style="color:orange">BASE ■</span> - найденный общий предок этого файла для локальной и удалённой веток;
   * Внизу отображается результат слияния. Цветными галочками справа можно выбирать нужную версию принимаемых изменений. Также, можно исправить результат вручную.
 
-![MergeTool]({{ '/assets/images/posts/2016/04/20/git-windows-p4merge-1.png' | relative_url }}){:class="img-fluid"}
+![MergeTool](assets/images/posts/2016/04/20/git-windows-p4merge-1.png){ .img-fluid }
 
 После исправления конфликтов следует сохранить всё и закрыть.

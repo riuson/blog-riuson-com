@@ -9,7 +9,7 @@ Source: [Building a static Qt for Windows using MinGW](https://wiki.qt.io/Buildi
 
 Download Qt and install it. Also select toolchain MinGW:
 
-![Install]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png' | relative_url }}){:class="img-fluid"}
+![Install](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png){ .img-fluid }
 
 Remember directory, where MinGW was installed. For example **D:\Qt\Tools\mingw530_32\bin\**
 
@@ -45,14 +45,14 @@ Wait some hours.............
 
 Add compiled Qt to Qt Creator: **Tools** → **Options** → **Build & Run** → **Qt Versions** → **Add...**. Browse to **qmake.exe**.
 
-![Qt Versions]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png' | relative_url }}){:class="img-fluid"}
+![Qt Versions](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png){ .img-fluid }
 
 Add new kit: **Tools** → **Options** → **Build & Run** → **Kit** → **Add...**. Select compiler C/C++ = MinGW 5.3.0, debugger = GNU gdb from MinGW 5.3.0 and just compiled Qt Version.
 
-![Kits]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png' | relative_url }}){:class="img-fluid"}
+![Kits](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png){ .img-fluid }
 
 Select kit for project:
 
-![Kit's selection]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png' | relative_url }}){:class="img-fluid"}
+![Kit's selection](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png){ .img-fluid }
 
 After build we could see a large executable file.

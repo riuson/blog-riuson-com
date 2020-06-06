@@ -18,7 +18,7 @@
   * Копируем всё содержимое из **FLASH:\EFI\MICROSOFT\BOOT** в **FLASH:\EFI\BOOT**;
   * Архиватором 7-zip открываем файл **FLASH:\SOURCES\BOOT.WIM** или **FLASH:\SOURCES\INSTALL.WIM**;
   * В архиве переходим в папку **\1\Windows\Boot\EFI**;
-  * В этот папке архива находим файл **BOOTMGFW.EFI** и копируем его на флэшку в папку **FLASH:\EFI\BOOT\**;
+  * В этот папке архива находим файл **BOOTMGFW.EFI** и копируем его на флэшку в папку **FLASH:\EFI\BOOT\\ ** ;
   * Переименовываем **BOOTMGFW.EFI** в **BOOTX64.EFI** (будет **FLASH:\EFI\BOOT\BOOTX64.EFI**);
   * Загружаем комп в биос UEFI;
   * В загрузочном меню ищем что-то типа UEFI (FAT) Flash Drive. Там должна быть обычная флэшка, и флэшка в режиме UEFI загрузчика. Вот вторую и надо. См. рисунок ниже;

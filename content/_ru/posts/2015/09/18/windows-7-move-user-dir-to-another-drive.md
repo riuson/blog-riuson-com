@@ -10,29 +10,29 @@
 Установили Windows 7, получили одного пользователя (например, *Vasya*) с правами администратора.
 
 Активируем учётную запись *Администратора*.
-```bat
+```
 net user administrator /active:yes
 ```
 
 Выходим из учётной записи *Vasya*, заходим под *Администратором*.
 
 Создаём на диске другом диске каталог для пользователя.
-```bat
+```
 mkdir D:\Users\Vasya
 ```
 
 Копируем прежний каталог пользователя в новое место
-```bat
+```
 robocopy /copyall /mir /xj C:\Users\Vasya D:\Users\Vasya
 ```
 
 Удаляем прежний каталог пользователя
-```bat
+```
 rmdir /S /Q C:\Users\Vasya
 ```
 
 Создаём ссылку со старого местоположения на новое
-```bat
+```
 mklink /J C:\Users\Vasya D:\Users\Vasya
 Junction created for C:\Users\Vasya <<===>> D:\Users\Vasya
 ```

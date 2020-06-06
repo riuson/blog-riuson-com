@@ -159,23 +159,23 @@ $(end_block_images_table)
 
 Main window of application
 
-![LCD Image Converter main window]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-1.png' | relative_url }}){:class="img-fluid"}
+![LCD Image Converter main window](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-1.png){ .img-fluid }
 
 Prepare.
 
-![Options - Conversion - Prepare]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-2.png' | relative_url }}){:class="img-fluid"}
+![Options - Conversion - Prepare](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-2.png){ .img-fluid }
 
 Color's matrix for R5G6B5.
 
-![Options - Conversion - Matrix]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-3.png' | relative_url }}){:class="img-fluid"}
+![Options - Conversion - Matrix](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-3.png){ .img-fluid }
 
 Image.
 
-![Options - Conversion - Image]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-4.png' | relative_url }}){:class="img-fluid"}
+![Options - Conversion - Image](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-4.png){ .img-fluid }
 
 Template file.
 
-![Options - Conversion - Templates]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5.png' | relative_url }}){:class="img-fluid"}
+![Options - Conversion - Templates](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5.png){ .img-fluid }
 
 ## Results
 
@@ -256,4 +256,4 @@ butterfly_Struct butterfly = {
 #endif /* butterfly_H_ */
 ```
 
-![Photo of board STM32F429I-Disco with image]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-6.png' | relative_url }}){:class="img-fluid"}
+![Photo of board STM32F429I-Disco with image](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-6.png){ .img-fluid }

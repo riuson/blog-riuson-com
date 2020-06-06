@@ -12,7 +12,7 @@
 * Перейти в каталог установки. Например '*d:\Software\Installed\Git\*'
 * Открыть файл '*./etc/profile*' .
 * Добавить первой строкой:
-```bash
+```
 # HOME="path-to-home-dir"
 HOME="d:/Software/Installed/Git/home/"
 ```

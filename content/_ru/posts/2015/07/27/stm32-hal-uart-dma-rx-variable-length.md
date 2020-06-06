@@ -8,7 +8,7 @@ STM32 HAL UART Приём данных переменной длины с пом
 <!-- more -->
 
 Добавляем определение обработчика для IDLE.
-~~~diff
+```diff
 diff --git a/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h b/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 --- a/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 +++ b/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
@@ -19,10 +19,10 @@ diff --git a/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h b/Drivers/STM
 +void HAL_UART_RxIdleCallback(UART_HandleTypeDef *huart);
  void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart);
  void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart);
-~~~
+```
 
 Добавляем обработку прерывания IDLE в обработчик прерываний UART.
-~~~diff
+```diff
 diff --git a/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c b/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
 --- a/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
 +++ b/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
@@ -62,13 +62,13 @@ diff --git a/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c b/Drivers/STM
    * @brief  Tx Transfer completed callbacks.
    * @param  huart: Pointer to a UART_HandleTypeDef structure that contains
    *                the configuration information for the specified UART module.
-~~~
+```
 
 Доработка задачи приёма.<br>
 Настраивается приём через DMA для пакета размером в весь доступный буфер.<br>
 Затем идёт ожидание семафора. Семафор устанавливается в обработчике IDLE.<br>
 После, вычисляется количество принятых данных, как разница между ожидаемым количеством (размером буфера) и оставшимся (ещё не принятым) CNDTR.
-~~~diff
+```diff
 diff --git a/Src/freertos.c b/Src/freertos.c
 index a7db5b3..5ffd4df 100644
 --- a/Src/freertos.c
@@ -158,4 +158,4 @@ index a7db5b3..5ffd4df 100644
 +  osSemaphoreRelease(semSerialCommRxIdleHandle);
 +}
  /* USER CODE END Application */
-~~~
+```

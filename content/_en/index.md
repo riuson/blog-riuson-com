@@ -1,6 +1,5 @@
 {
-  "layout": "home",
-  "title": "",
-  "type": "home",
-  "redirect_from": [ "/", "/en" ]
+  "title": "Index",
+  "redirect_from": [ "/", "/en" ],
+  "layout": "home"
 }

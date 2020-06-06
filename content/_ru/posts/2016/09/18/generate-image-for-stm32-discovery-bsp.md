@@ -1,5 +1,5 @@
 {
-  "title": "Creating image for STM32 Discovery BSP",
+  "title": "Создание изображения для платы STM32 Discovery и BSP",
   "date": "2016-09-18 15:50:00 +0500",
   "categories": [ "STM32" ],
   "excerpt": "How to create an image in С format for using with STM32F429I-Disco and same boards with BSP (Board Support Package)."
@@ -153,23 +153,23 @@ $(end_block_images_table)
 
 Основное окно программы.
 
-![LCD Image Converter основное окно]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-1.png' | relative_url }}){:class="img-fluid"}
+![LCD Image Converter основное окно](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-1.png){ .img-fluid }
 
 Настройки подготовки сканирования.
 
-![Настройки - Преобразование - Подготовка]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-2.png' | relative_url }}){:class="img-fluid"}
+![Настройки - Преобразование - Подготовка](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-2.png){ .img-fluid }
 
 Матрица выборки цветов для R5G6B5.
 
-![Настройки - Преобразование - Матрица]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-3.png' | relative_url }}){:class="img-fluid"}
+![Настройки - Преобразование - Матрица](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-3.png){ .img-fluid }
 
 Настройки изображения.
 
-![Настройки - Преобразование - Изображение]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-4.png' | relative_url }}){:class="img-fluid"}
+![Настройки - Преобразование - Изображение](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-4.png){ .img-fluid }
 
 Здесь надо указать шаблон вывода, приведённый выше.
 
-![Настройки - Преобразование - Шаблоны]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5png' | relative_url }}){:class="img-fluid"}
+![Настройки - Преобразование - Шаблоны](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5png){ .img-fluid }
 
 ## Результаты
 
@@ -252,4 +252,4 @@ butterfly_Struct butterfly = {
 ```
 
 Фото платы STM32F429I-Disco с полученным изображением
-![Фото платы STM32F429I-Disco с полученным изображением]({{ '/assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-6.png' | relative_url }}){:class="img-fluid"}
+![Фото платы STM32F429I-Disco с полученным изображением](assets/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-6.png){ .img-fluid }

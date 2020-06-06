@@ -9,7 +9,7 @@
 
 Загрузить и установить Qt. Не забыть выбрать набор MinGW:
 
-![Установка]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png' | relative_url }}){:class="img-fluid"}
+![Установка](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png){ .img-fluid }
 
 Запомнить каталог, куда установился MinGW. Например, **D:\Qt\Tools\mingw530_32\bin\**
 
@@ -45,14 +45,14 @@ mingw32-make: *** No rule to make target 'install'.
 
 Добавляем собранный Qt в Qt Creator: **Инструменты** → **Параметры** → **Сборка и запуск** → **Профили Qt** → **Добавить...**. Указать путь к файлу **qmake.exe**.
 
-![Версии Qt]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png' | relative_url }}){:class="img-fluid"}
+![Версии Qt](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png){ .img-fluid }
 
 Добавляем новый комплект: **Инструменты** → **Параметры** → **Сборка и запуск** → **Комплекты** → **Добавить...**. Выбрать компилятор C/C++ = MinGW 5.3.0, отладчик = GNU gdb из MinGW 5.3.0 и свежесобранный профиль Qt.
 
-![Комплекты]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png' | relative_url }}){:class="img-fluid"}
+![Комплекты](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png){ .img-fluid }
 
 Выбрать комплект для проект:
 
-![выбор комплекта]({{ '/assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png' | relative_url }}){:class="img-fluid"}
+![выбор комплекта](assets/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png){ .img-fluid }
 
 После сборки получится изрядно потолстевший исполняемый файл.

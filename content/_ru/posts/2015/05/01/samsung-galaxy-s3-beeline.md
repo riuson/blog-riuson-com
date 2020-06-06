@@ -35,12 +35,12 @@
 | Тип оператора мобильной виртуальной сети  | Нет  |
 | Значение оператора мобильной виртуальной сети  | Не установлено  |
 
-![settings-1]({{ '/assets/images/posts/2015/05/01/samsung-galaxy-s3-beeline-1.png' | relative_url }}){:class="img-fluid"}
+![settings-1](assets/images/posts/2015/05/01/samsung-galaxy-s3-beeline-1.png){ .img-fluid }
 
-![settings-2]({{ '/assets/images/posts/2015/05/01/samsung-galaxy-s3-beeline-2.png' | relative_url }}){:class="img-fluid"}
+![settings-2](assets/images/posts/2015/05/01/samsung-galaxy-s3-beeline-2.png){ .img-fluid }
 
 В конце мая ошибку признали: [Samsung из-за ошибки в своем ПО порекомендовал российским пользователям сменить сотового оператора](http://www.cnews.ru/top/2015/05/29/samsung_izza_oshibki_v_svoem_po_porekomendoval_rossiyskim_polzovatelyam_smenit_sotovogo_operatora_596085).
 
 Дело было в использовании IPv6 в APN, вместо IPv4:
 
-![settings-3]({{ '/assets/images/posts/2015/05/01/samsung-galaxy-s3-beeline-3.png' | relative_url }}){:class="img-fluid"}
+![settings-3](assets/images/posts/2015/05/01/samsung-galaxy-s3-beeline-3.png){ .img-fluid }

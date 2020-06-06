@@ -6,7 +6,7 @@
 
 How to setup Jekyll for GitHub Pages on local machine.
 <!-- more -->
-{% highlight bash %}
+```bash
 gem install bundler:2.1.4
 bundle init
 bundle add jekyll -v 3.8.5
@@ -14,7 +14,7 @@ bundle add jekyll -v 3.8.5
 bundle update
 bundle exec jekyll –version
 bundle add jekyll new . --force
-{% endhighlight %}
+```
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 

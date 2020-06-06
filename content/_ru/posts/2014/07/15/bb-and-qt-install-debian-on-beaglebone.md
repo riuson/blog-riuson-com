@@ -16,7 +16,7 @@
 ### Установка
 Записываем образ на SD карту памяти, объёмом более 2 ГБ. В Ubuntu для этого есть встроенное средство - приложение Disks.
 
-![disks]({{ '/assets/images/posts/2014/07/15/bb-and-qt-install-debian-on-beaglebone-1.png' | relative_url }}){:class="img-fluid"}
+![disks](assets/images/posts/2014/07/15/bb-and-qt-install-debian-on-beaglebone-1.png){ .img-fluid }
 
 
 На SD карте должно появиться 2 раздела:
@@ -25,7 +25,7 @@
 
 На разделе rootfs остаются свободными около 88 МБ, чего явно будет недостаточно. Поэтому запускаем Gparted и меняем размер этого раздела так, чтобы он занимал всё остальное доступное место на карте памяти (поэтому и нужна карта объёмом более 2 ГБ).
 
-![gparted]({{ '/assets/images/posts/2014/07/15/bb-and-qt-install-debian-on-beaglebone-2.png' | relative_url }}){:class="img-fluid"}
+![gparted](assets/images/posts/2014/07/15/bb-and-qt-install-debian-on-beaglebone-2.png){ .img-fluid }
 
 Устаналиваем карту памяти в BeagleBone. Зажимаем кнопку <i>boot</i> и подключаем USB кабелем к ПК. После чего:
   * Загружается Debian;

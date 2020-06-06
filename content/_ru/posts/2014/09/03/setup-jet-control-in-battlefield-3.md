@@ -12,6 +12,6 @@
 Для минимального радиуса разворота следует поддерживать скорость в пределах 305-315. Если крутиться в горизонтальной плоскости, достаточно иногда притормаживать кнопкой S.
 <!-- more -->
 
-![settings-1]({{ '/assets/images/posts/2014/09/03/setup-jet-control-in-battlefield-3-1.png' | relative_url }}){:class="img-fluid"}
+![settings-1](assets/images/posts/2014/09/03/setup-jet-control-in-battlefield-3-1.png){ .img-fluid }
 
-![settings-1]({{ '/assets/images/posts/2014/09/03/setup-jet-control-in-battlefield-3-2.png' | relative_url }}){:class="img-fluid"}
+![settings-1](assets/images/posts/2014/09/03/setup-jet-control-in-battlefield-3-2.png){ .img-fluid }

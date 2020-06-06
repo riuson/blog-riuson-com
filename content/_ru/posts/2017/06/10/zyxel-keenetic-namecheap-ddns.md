@@ -6,7 +6,7 @@
 
 Выбор провайдеров DDNS в роутере оказался на удивление малым:
 
-![List of providers]({{ '/assets/images/posts/2017/06/10/zyxel-keenetic-namecheap-ddns-1.png' | relative_url }}){:class="img-fluid"}
+![List of providers](assets/images/posts/2017/06/10/zyxel-keenetic-namecheap-ddns-1.png){ .img-fluid }
 
 DDNS на Namecheap настраивается по их инструкции: [How do I set up a Host for Dynamic DNS?](https://www.namecheap.com/support/knowledgebase/article.aspx/43/11/how-do-i-set-up-a-host-for-dynamic-dns)
 
@@ -32,4 +32,4 @@ Namecheap предоставляет следующие параметры, по
 
 Далее надо подставить свои параметры в указанный выше URL и прописать его в настройках DDNS у Zyxel. Параметр your_ip не указывается. В этом случае, в качестве ip адреса будет взят тот внешний IP адрес, с которого поступит запрос. Т.е. внешний адрес роутера.
 
-![Settings]({{ '/assets/images/posts/2017/06/10/zyxel-keenetic-namecheap-ddns-2.png' | relative_url }}){:class="img-fluid"}
+![Settings](assets/images/posts/2017/06/10/zyxel-keenetic-namecheap-ddns-2.png){ .img-fluid }

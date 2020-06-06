@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 
 Вибираем сборку под ARM:
 
-![kit-selection]({{ '/assets/images/posts/2014/07/16/bb-and-qt-test-application-1.png' | relative_url }}){:class="img-fluid"}
+![kit-selection](assets/images/posts/2014/07/16/bb-and-qt-test-application-1.png){ .img-fluid }
 
 Собираем и копируем на BeagleBone.
 

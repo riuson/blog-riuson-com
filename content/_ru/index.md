@@ -1,6 +1,5 @@
 {
-  "layout": "home",
-  "title": "",
-  "type": "home",
-  "redirect_from": [ "/ru" ]
+  "title": "Индекс",
+  "redirect_from": [ "/ru" ],
+  "layout": "home"
 }

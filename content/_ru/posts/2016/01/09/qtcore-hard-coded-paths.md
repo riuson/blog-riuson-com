@@ -24,9 +24,9 @@ This application has requested the Runtime to terminate it in an unusual way.
 Please contact the application's support team for more information.
 </blockquote>
 
-![QtCore Failure 1]({{ '/assets/images/posts/2016/01/09/qtcore-hard-coded-paths-1.png' | relative_url }}){:class="img-fluid"}
+![QtCore Failure 1](assets/images/posts/2016/01/09/qtcore-hard-coded-paths-1.png){ .img-fluid }
 
-![QtCore Failure 2]({{ '/assets/images/posts/2016/01/09/qtcore-hard-coded-paths-2.png' | relative_url }}){:class="img-fluid"}
+![QtCore Failure 2](assets/images/posts/2016/01/09/qtcore-hard-coded-paths-2.png){ .img-fluid }
 
 Поиск недостающих зависимостей в dependency walker ничего не дал. Нужные пакеты MS VC++ Redistibutable установлены..
 
@@ -34,7 +34,7 @@ Please contact the application's support team for more information.
 
 По объёму и версии библиотеки оказались идентичные. В сравнении содержимого обнаружилось отличие:
 
-![QtCore Compare]({{ '/assets/images/posts/2016/01/09/qtcore-hard-coded-paths-3.png' | relative_url }}){:class="img-fluid"}
+![QtCore Compare](assets/images/posts/2016/01/09/qtcore-hard-coded-paths-3.png){ .img-fluid }
 
 Библиотека QtCore5.dll содержит в себе строку пути **qt_prfxpath** к месту установки библиотеки Qt на компьютере разработчика.
 
