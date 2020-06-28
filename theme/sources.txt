@@ -1,0 +1,2 @@
+https://github.com/StartBootstrap/startbootstrap-clean-blog
+https://github.com/getpelican/pelican/tree/master/pelican/themes/simple/templates

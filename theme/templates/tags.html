@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title %}{{ SITENAME }} - Tags{% endblock %}
+
+<!-- Page Header -->
+{% block header_image %}{{ SITEURL }}/theme/img/home-bg.jpg{% endblock %}
+
+{% block content_title %}
+  Tags on {{ SITENAME }}
+{% endblock %}
+
+{% block content %}
+  <ul>
+  {% for tag, articles in tags|sort %}
+    <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> ({{ articles|count }})</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
