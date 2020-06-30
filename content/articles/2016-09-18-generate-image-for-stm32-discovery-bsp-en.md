@@ -1,5 +1,6 @@
 Title: Creating image for STM32 Discovery BSP
 Tags: STM32
+Category: LCD Image Converter
 Summary: How to create an image in С format for using with STM32F429I-Disco and same boards with BSP (Board Support Package).
 
 ## Initial data

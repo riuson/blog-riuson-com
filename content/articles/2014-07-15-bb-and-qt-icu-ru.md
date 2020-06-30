@@ -1,8 +1,9 @@
 Title: BB & Qt — ICU
-Tags: BeagleBone, Qt
+Date: 2014-07-15 21:58:00 +0500
+Tags: Qt
+Category: BeagleBone
 
 Сборка International Components for Unicode (ICU) для ARMv7. Используется в Qt с 5 версии.
-<!-- more -->
 
 На основе статьи [Cross Compile ICU 51.2](http://starofrainnight-eng.blogspot.ru/2013/08/cross-compile-icu-512.html).
 
@@ -52,7 +53,7 @@ make
 
 открываем файл <i>icu/source/mh-linux</i> и комментируем эту строку:
 
-```bash
+```make
 LDFLAGSICUDT=-nodefaultlibs -nostdlib
 ```
 

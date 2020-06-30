@@ -1,7 +1,6 @@
 Title: Samsung Galaxy S3 & Beeline
 
 Восстановление мобильного интернета Beeline на Samsung Galaxy S III.
-<!-- more -->
 
 В последней прошивке для Samsung Galaxy S III перестал работать интернет от оператора Beeline.
 

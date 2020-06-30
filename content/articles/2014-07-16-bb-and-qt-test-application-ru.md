@@ -1,5 +1,7 @@
 Title: BB & Qt — Тестовое приложение
-Tags: BeagleBone, Qt
+Date: 2014-07-16 12:05:00 +0500
+Tags: Qt
+Category: BeagleBone
 Summary: Создание тестового приложения в Qt Creator с использованием ранее собранного Qt 5.2.1 для ARMv7.
 
 ### Консольное
@@ -10,7 +12,7 @@ Summary: Создание тестового приложения в Qt Creator 
 В проекте будет всего 2 файла, bb-test-console.pro и main.cpp.
 bb-test-console.pro:
 
-```
+```text
 #-------------------------------------------------
 #
 # Project created by QtCreator 2014-07-15T20:59:08
@@ -375,7 +377,7 @@ debian@beaglebone:~/usr-share$ ./run.sh
 ### Запуск из Qt Creator
 При настроенном устройстве и комплекте Qt, в параметрах Qt Creator, можно выполнять запуск (для отладки нужна поддержка python в gdb) приложения из самого Qt Creator.
 Для этого надо в файл проекта добавить пару строк:
-```
+```text
 ...
 TARGET = bb-test-console
 target.files = bb-test-console

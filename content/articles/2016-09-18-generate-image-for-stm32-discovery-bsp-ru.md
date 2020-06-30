@@ -1,5 +1,6 @@
 Title: Создание изображения для платы STM32 Discovery и BSP
 Tags: STM32
+Category: LCD Image Converter
 Summary: Как создать изображение в формате исходника С для использования с платой STM32F429I-Disco и подобными с применением BSP (Board Support Package).
 
 ## Исходные данные

@@ -1,8 +1,9 @@
 Title: BB & Qt — Кросс-компилятор
-Tags: BeagleBone, Qt
+Date: 2014-07-15 21:50:00 +0500
+Tags: Qt
+Category: BeagleBone
 
 Установка кросс-компилятора.
-<!-- more -->
 
 Операционная система на компьютере - [Ubuntu 14.04 LTS x64](http://releases.ubuntu.com/14.04/).
 На BeagleBone Black - Debian 7.5 Wheezy.

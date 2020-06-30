@@ -1,5 +1,7 @@
 Title: BB & Qt — Сборка Qt 5
-Tags: BeagleBone, Qt
+Date: 2014-07-15 22:02:00 +0500
+Tags: Qt
+Category: BeagleBone
 
 Сборка Qt 5 для Debian и BeagleBone.
 
@@ -19,23 +21,23 @@ $ nano linux-beaglebone-g++/qmake.conf
 ```
 
 Меняем во флагах компилятора
-```bash
+```text
 -mfloat-abi=softfp
 ```
 на
-```bash
+```text
 -mfloat-abi=hard
 ```
 
 В конце файла, перед строкой load(qt_config), добавляем строки для Tslib:
-```bash
+```make
 QMAKE_INCDIR += /usr/share/tslib-armv7/include
 QMAKE_LIBDIR += /usr/share/tslib-armv7/lib
 QMAKE_RPATHDIR += /usr/share/tslib-armv7/lib
 ```
 
 И для ICU:
-```bash
+```make
 QMAKE_INCDIR += /usr/share/icu-4c-53.1-armv7/include
 QMAKE_LIBDIR += /usr/share/icu-4c-53.1-armv7/lib
 QMAKE_RPATHDIR += /usr/share/icu-4c-53.1-armv7/lib
@@ -49,7 +51,7 @@ $ nano linux-arm-gnueabihf-g++/qmake.conf
 ```
 
 Меняем путь к компилятору:
-```bash
+```make
 # modifications to g++.conf
 QMAKE_CC         = arm-linux-gnueabi-gcc
 QMAKE_CXX        = arm-linux-gnueabi-g++
@@ -57,7 +59,7 @@ QMAKE_LINK       = arm-linux-gnueabi-g++
 QMAKE_LINK_SHLIB = arm-linux-gnueabi-g++
 ```
 на
-```bash
+```make
 # modifications to g++.conf
 CROSS_TOOL       = /home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf
 QMAKE_CC         = $$CROSS_TOOL-gcc

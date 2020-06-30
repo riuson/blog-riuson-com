@@ -5,7 +5,6 @@ Tags: STM32
 На примере микроконтроллера STM32F030F4P6.
 
 [<i class="fab fa-youtube"></i> Видео: Настройка Eclipse и STM32CubeMX под Windows](https://youtu.be/Q68PBMGceqs)
-<!-- more -->
 
 На видео приведён весь процесс установки и настройки. Операционная система Windows 10, взята с сайта Microsoft: [Download virtual machines](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/windows/). Образы выложены там для тестирования софта под различными браузерами.
 

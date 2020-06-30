@@ -5,7 +5,6 @@ Tags: STM32
 На примере микроконтроллера STM32F103RET6.
 
 [<i class="fab fa-youtube"></i> Видео: Настройка Eclipse и STM32CubeMX под Windows (v2)](https://youtu.be/i5VUF1wYTQU)
-<!-- more -->
 
 В связи с некоторыми изменениями между рассмотренной ранее и текущей версией CubeMX, переделал инструкцию.{ .bg-info .text-white }
 
@@ -77,7 +76,7 @@ Tags: STM32
 В мастере создания нового проекта выбираем _C/C++_ -> _C Project_.
 Далее указываем имя проекта и тип _Hello World ARM C++ Project_, Toolchain _Cross ARM GCC_.
 Далее меняем каталог исходников Source с _src_ на _Src_. В Linker semi-hosting options стираем всё и пишем 
-```
+```text
 --specs=nosys.specs
 ```
 
@@ -98,7 +97,7 @@ Tags: STM32
 При необходимости, меняем в свойствах проект кодировку исходников на UTF-8.
 
 Создаём в каталоге _Src_ файл _startup.asm_. Прописывываем в нём путь к стартовому файлу на ассемблере:
-```
+```asm
 .include "../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xe.s"
 ```
 Это позволит оставить файлы _*.s_ на месте (они не попадают под сборку ассемблером), но в то же время включить нужный в сборку через файл _*.asm_.
@@ -133,7 +132,7 @@ Tags: STM32
 
 Ищем во втором файле ноды XML с соответствующими маркерами и заменяем их.
 Список примерно следующий:
-```c
+```text
 __weak="__attribute__((weak))"
 __packed="__attribute__((__packed__))"
 USE_HAL_DRIVER
@@ -142,7 +141,7 @@ ARM_MATH_CM3
 ```
 Последнего в XML файле нет, но без него библиотеки не соберутся.<br>
 Кавычек у \__weak и \__packed тоже нет. Их надо добавить в виде ` " ` :
-```c
+```text
 __weak="__attribute__((weak))"
 ```
 
@@ -165,12 +164,12 @@ __weak="__attribute__((weak))"
         ...
 ```
 Открываем рядом файл проекта Eclipse CDT. Ищем ранее добавленные маркеры. Копируем соответствующие ноды XML из первого файла во второй. Попутно заменяя относительные пути:
-```
+```text
 ../../../Inc
 ../../../Drivers/STM32F0xx_HAL_Driver/Inc
 ```
 на
-```
+```text
 ${ProjDirPath}/Inc
 ${ProjDirPath}/Drivers/STM32F0xx_HAL_Driver/Inc
 ```

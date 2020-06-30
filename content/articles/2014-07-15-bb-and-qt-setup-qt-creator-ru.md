@@ -1,8 +1,9 @@
 Title: BB & Qt — Установка Qt Creator
-Tags: BeagleBone, Qt
+Date: 2014-07-15 01:00:00 +0500
+Tags: Qt
+Category: BeagleBone
 
 Подготовка Qt Creator для сборки проектов под BeagleBone.
-<!-- more -->
 
 ### Установка
 Для установки Qt Creator берём [Qt Online Installer](http://qt-project.org/downloads). С его помощью загружаем Tools и Qt 5.2.1 gcc 32/64 bit.

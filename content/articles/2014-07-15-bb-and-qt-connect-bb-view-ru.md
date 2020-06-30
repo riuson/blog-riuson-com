@@ -1,8 +1,9 @@
 Title: BB & Qt — подключение дисплея BB-View
-Tags: BeagleBone, Qt, BB-View
+Date: 2014-07-15 21:38:00 +0500
+Tags: Qt, BB-View
+Category: BeagleBone
 
 К сожалению, придётся перекомпилировать ядро. Видео будет работать сразу (за исключением порядка цветов), а вот подключение сенсорной панели не совпадает со стандартным 4-проводным интерфейсом TI.
-<!-- more -->
 
 Первоисточник:
 "How-to BB-View on latest Debian"<br>
@@ -72,7 +73,7 @@ $ nano /home/user/beaglebone/kernel/linux-dev/KERNEL/firmware/Makefile
 ```
 
 Добавляем следующую строку где-то около 192-ой (CTRL-C показывает текущую позицию курсора):
-```bash
+```text
 BB-VIEW-LCD7-01-00A0.dtbo \
 ```
 Не забываем про закрывающий слеш, это важно. Теперь сохраняем и выходим, нажимая CTRL-O, Enter, CTRL-X.
@@ -94,7 +95,7 @@ $ ./tools/rebuild.sh
 
 Также, надо включить поддержку этого дисплея.
 Открываем файл <i>BEAGLE_BONE/uEnv.txt</i>. Где-то после строки #Disable HDMI добавляем параметры загрузки, в которых отключаем поддержку HDMI и включаем BB-View:
-```bash
+```text
 optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01
 ```
 

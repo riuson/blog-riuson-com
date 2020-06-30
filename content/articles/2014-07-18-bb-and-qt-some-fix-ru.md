@@ -1,5 +1,7 @@
 Title: BB & Qt — Некоторые исправления
-Tags: BeagleBone, BB-View
+Date: 2014-07-18 14:30:00 +0500
+Tags: BB-View
+Category: BeagleBone
 Summary: Перекраска синего пингвина и исправление некоторых конфликтов.
 
 ### Синий пингвин
@@ -103,7 +105,7 @@ $ ./tools/rebuild.sh
   * [Building A Custom Cape](http://inspire.logicsupply.com/p/building-custom-cape.html)
 
 При загрузке в логах можно увидеть конфликт назначения функции пина P9.20 (gpio0.12, смещение DT 0x178):
-```bash
+```text
 ...
 [    0.811465] pinctrl-single 44e10800.pinmux: pin 44e10978 already requested by 4819c000.i2c; cannot claim for gpio-leds-cape-lcd.12
 [    0.823793] pinctrl-single 44e10800.pinmux: pin-94 (gpio-leds-cape-lcd.12) status -22

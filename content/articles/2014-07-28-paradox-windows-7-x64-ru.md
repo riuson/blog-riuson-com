@@ -9,7 +9,7 @@ http://www.jrsoftware.org/iskb.php?bde
 
 Скачиваем файлы minireg.exe и bdeinst.cab.
 Распаковываем bdeinst.dll из bdeinst.cab (7zip, например), устанавливаем:
-```bash
+```bat
 $ minireg.exe bdeinst.dll
 ```
 

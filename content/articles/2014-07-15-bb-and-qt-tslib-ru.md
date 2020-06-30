@@ -1,8 +1,9 @@
 Title: BB & Qt — Tslib
-Tags: BeagleBone, Qt
+Date: 2014-07-15 21:54:00 +0500
+Tags: Qt
+Category: BeagleBone
 
 Сборка Tslib для Qt.
-<!-- more -->
 
 ### Сборка
 
@@ -61,7 +62,7 @@ debian@beaglebone:~$ sudo udevadm info -n input/event1 -q path
 
 Теперь надо создать симлинк к этому event'у и разрешить доступ к нему.
 Создаём в каталоге <i>/etc/udev/rules.d</i> файл <i>80-touchscreen.rules</i> с одной строкой:
-```bash
+```text
 KERNEL=="event1", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{name}=="ti-tsc", SYMLINK+="input/touchscreen", MODE="0644"
 ```
 и перезагружаемся. Должен появиться <i>/dev/input/touchscreen</i> с правами на чтение для всех.

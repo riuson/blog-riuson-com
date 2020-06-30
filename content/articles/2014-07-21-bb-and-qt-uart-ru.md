@@ -1,5 +1,6 @@
 Title: BB & Qt — UART
-Tags: BeagleBone
+Date: 2014-07-21 10:13:00 +0500
+Category: BeagleBone
 Summary: Подключение UART интерфейса.
 
 ### Настройка пинов
@@ -26,7 +27,7 @@ debian@beaglebone:~$ sudo nano /boot/uboot/uEnv.txt
 ```
 
 Меняем ранее добавленную строку параметров на
-```bash
+```text
 optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01,BB-UART2
 ```
 Перезагружаемся.

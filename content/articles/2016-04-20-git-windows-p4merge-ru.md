@@ -3,7 +3,6 @@ Tags: Git
 
 Настройка использования p4merge в Git for Windows в качестве mergetool.
 Применять такую утилиту приходится крайне редко, т.к. Git прекрасно проводит слияние веток, если они заранее были правильно организованы.
-<!-- more -->
 
 Идёт на сайт [Perforce](https://www.perforce.com/downloads/helix#product-10).
 Качаем **Helix P4Merge: Visual Merge Tool** и устанавливаем.

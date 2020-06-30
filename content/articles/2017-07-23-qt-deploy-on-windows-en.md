@@ -8,7 +8,7 @@ Source article: [Qt for Windows - Deployment](http://doc.qt.io/qt-5/windows-depl
 
 Create simple Windows Batch file *.bat with commands:
 
-```bash
+```bat
 ; Add path to MinGW tools to %PATH% environment variable.
 SET PATH=%PATH%;c:\Qt\Tools\mingw530_32\bin\
 

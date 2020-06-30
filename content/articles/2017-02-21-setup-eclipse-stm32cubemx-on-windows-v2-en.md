@@ -7,7 +7,6 @@ Installation and setup development environment for STM32, with Eclipse, STM32Cub
 MCU: STM32F103RET6.
 
 [<i class="fab fa-youtube"></i> Video: Setup Eclipse and STM32CubeMX on Windows](https://youtu.be/i5VUF1wYTQU)
-<!-- more -->
 
 Manual was updated due to changes from previous version of CubeMX.{ .bg-info .text-white }
 
@@ -84,7 +83,7 @@ All as usual.
 Choose menu _C/C++_ -> _C Project_.
 Write a project's name and select type _Hello World ARM C++ Project_, Toolchain _Cross ARM GCC_.
 Replace source's directory from _src_ to _Src_. At _Linker semi-hosting options_ write only next string 
-```
+```text
 --specs=nosys.specs
 ```
 
@@ -105,7 +104,7 @@ Refresh project tree in Eclipse. You can see newly added directories, _Driver_ a
 Newly added directories disabled by default, so enable it thru properties dialog.<br>
 
 Create file _startup.asm_ in _Src_ directory. Add path to generated assembler startup file:
-```
+```asm
 .include "../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xe.s"
 ```
 
@@ -139,7 +138,7 @@ Locate nodes with symbols in XML file (SW4STM32), like next:
 
 Locate nodes with markers in other XML file (Eclipse) and replace it.
 List of symbols looks like next:
-```
+```text
 __weak="__attribute__((weak))"
 __packed="__attribute__((__packed__))"
 USE_HAL_DRIVER
@@ -148,7 +147,7 @@ ARM_MATH_CM3
 ```
 Last line missing in XML file, but it is required for build.<br>
 Quote at \__weak and \__packed are required. In XML file quotes need to be escaped as ` " ` :
-```
+```text
 __weak="__attribute__((weak))"
 ```
 
@@ -171,12 +170,12 @@ Locate nodes with Include paths in XML file (SW4STM32) like this:
         ...
 ```
 Change prefix from relative path
-```
+```text
 ../../../Inc
 ../../../Drivers/STM32F1xx_HAL_Driver/Inc
 ```
 to variable
-```
+```text
 ${ProjDirPath}/Inc
 ${ProjDirPath}/Drivers/STM32F1xx_HAL_Driver/Inc
 ```
@@ -200,13 +199,13 @@ You can set _C/C++ Build_ -> _Behavior_ -> _Enable parallel build_ to speed up b
 # Debug
 ## Check connection with debugger and MCU thru J-Flash.
 Start J-Flash. Create new project. Select debugger, _Target Interface_, _CPU_ -> _Device_. Click menu _Target_ -> _Connect_. You should see message in log: 
-```
+```text
 Connected successfully
 ```
 If you don't see it, something going wrong.<br>
 Then select _Target_ -> _Manual programming -> _Erase chip_.
 You should see message in log: 
-```
+```text
 Erase operaion completed successfully.
 ```
 

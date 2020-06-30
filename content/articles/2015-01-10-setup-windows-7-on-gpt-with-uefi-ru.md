@@ -2,7 +2,6 @@ Title: Установка Windows 7 на GPT и UEFI BIOS
 Tags: Windows7, GPT, UEFI
 
 Как сделать из обычного диска Windows 7 установочный диск для UEFI/GPT.
-<!-- more -->
 
 Требуется USB Flash Drive на 4 ГБ или больше.
 
