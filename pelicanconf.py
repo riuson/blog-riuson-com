@@ -5,12 +5,12 @@ from __future__ import unicode_literals
 AUTHOR = 'Vladimir'
 SITENAME = 'riuson.com'
 SITEURL = ''
+DEFAULT_LANG = 'ru'
+LOCALE = 'ru_RU'
 
 PATH = 'content'
 
 TIMEZONE = 'Asia/Yekaterinburg'
-
-DEFAULT_LANG = 'ru'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -32,10 +32,10 @@ ARTICLE_URL          = '{lang}/posts/{date:%Y}/{date:%m}/{date:%d}/{slug}'
 ARTICLE_LANG_URL     = '{lang}/posts/{date:%Y}/{date:%m}/{date:%d}/{slug}'
 ARTICLE_SAVE_AS      = '{lang}/posts/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
 ARTICLE_LANG_SAVE_AS = '{lang}/posts/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
-PAGE_URL          = '{lang}/{slug}'
-PAGE_LANG_URL     = '{lang}/{slug}'
-PAGE_SAVE_AS      = '{lang}/{slug}/index.html'
-PAGE_LANG_SAVE_AS = '{lang}/{slug}/index.html'
+PAGE_URL             = '{lang}/{slug}'
+PAGE_LANG_URL        = '{lang}/{slug}'
+PAGE_SAVE_AS         = '{lang}/{slug}/index.html'
+PAGE_LANG_SAVE_AS    = '{lang}/{slug}/index.html'
 
 LOAD_CONTENT_CACHE = False
 DATE_FORMATS = {
@@ -56,3 +56,18 @@ MARKDOWN = {
         'markdown.extensions.attr_list': {},
     }
 }
+
+#PLUGIN_PATHS = ["../pelican-plugins"]
+#PLUGINS = ["i18n_subsites"]
+#I18N_SUBSITES = {
+#  'en': { 
+#    'SITENAME': 'riuson.com',
+#    'LOCALE': 'en_US',            #This is somewhat redundant with DATE_FORMATS, but IMHO more convenient
+#  },
+#  'ru': { 
+#    'SITENAME': 'riuson.com',
+#    'LOCALE': 'ru_RU',            #This is somewhat redundant with DATE_FORMATS, but IMHO more convenient
+#  },
+#}
+#I18N_UNTRANSLATED_ARTICLES = 'remove'
+#I18N_UNTRANSLATED_PAGES = 'remove'

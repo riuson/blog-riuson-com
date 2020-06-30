@@ -49,14 +49,13 @@
 {% block footer %}
   {% if article.category %}
   <div class="category">
-    Category: <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+    <a href="{{ SITEURL }}/{{ article.category.url }}">/{{ article.category }}</a>
   </div>
   {% endif %}
   {% if article.tags %}
   <div class="tags">
-    Tags:
     {% for tag in article.tags %}
-        <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+        <a href="{{ SITEURL }}/{{ tag.url }}">#{{ tag }}</a>
     {% endfor %}
   </div>
   {% endif %}
