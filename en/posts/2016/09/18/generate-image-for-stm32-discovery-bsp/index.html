@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>riuson.com - Creating image for STM32 Discovery BSP</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+          <link rel="alternate" hreflang="ru" href="https://blog.riuson.com/ru/posts/2016/09/18/generate-image-for-stm32-discovery-bsp">
+
+
+
+    <meta name="tags" content="STM32" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Creating image for STM32 Discovery BSP</h1>
+    <span class="meta">
+      <time class="published" datetime="2016-09-18T00:00:00+05:00">
+        Вс, 18 сен 2016
+      </time>
+    </span>
+    <span class="meta">
+            <a href="https://blog.riuson.com/ru/posts/2016/09/18/generate-image-for-stm32-discovery-bsp" hreflang="ru">ru</a>
+
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <h2>Initial data</h2>
+<p>And once there was a question ... How do I create an image for the board STM32F429I-Disco in "C" format for use with the <abbr title="Board Support Package">BSP</abbr>?</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef __STLOGO_H</span>
+<span class="cp">#define __STLOGO_H</span>
+
+<span class="cp">#if defined ( __ICCARM__ ) </span><span class="cm">/*!&lt; IAR Compiler */</span><span class="cp"></span>
+  <span class="cp">#pragma data_alignment=4   </span>
+<span class="cp">#endif</span>
+
+<span class="n">__ALIGN_BEGIN</span> <span class="k">const</span>  <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">stlogo</span><span class="p">[</span><span class="mi">9174</span><span class="p">]</span> <span class="n">__ALIGN_END</span> <span class="o">=</span>
+<span class="p">{</span>
+<span class="mh">0x42</span><span class="p">,</span><span class="mh">0x4d</span><span class="p">,</span><span class="mh">0xd6</span><span class="p">,</span><span class="mh">0x23</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x36</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x28</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span>
+<span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x50</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x39</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x01</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x10</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x03</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span>
+<span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0xa0</span><span class="p">,</span><span class="mh">0x23</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span>
+<span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span><span class="mh">0xff</span><span class="p">,</span>
+<span class="p">...</span>
+</code></pre></div>
+
+
+<h2>Data format</h2>
+<p>After examining the code section of the above, it became clear that this header structure <a href="https://en.wikipedia.org/wiki/BMP_file_format">BMP format</a>.
+I think it was made for ease of use the image files from the SD memory card.</p>
+<p>Also, based on the code of function <code>void BSP_LCD_DrawBitmap(uint32_t X, uint32_t Y, uint8_t *pBmp)</code> from file <code>stm32f429i_discovery_lcd.c</code> it can be assumed that code supports only the following data formats: A8R8G8B8, R5G6B5 and R8G8B8.</p>
+<p>How can I display an image in this format?</p>
+<p>There is a ready tool Bitmap Converter for emWin (BmpCvt.exe), which comes in STemwin package. You can certainly try it, but it's a simple way.</p>
+<p>How to make the conversion using LCD Image Converter?</p>
+<p>The simplest - is to decide that the conversion is not possible, as there is no ready-made presets for this.
+However, the problem is only in the reconstruction of the structure header BMP and filling them with the right data.</p>
+<p>From Wiki article mentioned above, we can obtain the following structure:</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagBITMAPFILEHEADER</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span> <span class="c1">// File type, &#39;BM&#39;, little-endian.</span>
+  <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span> <span class="c1">// Size of file, in bytes.</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfReserved2</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span> <span class="c1">// Offset of pixel&#39;s data from file&#39;s start.</span>
+<span class="p">}</span> <span class="n">BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// 14 bytes</span>
+
+<span class="c1">// Версия 3, BITMAPINFOHEADER.</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagBITMAPINFOHEADER</span> <span class="p">{</span>
+  <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span> <span class="c1">// Size of this structure and its version.</span>
+  <span class="kt">int32_t</span>   <span class="n">biWidth</span><span class="p">;</span> <span class="c1">// Width of image, must be freater than 0.</span>
+  <span class="kt">int32_t</span>   <span class="n">biHeight</span><span class="p">;</span> <span class="c1">// Height of image, must be freater than 0.</span>
+  <span class="kt">uint16_t</span>  <span class="n">biPlanes</span><span class="p">;</span> <span class="c1">// Number of planes, must be equals to 1.</span>
+  <span class="kt">uint16_t</span>  <span class="n">biBitCount</span><span class="p">;</span> <span class="c1">// Count of bits per pixel.</span>
+  <span class="kt">uint32_t</span>  <span class="n">biCompression</span><span class="p">;</span> <span class="c1">// Compression type. At ST&#39;s file it equals to 3, but not used because biClrUsed == 0.</span>
+  <span class="kt">uint32_t</span>  <span class="n">biSizeImage</span><span class="p">;</span> <span class="c1">// Size of image&#39;s data, in bytes.</span>
+  <span class="kt">int32_t</span>   <span class="n">biXPelsPerMeter</span><span class="p">;</span> <span class="c1">// Equals to 0.</span>
+  <span class="kt">int32_t</span>   <span class="n">biYPelsPerMeter</span><span class="p">;</span> <span class="c1">// Equals to 0.</span>
+  <span class="kt">uint32_t</span>  <span class="n">biClrUsed</span><span class="p">;</span> <span class="c1">// Equals to 0.</span>
+  <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span> <span class="c1">// Equals to 0.</span>
+<span class="p">}</span> <span class="n">BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// 40 bytes</span>
+</code></pre></div>
+
+
+<h2>Template</h2>
+<p>Colors will be stored in R5G6B5 format, ie 16 bits.
+For this purpose, it is more convenient to take as a storage unit <code>uin16_t</code>, instead <code>uint8_t</code>, which will affect the data in the header.</p>
+<p>Template for filling such a structure, for the GCC compiler, will be as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef $(doc_name_ws)_H_</span>
+<span class="cp">#define $(doc_name_ws)_H_</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// struct packing, pragma for GCC !!!</span>
+<span class="cp">#pragma pack(push, 1)</span>
+
+<span class="err">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPFILEHEADER</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfReserved2</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span>
+<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPINFOHEADER</span> <span class="p">{</span>
+  <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biWidth</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biHeight</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>  <span class="n">biPlanes</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>  <span class="n">biBitCount</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biCompression</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biSizeImage</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biXPelsPerMeter</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biYPelsPerMeter</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biClrUsed</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span>
+<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tag_Struct</span> <span class="p">{</span>
+  <span class="c1">// offset 0, size 14</span>
+  <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
+  <span class="c1">// offset 14, size 40</span>
+  <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span> <span class="n">infoHeader</span><span class="p">;</span>
+  <span class="c1">// offset 54, size $(out_blocks_count) words</span>
+  <span class="kt">uint16_t</span> <span class="n">data</span><span class="p">[</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)];</span>
+<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span><span class="p">;</span>
+
+
+<span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">{</span>
+    <span class="mh">0x4d42u</span><span class="p">,</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="mh">0x0000u</span><span class="p">,</span>
+    <span class="mh">0x0000u</span><span class="p">,</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">),</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_image_width</span><span class="p">),</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_image_height</span><span class="p">),</span>
+    <span class="mi">1u</span><span class="p">,</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_bpp</span><span class="p">),</span>
+    <span class="mh">0x00000003u</span><span class="p">,</span>
+    <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="mh">0x00000000ul</span><span class="p">,</span>
+    <span class="mh">0x00000000ul</span><span class="p">,</span>
+    <span class="mh">0x00000000ul</span><span class="p">,</span>
+    <span class="mh">0x00000000ul</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+  <span class="err">$</span><span class="p">(</span><span class="n">out_image_data</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="err">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
+
+<span class="c1">// struct packing, pragma for GCC !!!</span>
+<span class="cp">#pragma pack (pop)</span>
+
+
+
+<span class="cp">#endif </span><span class="cm">/* $(doc_name_ws)_H_ */</span><span class="cp"></span>
+</code></pre></div>
+
+
+<h2>Settings</h2>
+<p>Main window of application</p>
+<p><img alt="LCD Image Converter main window" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-1.png" /></p>
+<p>Prepare.</p>
+<p><img alt="Options - Conversion - Prepare" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-2.png" /></p>
+<p>Color's matrix for R5G6B5.</p>
+<p><img alt="Options - Conversion - Matrix" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-3.png" /></p>
+<p>Image.</p>
+<p><img alt="Options - Conversion - Image" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-4.png" /></p>
+<p>Template file.</p>
+<p><img alt="Options - Conversion - Templates" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5.png" /></p>
+<h2>Results</h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef butterfly_H_</span>
+<span class="cp">#define butterfly_H_</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// struct packing, pragma for GCC !!!</span>
+<span class="cp">#pragma pack(push, 1)</span>
+
+
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tagBITMAPFILEHEADER</span> <span class="p">{</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>   <span class="n">bfReserved2</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">butterfly_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tagBITMAPINFOHEADER</span> <span class="p">{</span>
+  <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biWidth</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biHeight</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>  <span class="n">biPlanes</span><span class="p">;</span>
+  <span class="kt">uint16_t</span>  <span class="n">biBitCount</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biCompression</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biSizeImage</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biXPelsPerMeter</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biYPelsPerMeter</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biClrUsed</span><span class="p">;</span>
+  <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">butterfly_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tag_Struct</span> <span class="p">{</span>
+  <span class="c1">// offset 0, size 14</span>
+  <span class="n">butterfly_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
+  <span class="c1">// offset 14, size 40</span>
+  <span class="n">butterfly_BITMAPINFOHEADER</span> <span class="n">infoHeader</span><span class="p">;</span>
+  <span class="c1">// offset 54, size 76800 words</span>
+  <span class="kt">uint16_t</span> <span class="n">data</span><span class="p">[</span><span class="mi">76800</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">butterfly_Struct</span><span class="p">;</span>
+
+
+<span class="n">butterfly_Struct</span> <span class="n">butterfly</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">{</span>
+    <span class="mh">0x4d42u</span><span class="p">,</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">butterfly_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">butterfly_BITMAPFILEHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">76800</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="mh">0x0000u</span><span class="p">,</span>
+    <span class="mh">0x0000u</span><span class="p">,</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">butterfly_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">butterfly_BITMAPFILEHEADER</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">butterfly_BITMAPINFOHEADER</span><span class="p">),</span>
+    <span class="mi">240</span><span class="p">,</span>
+    <span class="mi">320</span><span class="p">,</span>
+    <span class="mi">1u</span><span class="p">,</span>
+    <span class="mi">16</span><span class="p">,</span>
+    <span class="mh">0x00000003u</span><span class="p">,</span>
+    <span class="p">(</span><span class="mi">76800</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="mh">0x00000000ul</span><span class="p">,</span>
+    <span class="mh">0x00000000ul</span><span class="p">,</span>
+    <span class="mh">0x00000000ul</span><span class="p">,</span>
+    <span class="mh">0x00000000ul</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="mh">0x19e2</span><span class="p">,</span> <span class="mh">0x2202</span><span class="p">,</span> <span class="mh">0x2202</span><span class="p">,</span> <span class="mh">0x2242</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x3b64</span><span class="p">,</span> <span class="mh">0x3ba4</span><span class="p">,</span> <span class="mh">0x3b84</span><span class="p">,</span> <span class="mh">0x4ba5</span><span class="p">,</span> <span class="mh">0x4bc5</span><span class="p">,</span> <span class="mh">0x3b85</span><span class="p">,</span> <span class="mh">0x3304</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x2283</span><span class="p">,</span> <span class="mh">0x2a83</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x2ae3</span><span class="p">,</span> <span class="mh">0x3324</span><span class="p">,</span> <span class="mh">0x3b84</span><span class="p">,</span> <span class="mh">0x43c5</span><span class="p">,</span> <span class="mh">0x43e5</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x4405</span><span class="p">,</span> <span class="mh">0x43e4</span><span class="p">,</span> <span class="mh">0x3363</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1962</span><span class="p">,</span> <span class="mh">0x1962</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1943</span><span class="p">,</span> <span class="mh">0x1963</span><span class="p">,</span> <span class="mh">0x1983</span><span class="p">,</span> <span class="mh">0x1963</span><span class="p">,</span> <span class="mh">0x1943</span><span class="p">,</span> <span class="mh">0x1943</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1943</span><span class="p">,</span> <span class="mh">0x1963</span><span class="p">,</span> <span class="mh">0x1983</span><span class="p">,</span> <span class="mh">0x2163</span><span class="p">,</span> <span class="mh">0x1963</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1982</span><span class="p">,</span> <span class="mh">0x2222</span><span class="p">,</span> <span class="mh">0x2b22</span><span class="p">,</span> <span class="mh">0x43a4</span><span class="p">,</span> <span class="mh">0x5445</span><span class="p">,</span> <span class="mh">0x5466</span><span class="p">,</span> <span class="mh">0x5c86</span><span class="p">,</span> <span class="mh">0x5c86</span><span class="p">,</span> <span class="mh">0x43a3</span><span class="p">,</span> <span class="mh">0x2202</span><span class="p">,</span> <span class="mh">0x08a1</span><span class="p">,</span> <span class="mh">0x1081</span><span class="p">,</span> <span class="mh">0x1081</span><span class="p">,</span> <span class="mh">0x1081</span><span class="p">,</span> <span class="mh">0x10a2</span><span class="p">,</span> <span class="mh">0x18e3</span><span class="p">,</span> <span class="mh">0x2103</span><span class="p">,</span> <span class="mh">0x2123</span><span class="p">,</span> <span class="mh">0x29a3</span><span class="p">,</span> <span class="mh">0x2a23</span><span class="p">,</span> <span class="mh">0x2263</span><span class="p">,</span> <span class="mh">0x2283</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x22a3</span><span class="p">,</span> <span class="mh">0x2aa3</span><span class="p">,</span> <span class="mh">0x22a3</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x22c3</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x2ac3</span><span class="p">,</span> <span class="mh">0x2243</span><span class="p">,</span> <span class="mh">0x1983</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x18c2</span><span class="p">,</span> <span class="mh">0x18e3</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x1903</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x10a1</span><span class="p">,</span> <span class="mh">0x10a1</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x1943</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x10a2</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1962</span><span class="p">,</span> <span class="mh">0x19a3</span><span class="p">,</span> <span class="mh">0x19c3</span><span class="p">,</span> <span class="mh">0x19a3</span><span class="p">,</span> <span class="mh">0x19a3</span><span class="p">,</span> <span class="mh">0x21a3</span><span class="p">,</span> <span class="mh">0x19c3</span><span class="p">,</span> <span class="mh">0x19c3</span><span class="p">,</span> <span class="mh">0x19c3</span><span class="p">,</span> <span class="mh">0x19e3</span><span class="p">,</span> <span class="mh">0x22a3</span><span class="p">,</span> <span class="mh">0x43c6</span><span class="p">,</span> <span class="mh">0x5c88</span><span class="p">,</span> <span class="mh">0x64c9</span><span class="p">,</span> <span class="mh">0x64c9</span><span class="p">,</span> <span class="mh">0x64ca</span><span class="p">,</span> <span class="mh">0x64ca</span><span class="p">,</span> <span class="mh">0x64aa</span><span class="p">,</span> <span class="mh">0x5caa</span><span class="p">,</span> <span class="mh">0x5caa</span><span class="p">,</span> <span class="mh">0x5caa</span><span class="p">,</span> <span class="mh">0x5cc9</span><span class="p">,</span> <span class="mh">0x5cca</span><span class="p">,</span> <span class="mh">0x5caa</span><span class="p">,</span> <span class="mh">0x5ca9</span><span class="p">,</span> <span class="mh">0x64a9</span><span class="p">,</span> <span class="mh">0x5c87</span><span class="p">,</span> <span class="mh">0x43a4</span><span class="p">,</span> <span class="mh">0x2ac2</span><span class="p">,</span> <span class="mh">0x19c2</span><span class="p">,</span> <span class="mh">0x21c2</span><span class="p">,</span> <span class="mh">0x19a2</span><span class="p">,</span> <span class="mh">0x1982</span><span class="p">,</span> <span class="mh">0x1982</span><span class="p">,</span> <span class="mh">0x1962</span><span class="p">,</span> <span class="mh">0x1982</span><span class="p">,</span> <span class="mh">0x22c1</span><span class="p">,</span> <span class="mh">0x43c4</span><span class="p">,</span> <span class="mh">0x6486</span><span class="p">,</span> <span class="mh">0x64c8</span><span class="p">,</span> <span class="mh">0x64c9</span><span class="p">,</span> <span class="mh">0x5cc9</span><span class="p">,</span> <span class="mh">0x5ca8</span><span class="p">,</span> <span class="mh">0x54a8</span><span class="p">,</span> <span class="mh">0x5488</span><span class="p">,</span> <span class="mh">0x54a8</span><span class="p">,</span> <span class="mh">0x54c8</span><span class="p">,</span> <span class="mh">0x5cc8</span><span class="p">,</span> <span class="mh">0x5c87</span><span class="p">,</span> <span class="mh">0x43e4</span><span class="p">,</span> <span class="mh">0x2ae2</span><span class="p">,</span> <span class="mh">0x1a42</span><span class="p">,</span> <span class="mh">0x2282</span><span class="p">,</span> <span class="mh">0x22a2</span><span class="p">,</span> <span class="mh">0x2b23</span><span class="p">,</span> <span class="mh">0x43e4</span><span class="p">,</span> <span class="mh">0x5445</span><span class="p">,</span> <span class="mh">0x4c04</span><span class="p">,</span> <span class="mh">0x3323</span><span class="p">,</span> <span class="mh">0x1a02</span><span class="p">,</span> <span class="mh">0x1102</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x1963</span><span class="p">,</span> <span class="mh">0x2223</span><span class="p">,</span> <span class="mh">0x3304</span><span class="p">,</span> <span class="mh">0x4385</span><span class="p">,</span> <span class="mh">0x4c06</span><span class="p">,</span> <span class="mh">0x5426</span><span class="p">,</span> <span class="mh">0x5466</span><span class="p">,</span> <span class="mh">0x64a6</span><span class="p">,</span> <span class="mh">0x6ce6</span><span class="p">,</span> <span class="mh">0x6d07</span><span class="p">,</span> <span class="mh">0x7526</span><span class="p">,</span> <span class="mh">0x6d26</span><span class="p">,</span> <span class="mh">0x6d26</span><span class="p">,</span> <span class="mh">0x6d26</span><span class="p">,</span> <span class="mh">0x6d26</span><span class="p">,</span> <span class="mh">0x6d06</span><span class="p">,</span> <span class="mh">0x6d07</span><span class="p">,</span> <span class="mh">0x5cc8</span><span class="p">,</span> <span class="mh">0x5488</span><span class="p">,</span> <span class="mh">0x5469</span><span class="p">,</span> <span class="mh">0x5468</span><span class="p">,</span> <span class="mh">0x4c68</span><span class="p">,</span> <span class="mh">0x5448</span><span class="p">,</span> <span class="mh">0x4c68</span><span class="p">,</span> <span class="mh">0x5468</span><span class="p">,</span> <span class="mh">0x5468</span><span class="p">,</span> <span class="mh">0x5468</span><span class="p">,</span> <span class="mh">0x4c68</span><span class="p">,</span> <span class="mh">0x4c47</span><span class="p">,</span> <span class="mh">0x4c68</span><span class="p">,</span> <span class="mh">0x5448</span><span class="p">,</span> <span class="mh">0x4c48</span><span class="p">,</span> <span class="mh">0x4c27</span><span class="p">,</span> <span class="mh">0x4c27</span><span class="p">,</span> <span class="mh">0x4c27</span><span class="p">,</span> <span class="mh">0x4c27</span><span class="p">,</span> <span class="mh">0x4c27</span><span class="p">,</span> <span class="mh">0x4406</span><span class="p">,</span> <span class="mh">0x4407</span><span class="p">,</span> <span class="mh">0x43e6</span><span class="p">,</span> <span class="mh">0x3ba6</span><span class="p">,</span>
+    <span class="p">...</span>
+    <span class="mh">0x64c0</span><span class="p">,</span> <span class="mh">0x5c81</span><span class="p">,</span> <span class="mh">0x43c1</span><span class="p">,</span> <span class="mh">0x2b22</span><span class="p">,</span> <span class="mh">0x2222</span><span class="p">,</span> <span class="mh">0x1a22</span><span class="p">,</span> <span class="mh">0x2242</span><span class="p">,</span> <span class="mh">0x2243</span><span class="p">,</span> <span class="mh">0x21e2</span><span class="p">,</span> <span class="mh">0x1982</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x2223</span><span class="p">,</span> <span class="mh">0x2ae3</span><span class="p">,</span> <span class="mh">0x3b44</span><span class="p">,</span> <span class="mh">0x4bc5</span><span class="p">,</span> <span class="mh">0x6487</span><span class="p">,</span> <span class="mh">0x6d29</span><span class="p">,</span> <span class="mh">0x758a</span><span class="p">,</span> <span class="mh">0x7d8a</span><span class="p">,</span> <span class="mh">0x7daa</span><span class="p">,</span> <span class="mh">0x7daa</span><span class="p">,</span> <span class="mh">0x85ca</span><span class="p">,</span> <span class="mh">0x85eb</span><span class="p">,</span> <span class="mh">0x8deb</span><span class="p">,</span> <span class="mh">0x8e0c</span><span class="p">,</span> <span class="mh">0x85ec</span><span class="p">,</span> <span class="mh">0x7dec</span><span class="p">,</span> <span class="mh">0x85ec</span><span class="p">,</span> <span class="mh">0x8e0c</span><span class="p">,</span> <span class="mh">0x962c</span><span class="p">,</span> <span class="mh">0x962c</span><span class="p">,</span> <span class="mh">0x962c</span><span class="p">,</span> <span class="mh">0x8e2c</span><span class="p">,</span> <span class="mh">0x8e0c</span><span class="p">,</span> <span class="mh">0x85ec</span><span class="p">,</span> <span class="mh">0x85cc</span><span class="p">,</span> <span class="mh">0x85ed</span><span class="p">,</span> <span class="mh">0x960d</span><span class="p">,</span> <span class="mh">0x962d</span><span class="p">,</span> <span class="mh">0x960d</span><span class="p">,</span> <span class="mh">0x8dcc</span><span class="p">,</span> <span class="mh">0x858b</span><span class="p">,</span> <span class="mh">0x7d4b</span><span class="p">,</span> <span class="mh">0x752a</span><span class="p">,</span> <span class="mh">0x752a</span><span class="p">,</span> <span class="mh">0x6d29</span><span class="p">,</span> <span class="mh">0x7509</span><span class="p">,</span> <span class="mh">0x6d09</span><span class="p">,</span> <span class="mh">0x6d09</span><span class="p">,</span> <span class="mh">0x7509</span><span class="p">,</span> <span class="mh">0x6ce8</span><span class="p">,</span> <span class="mh">0x6487</span><span class="p">,</span> <span class="mh">0x5446</span><span class="p">,</span> <span class="mh">0x43e5</span><span class="p">,</span> <span class="mh">0x3b84</span><span class="p">,</span> <span class="mh">0x3364</span><span class="p">,</span> <span class="mh">0x3344</span><span class="p">,</span> <span class="mh">0x3344</span><span class="p">,</span> <span class="mh">0x2b44</span><span class="p">,</span> <span class="mh">0x3344</span><span class="p">,</span> <span class="mh">0x3344</span><span class="p">,</span> <span class="mh">0x3b85</span><span class="p">,</span> <span class="mh">0x43e6</span><span class="p">,</span> <span class="mh">0x4c27</span><span class="p">,</span> <span class="mh">0x5c68</span><span class="p">,</span> <span class="mh">0x5c88</span><span class="p">,</span> <span class="mh">0x5c88</span><span class="p">,</span> <span class="mh">0x5c67</span><span class="p">,</span> <span class="mh">0x5427</span><span class="p">,</span> <span class="mh">0x4bc5</span><span class="p">,</span> <span class="mh">0x4364</span><span class="p">,</span> <span class="mh">0x32a3</span><span class="p">,</span> <span class="mh">0x2a03</span><span class="p">,</span> <span class="mh">0x2983</span><span class="p">,</span> <span class="mh">0x2963</span><span class="p">,</span> <span class="mh">0x2963</span><span class="p">,</span> <span class="mh">0x2122</span><span class="p">,</span> <span class="mh">0x18e2</span><span class="p">,</span> <span class="mh">0x1902</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x3204</span><span class="p">,</span> <span class="mh">0x4245</span><span class="p">,</span> <span class="mh">0x4a65</span><span class="p">,</span> <span class="mh">0x4244</span><span class="p">,</span> <span class="mh">0x29c3</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x10e2</span><span class="p">,</span> <span class="mh">0x10a2</span><span class="p">,</span> <span class="mh">0x2182</span><span class="p">,</span> <span class="mh">0x4322</span><span class="p">,</span> <span class="mh">0x6443</span><span class="p">,</span> <span class="mh">0x7504</span><span class="p">,</span> <span class="mh">0x7d84</span><span class="p">,</span> <span class="mh">0x7da5</span><span class="p">,</span> <span class="mh">0x7dc5</span><span class="p">,</span> <span class="mh">0x7dc6</span><span class="p">,</span> <span class="mh">0x7de6</span><span class="p">,</span> <span class="mh">0x7dc6</span><span class="p">,</span> <span class="mh">0x7de6</span><span class="p">,</span> <span class="mh">0x7dc6</span><span class="p">,</span> <span class="mh">0x7dc6</span><span class="p">,</span> <span class="mh">0x7de7</span><span class="p">,</span> <span class="mh">0x8608</span><span class="p">,</span> <span class="mh">0x8e49</span><span class="p">,</span> <span class="mh">0x9689</span><span class="p">,</span> <span class="mh">0x9688</span><span class="p">,</span> <span class="mh">0x9688</span><span class="p">,</span> <span class="mh">0x8e68</span><span class="p">,</span> <span class="mh">0x8e68</span><span class="p">,</span> <span class="mh">0x85c7</span><span class="p">,</span> <span class="mh">0x6d05</span><span class="p">,</span> <span class="mh">0x4c03</span><span class="p">,</span> <span class="mh">0x2b02</span><span class="p">,</span> <span class="mh">0x3323</span><span class="p">,</span> <span class="mh">0x4bc5</span><span class="p">,</span> <span class="mh">0x6486</span><span class="p">,</span> <span class="mh">0x7507</span><span class="p">,</span> <span class="mh">0x8588</span><span class="p">,</span> <span class="mh">0x8da8</span><span class="p">,</span> <span class="mh">0x9609</span><span class="p">,</span> <span class="mh">0x9628</span><span class="p">,</span> <span class="mh">0x9628</span><span class="p">,</span> <span class="mh">0x9648</span><span class="p">,</span> <span class="mh">0x9648</span><span class="p">,</span> <span class="mh">0x9668</span><span class="p">,</span> <span class="mh">0x9688</span><span class="p">,</span> <span class="mh">0x9668</span><span class="p">,</span> <span class="mh">0x9648</span><span class="p">,</span> <span class="mh">0x9648</span><span class="p">,</span> <span class="mh">0x9629</span><span class="p">,</span> <span class="mh">0x8587</span><span class="p">,</span> <span class="mh">0x6cc6</span><span class="p">,</span> <span class="mh">0x53e4</span><span class="p">,</span> <span class="mh">0x4304</span><span class="p">,</span> <span class="mh">0x4303</span><span class="p">,</span> <span class="mh">0x3b23</span><span class="p">,</span> <span class="mh">0x3b23</span><span class="p">,</span> <span class="mh">0x3ac3</span><span class="p">,</span> <span class="mh">0x3a43</span><span class="p">,</span> <span class="mh">0x3a23</span><span class="p">,</span> <span class="mh">0x31e3</span><span class="p">,</span> <span class="mh">0x21c2</span><span class="p">,</span> <span class="mh">0x21e2</span><span class="p">,</span> <span class="mh">0x21e2</span><span class="p">,</span> <span class="mh">0x2182</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x1081</span><span class="p">,</span> <span class="mh">0x0861</span><span class="p">,</span> <span class="mh">0x0861</span><span class="p">,</span> <span class="mh">0x0861</span><span class="p">,</span> <span class="mh">0x0861</span><span class="p">,</span> <span class="mh">0x0841</span><span class="p">,</span> <span class="mh">0x1081</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x1982</span><span class="p">,</span> <span class="mh">0x21c2</span><span class="p">,</span> <span class="mh">0x21e2</span><span class="p">,</span> <span class="mh">0x2202</span><span class="p">,</span> <span class="mh">0x2222</span><span class="p">,</span> <span class="mh">0x2242</span><span class="p">,</span> <span class="mh">0x2242</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2262</span><span class="p">,</span> <span class="mh">0x2242</span><span class="p">,</span> <span class="mh">0x2222</span><span class="p">,</span> <span class="mh">0x21a3</span><span class="p">,</span> <span class="mh">0x1922</span><span class="p">,</span> <span class="mh">0x10c2</span><span class="p">,</span> <span class="mh">0x1061</span><span class="p">,</span> <span class="mh">0x0861</span><span class="p">,</span> <span class="mh">0x0841</span><span class="p">,</span> <span class="mh">0x0841</span><span class="p">,</span> <span class="mh">0x0841</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0000</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0020</span><span class="p">,</span> <span class="mh">0x0841</span><span class="p">,</span> <span class="mh">0x1081</span><span class="p">,</span> <span class="mh">0x1942</span><span class="p">,</span> <span class="mh">0x5424</span><span class="p">,</span> <span class="mh">0x8dc8</span><span class="p">,</span> <span class="mh">0x85c9</span><span class="p">,</span> <span class="mh">0x7d8a</span><span class="p">,</span> <span class="mh">0x756a</span><span class="p">,</span> <span class="mh">0x754b</span><span class="p">,</span> <span class="mh">0x6d4a</span><span class="p">,</span> <span class="mh">0x756b</span><span class="p">,</span> <span class="mh">0x756b</span><span class="p">,</span> <span class="mh">0x756b</span><span class="p">,</span> <span class="mh">0x756b</span><span class="p">,</span> <span class="mh">0x756a</span><span class="p">,</span> <span class="mh">0x756a</span><span class="p">,</span> <span class="mh">0x756a</span><span class="p">,</span> <span class="mh">0x754b</span><span class="p">,</span> <span class="mh">0x756a</span><span class="p">,</span> <span class="mh">0x758a</span><span class="p">,</span> <span class="mh">0x756a</span><span class="p">,</span> <span class="mh">0x758a</span><span class="p">,</span> <span class="mh">0x7d6b</span><span class="p">,</span> <span class="mh">0x7d6c</span><span class="p">,</span> <span class="mh">0x856d</span><span class="p">,</span> <span class="mh">0x7d6d</span><span class="p">,</span> <span class="mh">0x756c</span><span class="p">,</span> <span class="mh">0x756c</span><span class="p">,</span> <span class="mh">0x756c</span><span class="p">,</span> <span class="mh">0x754b</span><span class="p">,</span> <span class="mh">0x754a</span><span class="p">,</span> <span class="mh">0x756b</span><span class="p">,</span> <span class="mh">0x756b</span><span class="p">,</span> <span class="mh">0x758b</span><span class="p">,</span> <span class="mh">0x758b</span><span class="p">,</span> <span class="mh">0x7d8b</span><span class="p">,</span> <span class="mh">0x758b</span><span class="p">,</span> <span class="mh">0x758b</span><span class="p">,</span> <span class="mh">0x7d8b</span><span class="p">,</span> <span class="mh">0x7d6c</span><span class="p">,</span> <span class="mh">0x8dcd</span><span class="p">,</span> <span class="mh">0xa60f</span><span class="p">,</span> <span class="mh">0x8d8f</span><span class="p">,</span> <span class="mh">0x752c</span><span class="p">,</span> <span class="mh">0x6d2b</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// struct packing, pragma for GCC !!!</span>
+<span class="cp">#pragma pack (pop)</span>
+
+<span class="cp">#endif </span><span class="cm">/* butterfly_H_ */</span><span class="cp"></span>
+</code></pre></div>
+
+
+<p><img alt="Photo of board STM32F429I-Disco with image" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-6.png" /></p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/lcd-image-converter.html">/LCD Image Converter</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/stm32.html">#STM32</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

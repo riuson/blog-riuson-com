@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — Тестовое приложение</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — Тестовое приложение</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-16T12:05:00+05:00">
+        16 Июль 2014 г., Ср
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <h3>Консольное</h3>
+<p>В Qt Creator создаём консольное приложение bb-test-console.
+При выборе комплекта выбираем Desktop Qt 5.2.1 GCC и ARMv7 Qt 5.2.1 GCC ARM.</p>
+<p>В проекте будет всего 2 файла, bb-test-console.pro и main.cpp.
+bb-test-console.pro:</p>
+<div class="highlight"><pre><span></span><code>#-------------------------------------------------
+#
+# Project created by QtCreator 2014-07-15T20:59:08
+#
+#-------------------------------------------------
+
+QT       += core
+QT       -= gui
+
+TARGET = bb-test-console
+CONFIG   += console
+CONFIG   -= app_bundle
+
+TEMPLATE = app
+
+SOURCES += main.cpp
+</code></pre></div>
+
+
+<p>main.cpp приводим к следующему виду:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;QCoreApplication&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">QCoreApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello, World!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// a.exec();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Вибираем сборку под ARM:</p>
+<p><img alt="kit-selection" class="img-fluid" src="https://blog.riuson.com/images/posts/2014/07/16/bb-and-qt-test-application-1.png" /></p>
+<p>Собираем и копируем на BeagleBone.</p>
+<p>Проверить наличие требуемых библиотек можно командой ldd -v на устройстве:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ldd -v bb-test-console 
+    libQt5Core.so.5 <span class="o">=</span>&gt; /usr/share/qt-5.2.1-armv7/lib/libQt5Core.so.5 <span class="o">(</span>0xb6bed000<span class="o">)</span>
+    librt.so.1 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/librt.so.1 <span class="o">(</span>0xb6bcf000<span class="o">)</span>
+    libdl.so.2 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libdl.so.2 <span class="o">(</span>0xb6bc4000<span class="o">)</span>
+    libpthread.so.0 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libpthread.so.0 <span class="o">(</span>0xb6ba9000<span class="o">)</span>
+    libstdc++.so.6 <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6 <span class="o">(</span>0xb6afe000<span class="o">)</span>
+    libm.so.6 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libm.so.6 <span class="o">(</span>0xb6a92000<span class="o">)</span>
+    libgcc_s.so.1 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1 <span class="o">(</span>0xb6a6e000<span class="o">)</span>
+    libc.so.6 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6 <span class="o">(</span>0xb6989000<span class="o">)</span>
+    libicui18n.so.53 <span class="o">=</span>&gt; /usr/share/icu-4c-53.1-armv7/lib/libicui18n.so.53 <span class="o">(</span>0xb6820000<span class="o">)</span>
+    libicuuc.so.53 <span class="o">=</span>&gt; /usr/share/icu-4c-53.1-armv7/lib/libicuuc.so.53 <span class="o">(</span>0xb6722000<span class="o">)</span>
+    /lib/ld-linux-armhf.so.3 <span class="o">(</span>0xb6f62000<span class="o">)</span>
+    libicudata.so.53 <span class="o">=</span>&gt; /usr/share/icu-4c-53.1-armv7/lib/libicudata.so.53 <span class="o">(</span>0xb5291000<span class="o">)</span>
+
+    Version information:
+    ./bb-test-console:
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libstdc++.so.6 <span class="o">(</span>CXXABI_1.3<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libstdc++.so.6 <span class="o">(</span>GLIBCXX_3.4<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libstdc++.so.6 <span class="o">(</span>CXXABI_ARM_1.3.3<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+    /usr/share/qt-5.2.1-armv7/lib/libQt5Core.so.5:
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        librt.so.1 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/librt.so.1
+        libdl.so.2 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libdl.so.2
+        libm.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libm.so.6
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.0<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.5<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libstdc++.so.6 <span class="o">(</span>CXXABI_1.3<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libstdc++.so.6 <span class="o">(</span>CXXABI_ARM_1.3.3<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libstdc++.so.6 <span class="o">(</span>GLIBCXX_3.4<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libpthread.so.0 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libpthread.so.0
+        libc.so.6 <span class="o">(</span>GLIBC_2.7<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.9<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /lib/arm-linux-gnueabihf/librt.so.1:
+        libpthread.so.0 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libpthread.so.0
+        libpthread.so.0 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libpthread.so.0
+        libc.so.6 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /lib/arm-linux-gnueabihf/libdl.so.2:
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        libc.so.6 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /lib/arm-linux-gnueabihf/libpthread.so.0:
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        libc.so.6 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /usr/lib/arm-linux-gnueabihf/libstdc++.so.6:
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.3<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.5<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.0<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libm.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libm.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /lib/arm-linux-gnueabihf/libm.so.6:
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /lib/arm-linux-gnueabihf/libgcc_s.so.1:
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+    /lib/arm-linux-gnueabihf/libc.so.6:
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+        ld-linux-armhf.so.3 <span class="o">(</span>GLIBC_PRIVATE<span class="o">)</span> <span class="o">=</span>&gt; /lib/ld-linux-armhf.so.3
+    /usr/share/icu-4c-53.1-armv7/lib/libicui18n.so.53:
+        libstdc++.so.6 <span class="o">(</span>GLIBCXX_3.4<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libstdc++.so.6 <span class="o">(</span>CXXABI_1.3<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.5<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libm.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libm.so.6
+    /usr/share/icu-4c-53.1-armv7/lib/libicuuc.so.53:
+        libstdc++.so.6 <span class="o">(</span>GLIBCXX_3.4<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libstdc++.so.6 <span class="o">(</span>CXXABI_1.3<span class="o">)</span> <span class="o">=</span>&gt; /usr/lib/arm-linux-gnueabihf/libstdc++.so.6
+        libdl.so.2 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libdl.so.2
+        libm.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libm.so.6
+        libgcc_s.so.1 <span class="o">(</span>GCC_3.5<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libgcc_s.so.1
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+        libpthread.so.0 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libpthread.so.0
+    /usr/share/icu-4c-53.1-armv7/lib/libicudata.so.53:
+        libc.so.6 <span class="o">(</span>GLIBC_2.4<span class="o">)</span> <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libc.so.6
+debian@beaglebone:~/usr-share$
+</code></pre></div>
+
+
+<p>Запускаем:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ./bb-test-console 
+Hello, World!
+debian@beaglebone:~/usr-share$ 
+</code></pre></div>
+
+
+<h3>GUI</h3>
+<p>В Qt Creator создаём приложение QT Widgets bb-test-widgets.
+При выборе комплекта выбираем Desktop Qt 5.2.1 GCC и ARMv7 Qt 5.2.1 GCC ARM.</p>
+<p>На окне размещаем QLabel для вывода текста, и QButton для выхода из приложения.
+Исходники приведены ниже.</p>
+<p>bb-test-widgets.pro:</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="c1">-------------------------------------------------</span>
+<span class="o">#</span>
+<span class="o">#</span> <span class="n">Project</span> <span class="n">created</span> <span class="k">by</span> <span class="n">QtCreator</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">15</span><span class="n">T21</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">00</span>
+<span class="o">#</span>
+<span class="o">#</span><span class="c1">-------------------------------------------------</span>
+
+<span class="n">QT</span>       <span class="o">+=</span> <span class="n">core</span> <span class="n">gui</span>
+
+<span class="n">greaterThan</span><span class="p">(</span><span class="n">QT_MAJOR_VERSION</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="n">QT</span> <span class="o">+=</span> <span class="n">widgets</span>
+
+<span class="n">TARGET</span> <span class="o">=</span> <span class="n">bb</span><span class="o">-</span><span class="n">test</span><span class="o">-</span><span class="n">widgets</span>
+<span class="k">TEMPLATE</span> <span class="o">=</span> <span class="n">app</span>
+
+<span class="n">SOURCES</span> <span class="o">+=</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="err">\</span>
+        <span class="n">mainwindow</span><span class="p">.</span><span class="n">cpp</span>
+
+<span class="n">HEADERS</span>  <span class="o">+=</span> <span class="n">mainwindow</span><span class="p">.</span><span class="n">h</span>
+
+<span class="n">FORMS</span>    <span class="o">+=</span> <span class="n">mainwindow</span><span class="p">.</span><span class="n">ui</span>
+</code></pre></div>
+
+
+<p>mainwindow.h:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef MAINWINDOW_H</span>
+<span class="cp">#define MAINWINDOW_H</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;QMainWindow&gt;</span><span class="cp"></span>
+
+<span class="k">class</span> <span class="nc">QTimer</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="n">Ui</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">MainWindow</span> <span class="o">:</span> <span class="k">public</span> <span class="n">QMainWindow</span>
+<span class="p">{</span>
+    <span class="n">Q_OBJECT</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">explicit</span> <span class="n">MainWindow</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">parent</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="o">~</span><span class="n">MainWindow</span><span class="p">();</span>
+
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">Ui</span><span class="o">::</span><span class="n">MainWindow</span> <span class="o">*</span><span class="n">ui</span><span class="p">;</span>
+    <span class="n">QTimer</span> <span class="o">*</span><span class="n">mTimer</span><span class="p">;</span>
+
+<span class="k">private</span> <span class="nl">slots</span><span class="p">:</span>
+    <span class="kt">void</span> <span class="n">timerTick</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="nf">on_pushButtonClose_clicked</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="cp">#endif </span><span class="c1">// MAINWINDOW_H</span>
+</code></pre></div>
+
+
+<p>main.cpp:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;mainwindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;QApplication&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">QApplication</span> <span class="n">a</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+    <span class="n">MainWindow</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">w</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
+    <span class="n">w</span><span class="p">.</span><span class="n">setWindowState</span><span class="p">(</span><span class="n">Qt</span><span class="o">::</span><span class="n">WindowMaximized</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">exec</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>mainwindow.cpp:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;mainwindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;ui_mainwindow.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;QTimer&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;QDateTime&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;QScreen&gt;</span><span class="cp"></span>
+
+<span class="n">MainWindow</span><span class="o">::</span><span class="n">MainWindow</span><span class="p">(</span><span class="n">QWidget</span> <span class="o">*</span><span class="n">parent</span><span class="p">)</span> <span class="o">:</span>
+    <span class="n">QMainWindow</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span>
+    <span class="n">ui</span><span class="p">(</span><span class="k">new</span> <span class="n">Ui</span><span class="o">::</span><span class="n">MainWindow</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ui</span><span class="o">-&gt;</span><span class="n">setupUi</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">mTimer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QTimer</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="n">connect</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">mTimer</span><span class="p">,</span> <span class="n">SIGNAL</span><span class="p">(</span><span class="n">timeout</span><span class="p">()),</span> <span class="k">this</span><span class="p">,</span> <span class="n">SLOT</span><span class="p">(</span><span class="n">timerTick</span><span class="p">()));</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">mTimer</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+    <span class="n">QScreen</span> <span class="o">*</span><span class="n">screen</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">::</span><span class="n">screens</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">screen</span><span class="o">-&gt;</span><span class="n">geometry</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="n">MainWindow</span><span class="o">::~</span><span class="n">MainWindow</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">mTimer</span><span class="o">-&gt;</span><span class="n">stop</span><span class="p">();</span>
+    <span class="k">delete</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">mTimer</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">ui</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">MainWindow</span><span class="o">::</span><span class="n">timerTick</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">QDateTime</span> <span class="n">time</span> <span class="o">=</span> <span class="n">QDateTime</span><span class="o">::</span><span class="n">currentDateTime</span><span class="p">();</span>
+    <span class="n">QScreen</span> <span class="o">*</span><span class="n">screen</span> <span class="o">=</span> <span class="n">QGuiApplication</span><span class="o">::</span><span class="n">screens</span><span class="p">().</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">QRect</span> <span class="n">screenSize</span> <span class="o">=</span> <span class="n">screen</span><span class="o">-&gt;</span><span class="n">geometry</span><span class="p">();</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">ui</span><span class="o">-&gt;</span><span class="n">label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span>
+                <span class="n">QString</span><span class="p">(</span><span class="s">&quot;%1</span><span class="se">\n</span><span class="s">%2 x %3&quot;</span><span class="p">).</span>
+                    <span class="n">arg</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">toString</span><span class="p">()).</span>
+                    <span class="n">arg</span><span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">width</span><span class="p">()).</span>
+                    <span class="n">arg</span><span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">height</span><span class="p">())</span>
+                <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">MainWindow</span><span class="o">::</span><span class="n">on_pushButtonClose_clicked</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">close</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>mainwindow.ui:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;code&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;ui</span> <span class="na">version=</span><span class="s">&quot;4.0&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;class&gt;</span>MainWindow<span class="nt">&lt;/class&gt;</span>
+ <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QMainWindow&quot;</span> <span class="na">name=</span><span class="s">&quot;MainWindow&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;geometry&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;rect&gt;</span>
+    <span class="nt">&lt;x&gt;</span>0<span class="nt">&lt;/x&gt;</span>
+    <span class="nt">&lt;y&gt;</span>0<span class="nt">&lt;/y&gt;</span>
+    <span class="nt">&lt;width&gt;</span>90<span class="nt">&lt;/width&gt;</span>
+    <span class="nt">&lt;height&gt;</span>142<span class="nt">&lt;/height&gt;</span>
+   <span class="nt">&lt;/rect&gt;</span>
+  <span class="nt">&lt;/property&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;windowTitle&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>MainWindow<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/property&gt;</span>
+  <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QWidget&quot;</span> <span class="na">name=</span><span class="s">&quot;centralWidget&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;layout</span> <span class="na">class=</span><span class="s">&quot;QVBoxLayout&quot;</span> <span class="na">name=</span><span class="s">&quot;verticalLayout&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item&gt;</span>
+     <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QLabel&quot;</span> <span class="na">name=</span><span class="s">&quot;label&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;string&gt;</span>TextLabel<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;/property&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;alignment&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;set&gt;</span>Qt::AlignCenter<span class="nt">&lt;/set&gt;</span>
+      <span class="nt">&lt;/property&gt;</span>
+     <span class="nt">&lt;/widget&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;item&gt;</span>
+     <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QPushButton&quot;</span> <span class="na">name=</span><span class="s">&quot;pushButtonClose&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;string&gt;</span>Закрыть<span class="nt">&lt;/string&gt;</span>
+      <span class="nt">&lt;/property&gt;</span>
+     <span class="nt">&lt;/widget&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+   <span class="nt">&lt;/layout&gt;</span>
+  <span class="nt">&lt;/widget&gt;</span>
+  <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QMenuBar&quot;</span> <span class="na">name=</span><span class="s">&quot;menuBar&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;geometry&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;rect&gt;</span>
+     <span class="nt">&lt;x&gt;</span>0<span class="nt">&lt;/x&gt;</span>
+     <span class="nt">&lt;y&gt;</span>0<span class="nt">&lt;/y&gt;</span>
+     <span class="nt">&lt;width&gt;</span>90<span class="nt">&lt;/width&gt;</span>
+     <span class="nt">&lt;height&gt;</span>29<span class="nt">&lt;/height&gt;</span>
+    <span class="nt">&lt;/rect&gt;</span>
+   <span class="nt">&lt;/property&gt;</span>
+  <span class="nt">&lt;/widget&gt;</span>
+  <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QToolBar&quot;</span> <span class="na">name=</span><span class="s">&quot;mainToolBar&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;attribute</span> <span class="na">name=</span><span class="s">&quot;toolBarArea&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;enum&gt;</span>TopToolBarArea<span class="nt">&lt;/enum&gt;</span>
+   <span class="nt">&lt;/attribute&gt;</span>
+   <span class="nt">&lt;attribute</span> <span class="na">name=</span><span class="s">&quot;toolBarBreak&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;bool&gt;</span>false<span class="nt">&lt;/bool&gt;</span>
+   <span class="nt">&lt;/attribute&gt;</span>
+  <span class="nt">&lt;/widget&gt;</span>
+  <span class="nt">&lt;widget</span> <span class="na">class=</span><span class="s">&quot;QStatusBar&quot;</span> <span class="na">name=</span><span class="s">&quot;statusBar&quot;</span><span class="nt">/&gt;</span>
+ <span class="nt">&lt;/widget&gt;</span>
+ <span class="nt">&lt;layoutdefault</span> <span class="na">spacing=</span><span class="s">&quot;6&quot;</span> <span class="na">margin=</span><span class="s">&quot;11&quot;</span><span class="nt">/&gt;</span>
+ <span class="nt">&lt;resources/&gt;</span>
+ <span class="nt">&lt;connections/&gt;</span>
+<span class="nt">&lt;/ui&gt;</span>
+<span class="nt">&lt;/code&gt;</span>
+</code></pre></div>
+
+
+<p>Здесь размер окна подгоняется под размер экрана. Каждую секунду выводится текущее время и размер экрана.
+При нажатии на кнопку происходит выход из приложения.</p>
+<p>Для запуска создаём скрипт:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ <span class="nb">cd</span> usr-share/
+debian@beaglebone:~/usr-share$ touch run.sh
+debian@beaglebone:~/usr-share$ chmod +x run.sh 
+debian@beaglebone:~/usr-share$ nano run.sh 
+</code></pre></div>
+
+
+<p>В нём пишем:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="nb">export</span> <span class="nv">QWS_KEYBOARD</span><span class="o">=</span>usb
+
+<span class="nb">export</span> <span class="nv">TSLIB_TSDEVICE</span><span class="o">=</span>/dev/input/touchscreen
+<span class="nb">export</span> <span class="nv">TSLIB_CALIBFILE</span><span class="o">=</span>/etc/pointercal2
+<span class="nb">export</span> <span class="nv">TSLIB_CONFFILE</span><span class="o">=</span>/etc/ts.conf
+
+<span class="c1">#export TSLIB_PLUGINDIR=/usr/share/tslib-armv7/lib/ts</span>
+<span class="c1">#export TSLIB_FBDEVICE=/dev/fb0</span>
+<span class="nb">export</span> <span class="nv">TSLIB_CONSOLEDEVICE</span><span class="o">=</span>none
+
+<span class="nb">export</span> <span class="nv">QT_QPA_PLATFORM</span><span class="o">=</span>linuxfb:size<span class="o">=</span>800x480:mmSize<span class="o">=</span>153x91
+
+./bb-test-widgets -platform linuxfb -plugin tslib
+</code></pre></div>
+
+
+<p>Запускаем:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ./run.sh 
+</code></pre></div>
+
+
+<p>Если выполнять запуск по SSH, то консоль устройства не отключится. На экране поверх приложения будет мигать курсор. Также, приложение можно остановить комбинацией Ctrl+C.
+При запуске с самого устройства консоль отключится, курсор исчезнет, и прервать выполнение приложения будет возможно нажатием кнопки "Закрыть" в окне (сенсорная панель уже должна быть правильно настроена), либо перезагрузкой.</p>
+<h3>Запуск из Qt Creator</h3>
+<p>При настроенном устройстве и комплекте Qt, в параметрах Qt Creator, можно выполнять запуск (для отладки нужна поддержка python в gdb) приложения из самого Qt Creator.
+Для этого надо в файл проекта добавить пару строк:</p>
+<div class="highlight"><pre><span></span><code>...
+TARGET = bb-test-console
+target.files = bb-test-console
+target.path = /home/debian/usr-share
+...
+</code></pre></div>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

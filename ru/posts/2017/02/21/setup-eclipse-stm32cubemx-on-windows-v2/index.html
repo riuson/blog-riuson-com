@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Установка и настройка Eclipse, STM32CubeMX под Windows (v2).</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+          <link rel="alternate" hreflang="en" href="https://blog.riuson.com/en/posts/2017/02/21/setup-eclipse-stm32cubemx-on-windows-v2">
+
+
+
+    <meta name="tags" content="STM32" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Установка и настройка Eclipse, STM32CubeMX под Windows (v2).</h1>
+    <span class="meta">
+      <time class="published" datetime="2017-02-21T00:00:00+05:00">
+        21 Февраль 2017 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+            <a href="https://blog.riuson.com/en/posts/2017/02/21/setup-eclipse-stm32cubemx-on-windows-v2" hreflang="en">en</a>
+
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Здесь описываю настройку среды разработки для микроконтроллеров STM32, с использованием Eclipse, STM32CubeMX, GNU ARM Embedded, GNU ARM Eclipse Plugins.<br>
+На примере микроконтроллера STM32F103RET6.</p>
+<p><a href="https://youtu.be/i5VUF1wYTQU"><i class="fab fa-youtube"></i> Видео: Настройка Eclipse и STM32CubeMX под Windows (v2)</a></p>
+<p>В связи с некоторыми изменениями между рассмотренной ранее и текущей версией CubeMX, переделал инструкцию.{ .bg-info .text-white }</p>
+<p>Если у Вас это не работает или найдёте ошибку, пишите в комментариях.{ .bg-warning .text-dark }</p>
+<p>На видео приведён весь процесс установки и настройки. Операционная система Windows 10 Home.</p>
+<h1>Загрузка</h1>
+<p>Список ПО, которое понадобится:</p>
+<ul>
+<li><a href="http://www.eclipse.org/downloads/">Eclipse IDE for C/C++ Developers</a></li>
+<li><a href="https://www.java.com/en/download/">Java Virtual Machine</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded">GCC ARM Embedded</a> Windows Installer</li>
+<li><a href="http://gnuarmeclipse.github.io/windows-build-tools/  install/">How to install the Windows Build Tools?</a></li>
+<li><a href="http://gnuarmeclipse.github.io/">The GNU ARM Eclipse plug-ins</a><ul>
+<li><a href="http://gnuarmeclipse.github.io/plugins/install/">How to install the GNU ARM Eclipse plug-ins?</a>   (скачивается из самого Eclipse)</li>
+</ul>
+</li>
+<li><a href="http://www.st.com/en/development-tools/  stm32cubemx.html?icmp=stm32cubemx_pron_prcube_feb2014&amp;sc=stm32cube-pr">STM32CubeMX STM32Cube initialization code generator</a><ul>
+<li><a href="http://  www.st.com/content/st_com/en/products/development-tools/software-development-tools/  stm32-software-development-tools/stm32-configurators-and-code-generators/stsw-stm32095.html">STM32CubeMX Eclipse plug in for STM32 configuration and initialization C code generation</a></li>
+<li><a href="http://www.st.com/content/st_com/en/products/embedded-software/  mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef1.html">STM32CubeF1</a></li>
+</ul>
+</li>
+<li><a href="https://www.segger.com/jlink-software.html">Jlink - Software and documentation pack for Windows</a></li>
+</ul>
+<h1>Установка</h1>
+<h2>Eclipse IDE for C/C++ Developers</h2>
+<p>Скачиваем установщик Eclipse и устанавливаем Eclipse IDE for C/C++ Developers.</p>
+<h2>Java Virtual Machine</h2>
+<p>Если установщик Eclipse не найдёт Java SE Runtime Environment подходящей версии, он предложит его скачать.
+Скачиваем и устанавливаем.</p>
+<h2>Windows Build Tools</h2>
+<p>Установка описана в <a href="http://gnuarmeclipse.github.io/windows-build-tools/install/">руководстве</a>. Ничего необычного.</p>
+<h2>GCC ARM Embedded</h2>
+<p>При завершения установки снимаем галочки с Launch <em>gccvar.bat</em> и <em>Add path to enviroment variable</em>. Чтобы можно было установить несколько компиляторов.</p>
+<h2>GNU ARM Eclipse plug-ins</h2>
+<p>Установка описана в <a href="http://gnuarmeclipse.github.io/plugins/install/">руководстве</a>.
+В меню Eclipse выбираем <em>Help</em> -&gt; <em>Install New Software...</em>. Добавляем сайт</p>
+<ul>
+<li>name: GNU ARM Eclipse Plug-ins</li>
+<li>URL: http://gnuarmeclipse.sourceforge.net/updates</li>
+</ul>
+<p>И устанавливаем всё.</p>
+<p>Если вылетела ошибка <strong>Handshake_failure</strong>, читаем статью <a href="http://gnuarmeclipse.github.io/blog/2017/01/29/plugins-install-issue">GNU ARM Eclipse plug-ins: Received fatal alert: handshake_failure</a>.
+Вкратце: повысили настройки безопасности у репозитория плагинов Eclipse, а в некоторых версиях JRE библиотеки содержат экспортные ограничения на функции шифрования. Вот их надо заменить на полные.</p>
+<h2>STM32CubeMX Eclipse plug in</h2>
+<p>Запускаем Eclipse. Через меню <em>Help</em> -&gt; <em>Install New Software...</em> устанавливаем плагин из архива <em>STSW-STM32095.zip</em>.
+Перезапускаем Eclipse.</p>
+<h2>STM32CubeF1</h2>
+<p>Запускаем Eclipse. Открываем STM32CubeMX через меню <em>Window</em> -&gt; <em>Show View</em> -&gt; <em>Other...</em>. Там в дереве, в ветке Other, будет STM32CubeMX.
+В меню STM32CubeMX выбираем <em>Help</em> -&gt; <em>Install New Libraries</em>, открывается окно установки пакетов под серии микроконтролллеров.</p>
+<p>Далее можно скачать пакет из сети, выбрав галочку и нажав <em>Install Now</em>.
+Либо установить из скачанного вручную архива, нажав кнопку <em>From Local...</em> и выбрав скачанный ранее архив <em>STM32CubeF1.ZIP</em>.</p>
+<h2>J-Link</h2>
+<p>Всё как обычно.</p>
+<h1>Настройка</h1>
+<h2>Создание проекта в Eclipse</h2>
+<p>В мастере создания нового проекта выбираем <em>C/C++</em> -&gt; <em>C Project</em>.
+Далее указываем имя проекта и тип <em>Hello World ARM C++ Project</em>, Toolchain <em>Cross ARM GCC</em>.
+Далее меняем каталог исходников Source с <em>src</em> на <em>Src</em>. В Linker semi-hosting options стираем всё и пишем </p>
+<div class="highlight"><pre><span></span><code>--specs=nosys.specs
+</code></pre></div>
+
+
+<p>Пробуем собрать проект.</p>
+<h2>Создание проекта в STM32CubeMX</h2>
+<h3>Генерация кода</h3>
+<p>Запускаем STM32CubeMX, создаём новый проект.
+В списке микроконтроллеров выбираем нужный (здесь STM32F103RET6 для примера).
+Настраиваем как нужно.
+Запускаем генерацию кода из меню. Указываем имя проекта как было в Eclipse выше. Указываем Project Location на каталог workspace, где лежит тот проект. Меняем Toolchain/IDE на SW4STM32. Снимаем галочку Generate Under Root.
+Запускаем.
+Исходные коды проекта будут созданысгенерированы поверх уже существующего проекта.
+Закрываем STM32CubeMX.</p>
+<p>Обновляем дерево проекта в Eclipse. Появляются новые каталоги, <em>Driver</em> и <em>Inc</em>. Сгенерированный Src совпал с уже сушествующим.
+Новые каталоги исключены из сборки, поэтому включаем их через свойства в контекстном меню.
+При необходимости, меняем в свойствах проект кодировку исходников на UTF-8.</p>
+<p>Создаём в каталоге <em>Src</em> файл <em>startup.asm</em>. Прописывываем в нём путь к стартовому файлу на ассемблере:</p>
+<div class="highlight"><pre><span></span><code><span class="na">.include</span> <span class="s">&quot;../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xe.s&quot;</span>
+</code></pre></div>
+
+
+<p>Это позволит оставить файлы <em><em>.s_ на месте (они не попадают под сборку ассемблером), но в то же время включить нужный в сборку через файл _</em>.asm</em>.</p>
+<h3>Перенос настроек</h3>
+<p>Далее, надо перенести настройки проекта из сгенерированного в существующий.</p>
+<p>Открываем проект в Eclipse. Заходим в свойства проекта - C/C++ General - Path and Symbols. Добавляем там легко опознаваемые строки-маркеры в разделы Includes и Symbols.</p>
+<p>Далее открываем XML файл сгенерированного проекта в <em>./SW4STM32/<project name>/.cproject</em>.
+Делаем его текст более читаемым через любое средство форматирования XML, позволяющее разнести атрибуты по строкам. Например, xmlbeautifier.</p>
+<h4>Define</h4>
+<p>Ищем в XML файле макросы, в ноде, подобной следующей:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+    <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
+    <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span>
+        <span class="na">id=</span><span class="s">&quot;gnu.c.compiler.option.preprocessor.def.symbols.1801753735&quot;</span>
+        <span class="na">name=</span><span class="s">&quot;Defined symbols (-D)&quot;</span>
+        <span class="na">superClass=</span><span class="s">&quot;gnu.c.compiler.option.preprocessor.def.symbols&quot;</span>
+        <span class="na">useByScannerDiscovery=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">valueType=</span><span class="s">&quot;definedSymbols&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;listOptionValue</span>
+            <span class="na">builtIn=</span><span class="s">&quot;false&quot;</span>
+            <span class="na">value=</span><span class="s">&quot;__weak=__attribute__((weak))&quot;</span> <span class="nt">/&gt;</span>
+        ...
+</code></pre></div>
+
+
+<p>Ищем во втором файле ноды XML с соответствующими маркерами и заменяем их.
+Список примерно следующий:</p>
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+__packed=&quot;__attribute__((__packed__))&quot;
+USE_HAL_DRIVER
+STM32F103RE
+ARM_MATH_CM3
+</code></pre></div>
+
+
+<p>Последнего в XML файле нет, но без него библиотеки не соберутся.<br>
+Кавычек у __weak и __packed тоже нет. Их надо добавить в виде <code>"</code> :</p>
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+</code></pre></div>
+
+
+<h4>Include</h4>
+<p>Ищем в XML файле пути для Include, в ноде, подобной следующей:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+    <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
+    <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span>
+        <span class="na">id=</span><span class="s">&quot;gnu.c.compiler.option.include.paths.976375416&quot;</span>
+        <span class="na">name=</span><span class="s">&quot;Include paths (-I)&quot;</span>
+        <span class="na">superClass=</span><span class="s">&quot;gnu.c.compiler.option.include.paths&quot;</span>
+        <span class="na">useByScannerDiscovery=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">valueType=</span><span class="s">&quot;includePath&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;listOptionValue</span>
+            <span class="na">builtIn=</span><span class="s">&quot;false&quot;</span>
+            <span class="na">value=</span><span class="s">&quot;..\..\..\Inc&quot;</span> <span class="nt">/&gt;</span>
+        ...
+</code></pre></div>
+
+
+<p>Открываем рядом файл проекта Eclipse CDT. Ищем ранее добавленные маркеры. Копируем соответствующие ноды XML из первого файла во второй. Попутно заменяя относительные пути:</p>
+<div class="highlight"><pre><span></span><code>../../../Inc
+../../../Drivers/STM32F0xx_HAL_Driver/Inc
+</code></pre></div>
+
+
+<p>на</p>
+<div class="highlight"><pre><span></span><code>${ProjDirPath}/Inc
+${ProjDirPath}/Drivers/STM32F0xx_HAL_Driver/Inc
+</code></pre></div>
+
+
+<h4>ARM family</h4>
+<p>Открываем свойства проекта в Eclipse, идём в <em>C/C++ Build</em> -&gt; <em>Settings</em> -&gt; <em>Tool Settings</em> -&gt; <em>Target Processor</em> -&gt; <em>ARM family</em>, выбираем <em>cortex-m3</em>, соответственно микроконтроллеру.</p>
+<h4>Linker script</h4>
+<p>Копируем скрипт линкера из <em>./SW4STM32/<project name>/STM32F103RETx_FLASH.ld</em> в <em>Scripts/STM32F103RETx_FLASH.ld</em>.<br>
+Открываем свойства проекта в Eclipse, идём в <em>C/C++ Build</em> -&gt; <em>Settings</em> -&gt; <em>Tool Settings</em> -&gt; <em>Cross ARM C Linker</em> -&gt; <em>General</em>. Добавляем в список <em>Scripts files (-T)</em> путь к файлу скрипта.</p>
+<h1>Сборка.</h1>
+<p>Собираем проект.
+Для ускорения сборки можно включить параллельную работу в свойствах проекта <em>C/C++ Build</em> -&gt; <em>Behavior</em> -&gt; <em>Enable parallel build</em>.</p>
+<h1>Отладка</h1>
+<h2>Проверка связи с отладчиком и микроконтроллером через J-Flash.</h2>
+<p>Запускаем J-Flash. Создаём новый проект. В свойствах проекта выбираем свой отладчик, <em>Target Interface</em>, <em>CPU</em> -&gt; <em>Device</em>. Выполняем подключение <em>Target</em> -&gt; <em>Connect</em>. Если в логах появилась запись </p>
+<div class="highlight"><pre><span></span><code>- Connected successfully
+</code></pre></div>
+
+
+<p>, то всё OK. Если нет, разбираемся с драйверами и подключением.
+Для дополнительной проверки можно считать память программ микроконтроллера через меню <em>Target</em> -&gt; <em>Read back</em> -&gt; <em>Entire chip</em>. Должно отобразиться содержимое памяти. Если нет - опять же разбираемся с поключением.</p>
+<h2>Настройка Eclipse</h2>
+<p>Открываем меню <em>Debug</em> -&gt; <em>Debug Configurations...</em>.
+Создаём новое подключение под <em>GDB Segger J-Link Debugging</em>.
+На вкладке <em>Debugger</em> прописываем <em>Device name</em> (ссылка на список поддерживаемых устройств там есть справа), например <em>STM32F103RE</em>. Выбираем подключение <em>Connection</em> и интерфейс <em>Interface</em>, если требуется. 
+На вкладке <em>Common</em> ставим галочку на <em>Debug</em> в списке <em>Display in favorites menu</em> для упрощения перехода в режим отладки.
+Далее окно настроек можно закрыть и запустить отладку через меню <em>Debug</em>.
+Бинарник должен прошиться в память программ и начаться отладка, с остановкой в начале функции <em>main</em>.</p>
+<h1>Обновление проекта</h1>
+<p>Данная структура проекта позволяет обновить проект черех генератор кода STM32CubeMX без особых усилий, при соблюдении рекомендаций к написанию пользовательского кода в предназначенных для того участках.
+Запускаем STM32CubeMX. Загружаем проект STM32CubeMX (файл *.ioc, сохранённый в каталоге проекта при генерации кода).
+Меняем необходимые настройки, отключаем или подключаем модули.
+Потом запускаем генерацию кода и файла описания.
+Файлы перезаписываются поверх существующего проекта, сохраняя упомянутые выше участки пользовательского кода.</p>
+<p><strong>На этом пока всё.</strong></p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/stm32.html">#STM32</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

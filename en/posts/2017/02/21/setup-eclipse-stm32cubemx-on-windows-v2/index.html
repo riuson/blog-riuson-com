@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>riuson.com - Installation and setup Eclipse, STM32CubeMX under Windows (v2).</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+          <link rel="alternate" hreflang="ru" href="https://blog.riuson.com/ru/posts/2017/02/21/setup-eclipse-stm32cubemx-on-windows-v2">
+
+
+
+    <meta name="tags" content="STM32" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Installation and setup Eclipse, STM32CubeMX under Windows (v2).</h1>
+    <span class="meta">
+      <time class="published" datetime="2017-02-21T00:00:00+05:00">
+        Вт, 21 фев 2017
+      </time>
+    </span>
+    <span class="meta">
+            <a href="https://blog.riuson.com/ru/posts/2017/02/21/setup-eclipse-stm32cubemx-on-windows-v2" hreflang="ru">ru</a>
+
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Manual was updated due to changes from previous version of CubeMX.</p>
+<p>Installation and setup development environment for STM32, with Eclipse, STM32CubeMX, GNU ARM Embedded, GNU ARM Eclipse Plugins.<br>
+MCU: STM32F103RET6.</p>
+<p><a href="https://youtu.be/i5VUF1wYTQU"><i class="fab fa-youtube"></i> Video: Setup Eclipse and STM32CubeMX on Windows</a></p>
+<p>Manual was updated due to changes from previous version of CubeMX.{ .bg-info .text-white }</p>
+<p>If it is not working, please write in comments.{ .bg-warning .text-dark }</p>
+<p>All process has been recorded on video.
+Operating system: Windows 10 Home.</p>
+<h1>Download</h1>
+<p>List of used software.:</p>
+<ul>
+<li><a href="http://www.eclipse.org/downloads/">Eclipse IDE for C/C++ Developers</a></li>
+<li><a href="https://www.java.com/en/download/">Java Virtual Machine</a></li>
+<li><a href="https://launchpad.net/gcc-arm-embedded">GCC ARM Embedded</a> Windows Installer</li>
+<li><a href="http://gnuarmeclipse.github.io/windows-build-tools/install/">How to install the Windows Build Tools?</a></li>
+<li><a href="http://gnuarmeclipse.github.io/">The GNU ARM Eclipse plug-ins</a><ul>
+<li><a href="http://gnuarmeclipse.github.io/plugins/install/">How to install the GNU ARM Eclipse plug-ins?</a> (download by Eclipse)</li>
+</ul>
+</li>
+<li><a href="http://www.st.com/en/development-tools/stm32cubemx.html?icmp=stm32cubemx_pron_prcube_feb2014&amp;sc=stm32cube-pr">STM32CubeMX STM32Cube initialization code generator</a><ul>
+<li><a href="http://www.st.com/content/st_com/en/products/development-tools/software-development-tools/stm32-software-development-tools/m32-configurators-and-code-generators/stsw-stm32095.html">STM32CubeMX Eclipse plug in for STM32 configuration and initialization C code generation</a></li>
+<li><a href="http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef1.html">STM32CubeF1</a></li>
+</ul>
+</li>
+<li><a href="https://www.segger.com/jlink-software.html">Jlink - Software and documentation pack for Windows</a></li>
+</ul>
+<h1>Install</h1>
+<h2>Eclipse IDE for C/C++ Developers</h2>
+<p>Download Eclipse installer and install <em>Eclipse IDE for C/C++ Developers</em>.</p>
+<h2>Java Virtual Machine</h2>
+<p>If Eclipse installer can't find JRE, next dialog can be shown:</p>
+<blockquote>
+<p class="blockquote">The required 64-bit Java 1.7.0 virtual machine could not be found.<br>
+Do you want to browse your system for it?</p>
+</blockquote>
+<p>You can browse for it or open web-site by clicking <em>No</em>.</p>
+<h2>Windows Build Tools</h2>
+<p><a href="http://gnuarmeclipse.github.io/windows-build-tools/install/">Installation manual</a>. All as usual.</p>
+<h2>GCC ARM Embedded</h2>
+<p>Disable checkboxes <em>Launch gccvar.bat</em> and <em>Add path to enviroment variable</em> after installation. So you can install many compilers.</p>
+<h2>GNU ARM Eclipse plug-ins</h2>
+<p><a href="http://gnuarmeclipse.github.io/plugins/install/">Installation manual</a>.
+In Eclipse menu choose <em>Help</em> -&gt; <em>Install New Software...</em>. Add website</p>
+<ul>
+<li>name: GNU ARM Eclipse Plug-ins</li>
+<li>URL: http://gnuarmeclipse.sourceforge.net/updates</li>
+</ul>
+<p>Select and install all components.</p>
+<p>If you see an error about <strong>Handshake_failure</strong>, please read the next topic: <a href="http://gnuarmeclipse.github.io/blog/2017/01/29/plugins-install-issue">GNU ARM Eclipse plug-ins: Received fatal alert: handshake_failure</a>.</p>
+<h2>STM32CubeMX Eclipse plug in</h2>
+<p>Start Eclipse. Choose menu <em>Help</em> -&gt; <em>Install New Software...</em> and install plugin from archive <em>STSW-STM32095.zip</em>.
+Restart Eclipse.</p>
+<h2>STM32CubeF1</h2>
+<p>Start Eclipse. Open STM32CubeMX from menu <em>Window</em> -&gt; <em>Show View</em> -&gt; <em>Other...</em> -&gt; <em>STM32CubeMX</em>. 
+Choose <em>Help</em> -&gt; <em>Install New Libraries</em> from STM32CubeMX menu to open Libraries Manager.</p>
+<p>Here you can install package for selected MCU series.
+* Network: select checkbox and click <em>Install Now</em>.
+* Local: click <em>From Local...</em> and open file <em>STM32CubeF1.zip</em>.</p>
+<h2>J-Link</h2>
+<p>All as usual.</p>
+<h1>Setup</h1>
+<h2>Create project in Eclipse</h2>
+<p>Choose menu <em>C/C++</em> -&gt; <em>C Project</em>.
+Write a project's name and select type <em>Hello World ARM C++ Project</em>, Toolchain <em>Cross ARM GCC</em>.
+Replace source's directory from <em>src</em> to <em>Src</em>. At <em>Linker semi-hosting options</em> write only next string </p>
+<div class="highlight"><pre><span></span><code>--specs=nosys.specs
+</code></pre></div>
+
+
+<p>Build project.</p>
+<h2>Create project in STM32CubeMX</h2>
+<h3>Code generation</h3>
+<p>Start STM32CubeMX and create new project.<br>
+Select used MCU. For example STM32F103RET6.
+Change project settings.<br>
+Start code generation. Set project name equals to Eclipse project. Set <em>Project Location</em> directory in workspace, where existing Eclipse project was placed. Set Toolchain/IDE to SW4STM32. Uncheck _ Generate Under Root_.<br>
+Start by clicking <em>Ok</em>.</p>
+<p>Source codes will be saved over early created project.<br>
+Close STM32CubeMX.</p>
+<p>Refresh project tree in Eclipse. You can see newly added directories, <em>Driver</em> and <em>Inc</em>. <em>Src</em> directory combined with existing.<br>
+Newly added directories disabled by default, so enable it thru properties dialog.<br></p>
+<p>Create file <em>startup.asm</em> in <em>Src</em> directory. Add path to generated assembler startup file:</p>
+<div class="highlight"><pre><span></span><code><span class="na">.include</span> <span class="s">&quot;../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xe.s&quot;</span>
+</code></pre></div>
+
+
+<h3>Migrate settings</h3>
+<p>How to migrate settings from CubeMX project to Eclipse?</p>
+<p>Open Eclipse project. Open project's <em>Properties</em> - <em>C/C++ General</em> - <em>Path and Symbols</em>. Add some string markers to Includes и Symbols.</p>
+<p>Then close project. Open XML file of both projects, <em>.cproject</em> and <em>./SW4STM32/&lt; project name &gt;/.cproject</em>.<br>
+Format XML with any tool for easy reading. For example, xmlbeautifier.</p>
+<h4>Symbols</h4>
+<p>Locate nodes with symbols in XML file (SW4STM32), like next:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+    <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
+    <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span>
+        <span class="na">id=</span><span class="s">&quot;gnu.c.compiler.option.preprocessor.def.symbols.1801753735&quot;</span>
+        <span class="na">name=</span><span class="s">&quot;Defined symbols (-D)&quot;</span>
+        <span class="na">superClass=</span><span class="s">&quot;gnu.c.compiler.option.preprocessor.def.symbols&quot;</span>
+        <span class="na">useByScannerDiscovery=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">valueType=</span><span class="s">&quot;definedSymbols&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;listOptionValue</span>
+            <span class="na">builtIn=</span><span class="s">&quot;false&quot;</span>
+            <span class="na">value=</span><span class="s">&quot;__weak=__attribute__((weak))&quot;</span> <span class="nt">/&gt;</span>
+        ...
+</code></pre></div>
+
+
+<p>Locate nodes with markers in other XML file (Eclipse) and replace it.
+List of symbols looks like next:</p>
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+__packed=&quot;__attribute__((__packed__))&quot;
+USE_HAL_DRIVER
+STM32F103RE
+ARM_MATH_CM3
+</code></pre></div>
+
+
+<p>Last line missing in XML file, but it is required for build.<br>
+Quote at __weak and __packed are required. In XML file quotes need to be escaped as <code>"</code> :</p>
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+</code></pre></div>
+
+
+<h4>Includes</h4>
+<p>Locate nodes with Include paths in XML file (SW4STM32) like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+    <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
+    <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span>
+        <span class="na">id=</span><span class="s">&quot;gnu.c.compiler.option.include.paths.976375416&quot;</span>
+        <span class="na">name=</span><span class="s">&quot;Include paths (-I)&quot;</span>
+        <span class="na">superClass=</span><span class="s">&quot;gnu.c.compiler.option.include.paths&quot;</span>
+        <span class="na">useByScannerDiscovery=</span><span class="s">&quot;false&quot;</span>
+        <span class="na">valueType=</span><span class="s">&quot;includePath&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;listOptionValue</span>
+            <span class="na">builtIn=</span><span class="s">&quot;false&quot;</span>
+            <span class="na">value=</span><span class="s">&quot;..\..\..\Inc&quot;</span> <span class="nt">/&gt;</span>
+        ...
+</code></pre></div>
+
+
+<p>Change prefix from relative path</p>
+<div class="highlight"><pre><span></span><code>../../../Inc
+../../../Drivers/STM32F1xx_HAL_Driver/Inc
+</code></pre></div>
+
+
+<p>to variable</p>
+<div class="highlight"><pre><span></span><code>${ProjDirPath}/Inc
+${ProjDirPath}/Drivers/STM32F1xx_HAL_Driver/Inc
+</code></pre></div>
+
+
+<p>Copy nodes to other XML file (Eclipse).</p>
+<h4>ARM family</h4>
+<p>Open project's Properties in Eclipse, navigate to <em>C/C++ Build</em> -&gt; <em>Settings</em> -&gt; <em>Tool Settings</em> -&gt; <em>Target Processor</em> -&gt; <em>ARM family</em>, select <em>cortex-m3</em>.</p>
+<h4>Charset</h4>
+<p>Also you can change charset of project's resources to UTF-8.</p>
+<h4>Linker script</h4>
+<p>Copy linker script from <em>./SW4STM32/&lt; project name &gt;/STM32F103RETx_FLASH.ld</em> to <em>Scripts/STM32F103RETx_FLASH.ld</em>.<br>
+Open project's Properties, navigate to <em>C/C++ Build</em> -&gt; <em>Settings</em> -&gt; <em>Tool Settings</em> -&gt; <em>Cross ARM C Linker</em> -&gt; <em>General</em>. Add file to <em>Scripts files (-T)</em> list.</p>
+<h1>Build</h1>
+<p>Start build project.<br>
+You can set <em>C/C++ Build</em> -&gt; <em>Behavior</em> -&gt; <em>Enable parallel build</em> to speed up build.</p>
+<h1>Debug</h1>
+<h2>Check connection with debugger and MCU thru J-Flash.</h2>
+<p>Start J-Flash. Create new project. Select debugger, <em>Target Interface</em>, <em>CPU</em> -&gt; <em>Device</em>. Click menu <em>Target</em> -&gt; <em>Connect</em>. You should see message in log: </p>
+<div class="highlight"><pre><span></span><code>Connected successfully
+</code></pre></div>
+
+
+<p>If you don't see it, something going wrong.<br>
+Then select <em>Target</em> -&gt; <em>Manual programming -&gt; _Erase chip</em>.
+You should see message in log: </p>
+<div class="highlight"><pre><span></span><code>Erase operaion completed successfully.
+</code></pre></div>
+
+
+<h2>Setup debugger in Eclipse</h2>
+<p>Open menu <em>Debug</em> -&gt; <em>Debug Configurations...</em>.<br>
+Create new connection under <em>GDB Segger J-Link Debugging</em>.<br>
+Set <em>Device name</em> on <em>Debugger</em> page, for example <em>STM32F103RE</em>.<br> Select <em>Connection</em> and <em>Interface</em>, if needed.<br>
+To add debug configuration to favorites menu, set checlbox <em>Debug</em> in list <em>Display in favorites menu</em> on <em>Common</em> page.<br>
+Start debug from favorites in <em>Debug</em> menu.</p>
+<p>Formware shoud be programmed to flash. Debug starts with breakpoint on method <em>main</em>.</p>
+<h1>Updating project</h1>
+<p>This project's structure allows update project with STM32CubeMX without problems.<br>
+Just start STM32CubeMX.<br>
+Load STM32CubeMX project (generated *.ioc file in root directory of project).<br>
+Change settings.<br>
+Start code generation.<br>
+Files will be regenerated over existing, but user's code keeps in special sections.</p>
+<p><strong> The End. </strong></p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/stm32.html">#STM32</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

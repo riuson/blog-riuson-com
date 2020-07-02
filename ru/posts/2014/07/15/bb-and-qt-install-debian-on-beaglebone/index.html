@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — Установка Debian на BeagleBone</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — Установка Debian на BeagleBone</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-15T02:00:00+05:00">
+        15 Июль 2014 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Установка системы Debian 7.5 Wheezy на SD Card для загрузки BeageBone Black.</p>
+<h3>Загрузка</h3>
+<p>Создаём каталог /home/user/beaglebone.</p>
+<p>На <a href="http://beagleboard.org/latest-images">странице последних образов</a> берём вариант Debian (BeagleBone, BeagleBone Black - 2GB SD), запускаемый без прошивки в eMMC. Скачиваем его в <i>/home/user/beaglebone/images</i>.
+Получается что-то типа <i>/home/user/beaglebone/images/bone-debian-7.5-2014-05-14-2gb.img.xz</i> .</p>
+<h3>Установка</h3>
+<p>Записываем образ на SD карту памяти, объёмом более 2 ГБ. В Ubuntu для этого есть встроенное средство - приложение Disks.</p>
+<p><img alt="disks" class="img-fluid" src="https://blog.riuson.com/images/posts/2014/07/15/bb-and-qt-install-debian-on-beaglebone-1.png" /></p>
+<p>На SD карте должно появиться 2 раздела:
+  * BEAGLE_BONE, объёмом около 100 МБ;
+  * rootfs, объёмом около 1,7 ГБ.</p>
+<p>На разделе rootfs остаются свободными около 88 МБ, чего явно будет недостаточно. Поэтому запускаем Gparted и меняем размер этого раздела так, чтобы он занимал всё остальное доступное место на карте памяти (поэтому и нужна карта объёмом более 2 ГБ).</p>
+<p><img alt="gparted" class="img-fluid" src="https://blog.riuson.com/images/posts/2014/07/15/bb-and-qt-install-debian-on-beaglebone-2.png" /></p>
+<p>Устаналиваем карту памяти в BeagleBone. Зажимаем кнопку <i>boot</i> и подключаем USB кабелем к ПК. После чего:
+  * Загружается Debian;
+  * Подключается съёмный диск BEAGLE_BONE (первый раздел на карте);
+  * Поверх USB создаётся новое проводное подключение с адресом 192.168.7.1, маской 255.255.255.252, широковещательным адресом 192.168.7.3;</p>
+<h3>Связь</h3>
+<p>Теперь можно зайти по ssh. Логин debian, пароль temppwd.</p>
+<div class="highlight"><pre><span></span><code>$ ssh debian@192.168.7.2
+Debian GNU/Linux <span class="m">7</span>
+
+BeagleBoard.org BeagleBone Debian Image <span class="m">2014</span>-05-14
+
+Support/FAQ: http://elinux.org/Beagleboard:BeagleBoneBlack_Debian
+debian@192.168.7.2<span class="err">&#39;</span>s password: temppwd
+debian@beaglebone:~$
+</code></pre></div>
+
+
+<h3>Выход в интернет</h3>
+<p><a href="http://robotic-controls.com/learn/beaglebone/beaglebone-internet-over-usb-only">Настраиваем выход в интернет с BeagleBone через ПК по USB</a>.</p>
+<p>На BeagleBone:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo ifconfig usb0 <span class="m">192</span>.168.7.2
+debian@beaglebone:~$ sudo route add default gw <span class="m">192</span>.168.7.1
+</code></pre></div>
+
+
+<p>Возможно понадобится добавить строку <i>nameserver 8.8.8.8</i> в файл <i>/etc/resolv.conf</i> </p>
+<p>На ПК с Linux:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#eth0 интерфейс, смотрящий в интернет</span>
+<span class="c1">#eth3 это подключение к BeagleBone по USB</span>
+$ sudo su
+$ ifconfig eth3 <span class="m">192</span>.168.7.1
+$ iptables --table nat --append POSTROUTING --out-interface eth0 -j MASQUERADE
+$ iptables --append FORWARD --in-interface eth3 -j ACCEPT
+$ <span class="nb">echo</span> <span class="m">1</span> &gt; /proc/sys/net/ipv4/ip_forward
+</code></pre></div>
+
+
+<p>Теперь можно установить какой-либо дополнительный софт. Например Midnight Commander:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo apt-get install mc
+</code></pre></div>
+
+
+<p>Или обновить систему:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo apt-get update
+debian@beaglebone:~$ sudo apt-get upgrade
+</code></pre></div>
+
+
+<p>(BeagleBone Black можно приобрести на <a href="http://cgi.ebay.com/ws/eBayISAPI.dll?ViewItem&amp;item=261487540514">eBay</a>)</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

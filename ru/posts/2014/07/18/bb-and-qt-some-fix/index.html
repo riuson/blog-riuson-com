@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — Некоторые исправления</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="BB-View" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — Некоторые исправления</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-18T14:30:00+05:00">
+        18 Июль 2014 г., Пт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <h3>Синий пингвин</h3>
+<p>Нужно поменять местами красный и синий цвета. Решение найдено <a href="http://www.element14.com/community/message/108736/l/re-how-to-bb-view-on-latest-debian#108736">здесь</a>.
+Для этого открываем файл <i>/linux-dev/KERNEL/drivers/gpu/drm/drm_fb_helper.c</i>, ищем все инициализации смещения цветовых каналов и меняем местами red/blue.</p>
+<div class="highlight"><pre><span></span><code><span class="gd">--- ./drm_fb_helper.c.orig  2014-07-03 19:48:33.465438683 +0600</span>
+<span class="gi">+++ ./drm_fb_helper.c   2014-07-18 18:52:09.336754771 +0600</span>
+<span class="gu">@@ -603,5 +603,5 @@</span>
+    case 8:
+<span class="gd">-       var-&gt;red.offset = 0;</span>
+<span class="gd">-       var-&gt;green.offset = 0;</span>
+        var-&gt;blue.offset = 0;
+<span class="gi">+       var-&gt;green.offset = 0;</span>
+<span class="gi">+       var-&gt;red.offset = 0;</span>
+        var-&gt;red.length = 8;
+<span class="gu">@@ -613,5 +613,5 @@</span>
+    case 15:
+<span class="gd">-       var-&gt;red.offset = 10;</span>
+<span class="gi">+       var-&gt;blue.offset = 10;</span>
+        var-&gt;green.offset = 5;
+<span class="gd">-       var-&gt;blue.offset = 0;</span>
+<span class="gi">+       var-&gt;red.offset = 0;</span>
+        var-&gt;red.length = 5;
+<span class="gu">@@ -623,5 +623,5 @@</span>
+    case 16:
+<span class="gd">-       var-&gt;red.offset = 11;</span>
+<span class="gi">+       var-&gt;blue.offset = 11;</span>
+        var-&gt;green.offset = 5;
+<span class="gd">-       var-&gt;blue.offset = 0;</span>
+<span class="gi">+       var-&gt;red.offset = 0;</span>
+        var-&gt;red.length = 5;
+<span class="gu">@@ -633,5 +633,5 @@</span>
+    case 24:
+<span class="gd">-       var-&gt;red.offset = 16;</span>
+<span class="gi">+       var-&gt;blue.offset = 16;</span>
+        var-&gt;green.offset = 8;
+<span class="gd">-       var-&gt;blue.offset = 0;</span>
+<span class="gi">+       var-&gt;red.offset = 0;</span>
+        var-&gt;red.length = 8;
+<span class="gu">@@ -643,5 +643,5 @@</span>
+    case 32:
+<span class="gd">-       var-&gt;red.offset = 16;</span>
+<span class="gi">+       var-&gt;blue.offset = 16;</span>
+        var-&gt;green.offset = 8;
+<span class="gd">-       var-&gt;blue.offset = 0;</span>
+<span class="gi">+       var-&gt;red.offset = 0;</span>
+        var-&gt;red.length = 8;
+<span class="gu">@@ -880,5 +880,5 @@</span>
+    case 8:
+<span class="gd">-       info-&gt;var.red.offset = 0;</span>
+<span class="gd">-       info-&gt;var.green.offset = 0;</span>
+        info-&gt;var.blue.offset = 0;
+<span class="gi">+       info-&gt;var.green.offset = 0;</span>
+<span class="gi">+       info-&gt;var.red.offset = 0;</span>
+        info-&gt;var.red.length = 8; /* 8bit DAC */
+<span class="gu">@@ -890,5 +890,5 @@</span>
+    case 15:
+<span class="gd">-       info-&gt;var.red.offset = 10;</span>
+<span class="gi">+       info-&gt;var.blue.offset = 10;</span>
+        info-&gt;var.green.offset = 5;
+<span class="gd">-       info-&gt;var.blue.offset = 0;</span>
+<span class="gi">+       info-&gt;var.red.offset = 0;</span>
+        info-&gt;var.red.length = 5;
+<span class="gu">@@ -900,5 +900,5 @@</span>
+    case 16:
+<span class="gd">-       info-&gt;var.red.offset = 11;</span>
+<span class="gi">+       info-&gt;var.blue.offset = 11;</span>
+        info-&gt;var.green.offset = 5;
+<span class="gd">-       info-&gt;var.blue.offset = 0;</span>
+<span class="gi">+       info-&gt;var.red.offset = 0;</span>
+        info-&gt;var.red.length = 5;
+<span class="gu">@@ -909,5 +909,5 @@</span>
+    case 24:
+<span class="gd">-       info-&gt;var.red.offset = 16;</span>
+<span class="gi">+       info-&gt;var.blue.offset = 16;</span>
+        info-&gt;var.green.offset = 8;
+<span class="gd">-       info-&gt;var.blue.offset = 0;</span>
+<span class="gi">+       info-&gt;var.red.offset = 0;</span>
+        info-&gt;var.red.length = 8;
+<span class="gu">@@ -919,5 +919,5 @@</span>
+    case 32:
+<span class="gd">-       info-&gt;var.red.offset = 16;</span>
+<span class="gi">+       info-&gt;var.blue.offset = 16;</span>
+        info-&gt;var.green.offset = 8;
+<span class="gd">-       info-&gt;var.blue.offset = 0;</span>
+<span class="gi">+       info-&gt;var.red.offset = 0;</span>
+        info-&gt;var.red.length = 8;
+</code></pre></div>
+
+
+<p>Затем пересобираем ядро:</p>
+<div class="highlight"><pre><span></span><code>$ ./tools/rebuild.sh
+</code></pre></div>
+
+
+<p>Снова копируем файлы на карту памяти, загружаемся с неё и видим уже нормального Тукса.</p>
+<h3>pin 44e10978 already requested by 4819c000.i2c</h3>
+<p>Полезная информация:
+  * <a href="http://www.embedded-things.com/bbb/beaglebone-black-pin-mux-spreadsheet">BeagleBone Black Pin Mux Spreadsheet</a>
+  * <a href="http://inspire.logicsupply.com/p/building-custom-cape.html">Building A Custom Cape</a></p>
+<p>При загрузке в логах можно увидеть конфликт назначения функции пина P9.20 (gpio0.12, смещение DT 0x178):</p>
+<div class="highlight"><pre><span></span><code>...
+[    0.811465] pinctrl-single 44e10800.pinmux: pin 44e10978 already requested by 4819c000.i2c; cannot claim for gpio-leds-cape-lcd.12
+[    0.823793] pinctrl-single 44e10800.pinmux: pin-94 (gpio-leds-cape-lcd.12) status -22
+[    0.831988] pinctrl-single 44e10800.pinmux: could not request pin 94 on device pinctrl-single
+...
+</code></pre></div>
+
+
+<p>Он используется как линия SDA в интерфейсе I2C2 на BeagleBone Black для поиска плат расширения. Каждая из них должна иметь I2C микросхему памяти с информацией о плате (см. BeagleBone Black SRM, пункт 8.2.2 - I2C Bus).</p>
+<p>На плате BB-View место под миксрохему предусмотрено, но сама она отсутствует. А в DTS файле из Angstrom, да и в на плате BB-View, пин P9.20 обозначен как подключенный к светодиоду LED1. При попытке его инициализации как GPIO и возникает эта ошибка.</p>
+<p>Удаляем из файла DTS упоминания о P9.20, а также некоторых других неиспользуемых здесь пинах.</p>
+<div class="highlight"><pre><span></span><code><span class="gd">--- ./BB-VIEW-LCD7-01-00A0.dts.orig 2014-07-18 18:18:59.172344896 +0600</span>
+<span class="gi">+++ ./BB-VIEW-LCD7-01-00A0.dts  2014-07-18 18:20:11.771734973 +0600</span>
+<span class="gu">@@ -38,21 +38,16 @@</span>
+        &quot;P8.29&quot;,    /* lcd: lcd_hsync */
+        &quot;P8.28&quot;,    /* lcd: lcd_pclk */
+        &quot;P8.30&quot;,    /* lcd: lcd_ac_bias_en */
+<span class="gd">-       &quot;P9.27&quot;,    /* lcd: gpio3_19 */</span>
+        &quot;P9.12&quot;,    /* led: gpio1_28 */
+        &quot;P9.14&quot;,    /* pwm: ehrpwm1a */
+<span class="gd">-       &quot;P9.15&quot;,    /* keys: gpio1_16 */</span>
+<span class="gd">-       &quot;P9.23&quot;,    /* keys: gpio1_17 */</span>
+<span class="gd">-       &quot;P9.16&quot;,    /* keys: gpio1_19 */</span>
+<span class="gd">-       &quot;P9.21&quot;,    /* keys: gpio0_3 */</span>
+<span class="gi">+       &quot;P9.11&quot;,    /* keys: gpio0_30 USER3 */</span>
+<span class="gi">+       &quot;P9.23&quot;,    /* keys: gpio1_17 USER2 */</span>
+<span class="gi">+       &quot;P9.16&quot;,    /* keys: gpio1_19 USER0 */</span>
+<span class="gi">+       &quot;P9.24&quot;,    /* keys: gpio0_15 USER1 */</span>
+        /* the hardware IP uses */
+<span class="gd">-       &quot;gpio3_19&quot;,</span>
+<span class="gd">-       &quot;gpio1_28&quot;,</span>
+<span class="gd">-       &quot;gpio1_16&quot;,</span>
+<span class="gi">+       &quot;gpio1_28&quot;,     /* led: P9.12 */</span>
+        &quot;gpio1_17&quot;,
+        &quot;gpio1_19&quot;,
+<span class="gd">-       &quot;gpio0_3&quot;,</span>
+<span class="gd">-       &quot;gpio0_12&quot;,</span>
+        &quot;lcd&quot;,
+        &quot;ehrpwm1a&quot;;
+
+<span class="gu">@@ -63,7 +58,6 @@</span>
+            bb_view_lcd_cape_led_pins: pinmux_bb_view_lcd_cape_led_pins {
+                pinctrl-single,pins = &lt;
+                    0x078 0x2f      /* gpmc_be1n.gpio1_28, INPUT | PULLDIS | MODE7 */
+<span class="gd">-                   0x178 0x2f  /* uart1_ctsn.gpio0_12,INPUT | PULLDIS | MODE7 */</span>
+                &gt;;
+            };
+
+<span class="gu">@@ -100,10 +94,10 @@</span>
+
+            bb_view_lcd_cape_keys_pins: pinmux_bb_view_lcd_cape_keys_pins {
+                pinctrl-single,pins = &lt;
+<span class="gd">-                   0x4C 0x27   /* gpmc_a3.gpio1_19,   INPUT | MODE7 */</span>
+<span class="gd">-                   0x184 0x27  /* uart1_txd.gpio0_15, INPUT | MODE7 */</span>
+<span class="gd">-                   0x44 0x27   /* gpmc_a1.gpio1_17,   INPUT | MODE7 */</span>
+<span class="gd">-                   0x70 0x27   /* gpmc_wait0.gpio0_30,INPUT | MODE7 */</span>
+<span class="gi">+                   0x4C 0x27   /* gpmc_a3.gpio1_19    USER0, INPUT | MODE7 */</span>
+<span class="gi">+                   0x184 0x27  /* uart1_txd.gpio0_15  USER1, INPUT | MODE7 */</span>
+<span class="gi">+                   0x44 0x27   /* gpmc_a1.gpio1_17    USER2, INPUT | MODE7 */</span>
+<span class="gi">+                   0x70 0x27   /* gpmc_wait0.gpio0_30 USER3, INPUT | MODE7 */</span>
+                &gt;;
+            };
+
+<span class="gu">@@ -179,13 +173,6 @@</span>
+                    linux,default-trigger = &quot;none&quot;;
+                    default-state = &quot;off&quot;;
+                };
+<span class="gd">-</span>
+<span class="gd">-               bb_view_led1 {</span>
+<span class="gd">-                   label = &quot;bb-view:led1&quot;;</span>
+<span class="gd">-                   gpios = &lt;&amp;gpio1 12 0&gt;;</span>
+<span class="gd">-                   linux,default-trigger = &quot;none&quot;;</span>
+<span class="gd">-                   default-state = &quot;off&quot;;</span>
+<span class="gd">-               };</span>
+            };
+
+            bb_view_gpio_keys {
+</code></pre></div>
+
+
+<p>Обновляем ядро.</p>
+<p>После загрузки можно увидеть следующие группы пинов:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
+registered pin groups:
+group: pinmux_userled_pins
+pin <span class="m">21</span> <span class="o">(</span>44e10854<span class="o">)</span>
+pin <span class="m">22</span> <span class="o">(</span>44e10858<span class="o">)</span>
+pin <span class="m">23</span> <span class="o">(</span>44e1085c<span class="o">)</span>
+pin <span class="m">24</span> <span class="o">(</span>44e10860<span class="o">)</span>
+
+group: pinmux_rstctl_pins
+pin <span class="m">20</span> <span class="o">(</span>44e10850<span class="o">)</span>
+
+group: pinmux_i2c0_pins
+pin <span class="m">98</span> <span class="o">(</span>44e10988<span class="o">)</span>
+pin <span class="m">99</span> <span class="o">(</span>44e1098c<span class="o">)</span>
+
+group: pinmux_i2c2_pins
+pin <span class="m">94</span> <span class="o">(</span>44e10978<span class="o">)</span>
+pin <span class="m">95</span> <span class="o">(</span>44e1097c<span class="o">)</span>
+
+group: pinmux_pwm_bl_pins
+pin <span class="m">18</span> <span class="o">(</span>44e10848<span class="o">)</span>
+
+group: pinmux_mmc1_pins
+pin <span class="m">88</span> <span class="o">(</span>44e10960<span class="o">)</span>
+
+group: pinmux_emmc2_pins
+pin <span class="m">32</span> <span class="o">(</span>44e10880<span class="o">)</span>
+pin <span class="m">33</span> <span class="o">(</span>44e10884<span class="o">)</span>
+pin <span class="m">0</span> <span class="o">(</span>44e10800<span class="o">)</span>
+pin <span class="m">1</span> <span class="o">(</span>44e10804<span class="o">)</span>
+pin <span class="m">2</span> <span class="o">(</span>44e10808<span class="o">)</span>
+pin <span class="m">3</span> <span class="o">(</span>44e1080c<span class="o">)</span>
+pin <span class="m">4</span> <span class="o">(</span>44e10810<span class="o">)</span>
+pin <span class="m">5</span> <span class="o">(</span>44e10814<span class="o">)</span>
+pin <span class="m">6</span> <span class="o">(</span>44e10818<span class="o">)</span>
+pin <span class="m">7</span> <span class="o">(</span>44e1081c<span class="o">)</span>
+
+group: pinmux_userled_pins
+pin <span class="m">21</span> <span class="o">(</span>44e10854<span class="o">)</span>
+pin <span class="m">22</span> <span class="o">(</span>44e10858<span class="o">)</span>
+pin <span class="m">23</span> <span class="o">(</span>44e1085c<span class="o">)</span>
+pin <span class="m">24</span> <span class="o">(</span>44e10860<span class="o">)</span>
+
+group: pinmux_bb_view_lcd_cape_led_pins
+pin <span class="m">30</span> <span class="o">(</span>44e10878<span class="o">)</span>
+
+group: pinmux_bb_view_lcd_cape_pins
+pin <span class="m">40</span> <span class="o">(</span>44e108a0<span class="o">)</span>
+pin <span class="m">41</span> <span class="o">(</span>44e108a4<span class="o">)</span>
+pin <span class="m">42</span> <span class="o">(</span>44e108a8<span class="o">)</span>
+pin <span class="m">43</span> <span class="o">(</span>44e108ac<span class="o">)</span>
+pin <span class="m">44</span> <span class="o">(</span>44e108b0<span class="o">)</span>
+pin <span class="m">45</span> <span class="o">(</span>44e108b4<span class="o">)</span>
+pin <span class="m">46</span> <span class="o">(</span>44e108b8<span class="o">)</span>
+pin <span class="m">47</span> <span class="o">(</span>44e108bc<span class="o">)</span>
+pin <span class="m">48</span> <span class="o">(</span>44e108c0<span class="o">)</span>
+pin <span class="m">49</span> <span class="o">(</span>44e108c4<span class="o">)</span>
+pin <span class="m">50</span> <span class="o">(</span>44e108c8<span class="o">)</span>
+pin <span class="m">51</span> <span class="o">(</span>44e108cc<span class="o">)</span>
+pin <span class="m">52</span> <span class="o">(</span>44e108d0<span class="o">)</span>
+pin <span class="m">53</span> <span class="o">(</span>44e108d4<span class="o">)</span>
+pin <span class="m">54</span> <span class="o">(</span>44e108d8<span class="o">)</span>
+pin <span class="m">55</span> <span class="o">(</span>44e108dc<span class="o">)</span>
+pin <span class="m">56</span> <span class="o">(</span>44e108e0<span class="o">)</span>
+pin <span class="m">57</span> <span class="o">(</span>44e108e4<span class="o">)</span>
+pin <span class="m">58</span> <span class="o">(</span>44e108e8<span class="o">)</span>
+pin <span class="m">59</span> <span class="o">(</span>44e108ec<span class="o">)</span>
+
+group: pinmux_bb_view_lcd_cape_keys_pins
+pin <span class="m">19</span> <span class="o">(</span>44e1084c<span class="o">)</span>
+pin <span class="m">97</span> <span class="o">(</span>44e10984<span class="o">)</span>
+pin <span class="m">17</span> <span class="o">(</span>44e10844<span class="o">)</span>
+pin <span class="m">28</span> <span class="o">(</span>44e10870<span class="o">)</span>
+</code></pre></div>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/bb-view.html">#BB-View</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

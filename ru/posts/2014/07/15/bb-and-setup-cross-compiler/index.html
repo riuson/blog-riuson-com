@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — Кросс-компилятор</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — Кросс-компилятор</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-15T21:50:00+05:00">
+        15 Июль 2014 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Установка кросс-компилятора.</p>
+<p>Операционная система на компьютере - <a href="http://releases.ubuntu.com/14.04/">Ubuntu 14.04 LTS x64</a>.
+На BeagleBone Black - Debian 7.5 Wheezy.</p>
+<h3>32-битные библиотеки</h3>
+<p>Начиная с Ubuntu 13.10 выпилен пакет ia32-libs. Поэтому команда </p>
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install ia32-libs
+</code></pre></div>
+
+
+<p>уже не пройдёт.</p>
+<p>Устанавливаем библиотеки как объяснено <a href="http://www.linuxrussia.com/2014/02/32-libs-ubuntu.html">здесь</a> и <a href="http://gnuarmeclipse.livius.net/blog/toolchain-install/">здесь</a>.</p>
+<div class="highlight"><pre><span></span><code>$ sudo dpkg --add-architecture i386
+$ sudo apt-get update 
+
+$ sudo apt-get install libc6:i386 libstdc++6:i386
+$ sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0
+</code></pre></div>
+
+
+<h3>Компилятор</h3>
+<p>В качестве кросс-компилятора берём <a href="https://launchpad.net/gcc-linaro/">Linaro GCC</a>.
+У компилятора из репозитория Ubuntu версия libc выше используемой в Debian, программа на устройстве не запустится.</p>
+<p>Скачиваем и распаковываем бинарники компилятора в какой-нибудь каталог, например:
+<i>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux</i></p>
+<h3>Отладчик</h3>
+<p>Для Qt Creator понадобится gdb с поддержкой python.</p>
+<p>Скачиваем исходники <a href="https://launchpad.net/gdb-linaro/+download">Linaro GDB</a>.
+Распаковываем в <i>/home/user/beaglebone/gdb-linaro-7.6-2013.05-sources</i>
+Собираем:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/gdb-linaro-7.6-2013.05-sources
+~/beaglebone/gdb-linaro-7.6-2013.05-sources$ ./configure --target<span class="o">=</span>arm-elf-linux-gnueabihf --prefix<span class="o">=</span>/home/user/beaglebone/gdb-linaro-7.6-2013.05
+~/beaglebone/gdb-linaro-7.6-2013.05-sources$ make -j <span class="m">2</span>
+~/beaglebone/gdb-linaro-7.6-2013.05-sources$ make install
+</code></pre></div>
+
+
+<p>GDB будет установлен в каталог <i>/home/user/beaglebone/gdb-linaro-7.6-2013.05</i>. Поддержа python должна включиться автоматически.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Hard-coded пути в QtCore.dll</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Hard-coded пути в QtCore.dll</h1>
+    <span class="meta">
+      <time class="published" datetime="2016-01-09T00:00:00+05:00">
+        09 Январь 2016 г., Сб
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>После обновления Qt 5.5.0 до Qt 5.5.1 оказалось, что приложение перестало работать.
+Выдаваемые ошибки:</p>
+<blockquote class="blockquote">
+This application failed to start because it could not find or load the Qt platform plugin "windows".
+Available platform plugins are: minimal, offscreen, windows windows.
+Reinstalling the application may fix the problem.
+</blockquote>
+
+<p>и</p>
+<blockquote class="blockquote">
+Microsoft Visual C++ Runtime Library
+Runtime Error!
+This application has requested the Runtime to terminate it in an unusual way.
+Please contact the application's support team for more information.
+</blockquote>
+
+<p><img alt="QtCore Failure 1" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/01/09/qtcore-hard-coded-paths-1.png" /></p>
+<p><img alt="QtCore Failure 2" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/01/09/qtcore-hard-coded-paths-2.png" /></p>
+<p>Поиск недостающих зависимостей в dependency walker ничего не дал. Нужные пакеты MS VC++ Redistibutable установлены..</p>
+<p>Скачал прежнюю версию Qt, 5.5.0, но случайно установил её не в <em>D:\Qt</em>, а в <em>C:\Qt</em> (по умолчанию). Копирование библиотек из этой установки в каталог к приложению привёл его в рабочее состояние.</p>
+<p>По объёму и версии библиотеки оказались идентичные. В сравнении содержимого обнаружилось отличие:</p>
+<p><img alt="QtCore Compare" class="img-fluid" src="https://blog.riuson.com/images/posts/2016/01/09/qtcore-hard-coded-paths-3.png" /></p>
+<p>Библиотека QtCore5.dll содержит в себе строку пути <strong>qt_prfxpath</strong> к месту установки библиотеки Qt на компьютере разработчика.</p>
+<p>В багтрекере обнаружился следующий тикет: <a href="https://bugreports.qt.io/browse/QTBUG-31760">QtQTBUG-31760 Local path information is baked into Qt5Core.dll causing very hard to reproduce crashes</a></p>
+<p>В качестве решения предлагают задействовать <a href="http://doc.qt.io/qt-5/qt-conf.html">qt.conf</a> для переопределения путей.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

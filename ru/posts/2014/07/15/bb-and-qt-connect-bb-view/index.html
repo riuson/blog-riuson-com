@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — подключение дисплея BB-View</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+    <meta name="tags" content="BB-View" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — подключение дисплея BB-View</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-15T21:38:00+05:00">
+        15 Июль 2014 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>К сожалению, придётся перекомпилировать ядро. Видео будет работать сразу (за исключением порядка цветов), а вот подключение сенсорной панели не совпадает со стандартным 4-проводным интерфейсом TI.</p>
+<p class="p-3 mb-2 bg-info text-white">Первоисточник:
+"How-to BB-View on latest Debian"<br>
+http://www.element14.com/community/thread/31051/l/how-to-bb-view-on-latest-debian</p>
+<p>Создаём каталог <i>/home/user/beaglebone/kernel</i> и заходим в него:</p>
+<div class="highlight"><pre><span></span><code>$ mkdir /home/user/beaglebone/kernel
+$ <span class="nb">cd</span> /home/user/beaglebone/kernel
+</code></pre></div>
+
+
+<p>Если на ПК <strong>git</strong> ещё не установлен, устанавливаем:</p>
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install git
+</code></pre></div>
+
+
+<p>Клонируем проект <strong>linux-dev</strong> автора Robert Nelson. Готовьтесь к большой загрузке (~100 МБ для кросс-компилятора и ~700 МБ для исходников ядра).</p>
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/RobertCNelson/linux-dev.git
+</code></pre></div>
+
+
+<p>Заходим в новый каталог <i>linux-dev</i> и выбираем ветку/тег, соответствующую версии Debian.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> linux-dev
+$ git checkout <span class="m">3</span>.8.13-bone53 -b tmp
+</code></pre></div>
+
+
+<p>Теперь нам нужно собрать базовый образ, чтобы каталог драйверов плат расширения заполнился. Сценарий подскажет вам, если понадобится что-то сделать или доустановить.</p>
+<div class="highlight"><pre><span></span><code>$ ./build_kernel.sh
+</code></pre></div>
+
+
+<p>Процесс будет длиться час или около того. Наберитесь терпения...</p>
+<p><strong>По состоянию на 2014-07-15:</strong>
+Скачиваем в каталог <i>/home/user/beaglebone/kernel</i> архив <i>BB-View Angstrom Source Code</i>.
+Взять его можно здесь: <a href="http://www.element14.com/community/docs/DOC-55844?ICID=beagleboneblack-bbview-learn">Expansion Board for BeagleBone family with 7 inch LCD</a> - <a href="http://www.element14.com/community/docs/DOC-55844?ICID=beagleboneblack-bbview-learn#cdownloads">Downloads</a>.</p>
+<p>Вытаскиваем оттуда два файла:</p>
+<div class="highlight"><pre><span></span><code>$ unzip angstrom-source.zip
+$ bzip2 -cd bb-black-kernel-3.8.13-bb-view.tar.bz2 <span class="p">|</span> tar -xvf -
+$ cp kernel/kernel/drivers/input/touchscreen/ti_am335x_tsc.c ../linux-dev/KERNEL/drivers/input/touchscreen/
+$ cp kernel/kernel/firmware/capes/BB-VIEW-LCD7-01-00A0.dts ../linux-dev/KERNEL/firmware/capes/
+</code></pre></div>
+
+
+<p><strong>По состоянию на 2014-09-02:</strong>
+Скачиваем в каталог <i>/home/user/beaglebone/kernel</i> архив <i>Debian Source Code Patched for BB View</i>.
+Взять его можно здесь: <a href="http://www.element14.com/community/docs/DOC-67958?ICID=beagleboneblack-bbview-software">element14: BB View LCD Cape Software Download Centre[1]</a>.</p>
+<p>Вытаскиваем оттуда три файла:</p>
+<div class="highlight"><pre><span></span><code>$ unzip BB<span class="se">\ </span>VIEW<span class="se">\ </span>Debian<span class="se">\ </span>Source<span class="se">\ </span>Code.zip
+$ <span class="nb">cd</span> BB<span class="se">\ </span>VIEW<span class="se">\ </span>Debian<span class="se">\ </span>Source<span class="se">\ </span>Code/
+$ bzip2 -cd bb-black-kernel-3.8.13-bb-view.tar.bz2 <span class="p">|</span> tar -xvf -
+$ cp kernel/kernel/drivers/input/touchscreen/ti_am335x_tsc.c ../linux-dev/KERNEL/drivers/input/touchscreen/
+$ cp kernel/kernel/include/linux/mfd/ti_am335x_tscadc.h ../linux-dev/KERNEL/include/linux/mfd/
+$ cp kernel/kernel/firmware/capes/BB-VIEW-LCD7-01-00A0.dts ../linux-dev/KERNEL/firmware/capes/
+</code></pre></div>
+
+
+<p>Теперь надо включить добавленное в сборку. Открываем файл:</p>
+<div class="highlight"><pre><span></span><code>$ nano /home/user/beaglebone/kernel/linux-dev/KERNEL/firmware/Makefile
+</code></pre></div>
+
+
+<p>Добавляем следующую строку где-то около 192-ой (CTRL-C показывает текущую позицию курсора):</p>
+<div class="highlight"><pre><span></span><code>BB-VIEW-LCD7-01-00A0.dtbo \
+</code></pre></div>
+
+
+<p>Не забываем про закрывающий слеш, это важно. Теперь сохраняем и выходим, нажимая CTRL-O, Enter, CTRL-X.
+Переходим обратно в корневой каталог <i>linux-dev</i>:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/kernel/linux-dev
+</code></pre></div>
+
+
+<p>Теперь запускаем пересборку ядра, это уже не должно занять много времени:</p>
+<div class="highlight"><pre><span></span><code>$ ./tools/rebuild.sh
+</code></pre></div>
+
+
+<p>В итоге получаем каталог <i>/home/user/beaglebone/kernel/linux-dev/deploy</i> .
+Из него размещаем файлы на SD карте:
+  * <i>deploy/config-3.8.13-bone53</i> копируем в <i>BEAGLE_BONE/config-3.8.13-bone53</i>
+  * <i>deploy/3.8.13-bone53.zImage</i> копируем в <i>BEAGLE_BONE/zImage</i>
+  * <i>deploy/3.8.13-bone53-dtbs.tar.gz</i> распаковываем в <i>BEAGLE_BONE/dtbs</i>
+  * <i>deploy/3.8.13-bone53-firmware.tar.gz</i> распаковываем в <i>rootfs/lib/firmware/</i>
+  * <i>deploy/3.8.13-bone53-modules.tar.gz</i> распаковываем в <i>rootfs/</i></p>
+<p>Также, надо включить поддержку этого дисплея.
+Открываем файл <i>BEAGLE_BONE/uEnv.txt</i>. Где-то после строки #Disable HDMI добавляем параметры загрузки, в которых отключаем поддержку HDMI и включаем BB-View:</p>
+<div class="highlight"><pre><span></span><code>optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01
+</code></pre></div>
+
+
+<p>Подключаем карту памяти к плате и загружаемся. Проверяем, что HDMI выключен (должна отсутствовать буква ...-L в списке), а BB-View включен:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ cat /sys/devices/bone_capemgr.9/slots
+ <span class="m">0</span>: <span class="m">54</span>:PF--- 
+ <span class="m">1</span>: <span class="m">55</span>:PF--- 
+ <span class="m">2</span>: <span class="m">56</span>:PF--- 
+ <span class="m">3</span>: <span class="m">57</span>:PF--- 
+ <span class="m">4</span>: ff:P-O-L Bone-LT-eMMC-2G,00A0,Texas Instrument,BB-BONE-EMMC-2G
+ <span class="m">5</span>: ff:P-O-- Bone-Black-HDMI,00A0,Texas Instrument,BB-BONELT-HDMI
+ <span class="m">6</span>: ff:P-O-- Bone-Black-HDMIN,00A0,Texas Instrument,BB-BONELT-HDMIN
+ <span class="m">7</span>: ff:P-O-L Override Board Name,00A0,Override Manuf,BB-VIEW-LCD7-01
+debian@beaglebone:~$ 
+</code></pre></div>
+
+
+<p>Если всё нормально... в ходе загрузки наблюдаем синего пингвина :)
+Как исправить - в продолжении.</p>
+<p>Приобрести BB-View можно на <a href="http://www.ebay.com/itm/BB-VIEW-70-Embest-7-Inch-Lcd-Display-Cape-For-Beaglebone-/141212194989?pt=UK_BOI_Electrical_Components_Supplies_ET&amp;hash=item20e0e718ad">eBay</a>.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+        <a href="https://blog.riuson.com/tag/bb-view.html">#BB-View</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

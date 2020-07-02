@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Статическая сборка Qt на Windows с MinGW</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+          <link rel="alternate" hreflang="en" href="https://blog.riuson.com/en/posts/2017/07/19/qt-static-build-on-windows-with-mingw">
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Статическая сборка Qt на Windows с MinGW</h1>
+    <span class="meta">
+      <time class="published" datetime="2017-07-19T00:00:00+05:00">
+        19 Июль 2017 г., Ср
+      </time>
+    </span>
+    <span class="meta">
+            <a href="https://blog.riuson.com/en/posts/2017/07/19/qt-static-build-on-windows-with-mingw" hreflang="en">en</a>
+
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Оригинал: <a href="https://wiki.qt.io/Building_a_static_Qt_for_Windows_using_MinGW">Building a static Qt for Windows using MinGW</a></p>
+<p>Загрузить и установить Qt. Не забыть выбрать набор MinGW:</p>
+<p><img alt="Установка" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png" /></p>
+<p>Запомнить каталог, куда установился MinGW. Например, *<em>D:\Qt\Tools\mingw530_32\bin*</em></p>
+<p>Загрузить скрипт для PowerShell <a href="https://sourceforge.net/p/qtlmovie/code/ci/v1.2.16/tree/build/windows-build-qt-static.ps1?format=raw">windows-build-qt-static.ps1</a>.
+Сохранить, например в *<em>D:\Qt*</em></p>
+<p>Выбрать версию Qt в <a href="http://download.qt.io/official_releases/qt/">Qt Downloads</a> и запомнить ссылку на неё <strong>{Версия}/{Версия}/single/qt-everywhere-opensource-src-{Версия}.zip</strong>. Например, http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip</p>
+<p>Создать файл <strong>windows-build-run.bat</strong> со следующим содержимым:</p>
+<div class="highlight"><pre><span></span><code><span class="err">PowerShell -NoProfile -ExecutionPolicy Bypass -Command &quot;&amp; &#39;D:\Qt\windows-build-qt-static.ps1&#39; -QtSrcUrl &#39;http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip&#39; -QtStaticDir &#39;D:\Qt\Static591&#39; -MingwDir &#39;D:\Qt\Tools\mingw530_32&#39; -QtVersion &#39;5.9.1-Static&#39;</span>
+</code></pre></div>
+
+
+<p>где
+  * -QtSrcUrl - ссылка на архив с исходниками;
+  * -QtStaticDir - каталог для установки новой статической сборки Qt;
+  * -MingwDir - путь к набору MinGW.</p>
+<div class="alert alert-warning" role="alert">
+Строка QtVersion не должна содержать пробелов!<br>
+Иначе при сборке будет получена ошибка типа
+<code><br>
+ERROR: Invalid command line parameter 'Static'.<br>
+mingw32-make: *** No targets specified and no makefile found.  Stop.<br>
+mingw32-make: *** No rule to make target 'install'.
+</code>
+</div>
+
+<p>Запустить <strong>cmd.exe</strong>, перейти в каталог со скриптами, <strong>D:\Qt</strong>, запустить <strong>windows-build-run.bat</strong></p>
+<p>Если выдаётся ошибка на тему <strong>SQLite</strong>, надо открыть файл <strong>windows-build-qt-static.ps1</strong> в редакторе и заменить <strong>-qt-sql-sqlite</strong> на <strong>-sql-sqlite</strong>.</p>
+<p>Ждём несколько часов.............</p>
+<p>Добавляем собранный Qt в Qt Creator: <strong>Инструменты</strong> → <strong>Параметры</strong> → <strong>Сборка и запуск</strong> → <strong>Профили Qt</strong> → <strong>Добавить...</strong>. Указать путь к файлу <strong>qmake.exe</strong>.</p>
+<p><img alt="Версии Qt" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png" /></p>
+<p>Добавляем новый комплект: <strong>Инструменты</strong> → <strong>Параметры</strong> → <strong>Сборка и запуск</strong> → <strong>Комплекты</strong> → <strong>Добавить...</strong>. Выбрать компилятор C/C++ = MinGW 5.3.0, отладчик = GNU gdb из MinGW 5.3.0 и свежесобранный профиль Qt.</p>
+<p><img alt="Комплекты" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png" /></p>
+<p>Выбрать комплект для проект:</p>
+<p><img alt="выбор комплекта" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png" /></p>
+<p>После сборки получится изрядно потолстевший исполняемый файл.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Обновление PATH пользователя из командной строки</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Git" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Обновление PATH пользователя из командной строки</h1>
+    <span class="meta">
+      <time class="published" datetime="2015-09-03T00:00:00+05:00">
+        03 Сентябрь 2015 г., Чт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Обновление пользовательской переменной окружения PATH из командной строки.</p>
+<h3>Git Bash:</h3>
+<div class="highlight"><pre><span></span><code><span class="n">setlocal</span><span class="w"> </span><span class="n">ENABLEEXTENSIONS</span><span class="w"></span>
+<span class="k">set</span><span class="w"> </span><span class="n">KEY_NAME</span><span class="o">=</span><span class="ss">&quot;HKEY_CURRENT_USER\Environment&quot;</span><span class="w"></span>
+<span class="k">set</span><span class="w"> </span><span class="n">VALUE_NAME</span><span class="o">=</span><span class="ss">&quot;PATH&quot;</span><span class="w"></span>
+
+<span class="k">FOR</span><span class="w"> </span><span class="o">/</span><span class="n">F</span><span class="w"> </span><span class="ss">&quot;usebackq skip=2 tokens=1,2*&quot;</span><span class="w"> </span><span class="o">%%</span><span class="n">A</span><span class="w"> </span><span class="ow">IN</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="n">REG</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">%</span><span class="n">KEY_NAME</span><span class="o">%</span><span class="w"> </span><span class="o">/</span><span class="n">v</span><span class="w"> </span><span class="o">%</span><span class="n">VALUE_NAME</span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="o">^&gt;</span><span class="n">nul</span><span class="err">`</span><span class="p">)</span><span class="w"> </span><span class="n">DO</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">ValueName</span><span class="o">=%%</span><span class="n">A</span><span class="w"></span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">ValueType</span><span class="o">=%%</span><span class="n">B</span><span class="w"></span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">User_Path</span><span class="o">=%%</span><span class="n">C</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="n">defined</span><span class="w"> </span><span class="n">ValueName</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nv">@echo</span><span class="w"> </span><span class="n">User_Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">User_Path</span><span class="o">%</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="nv">@echo</span><span class="w"> </span><span class="o">%</span><span class="n">KEY_NAME</span><span class="o">%</span><span class="err">\</span><span class="o">%</span><span class="n">VALUE_NAME</span><span class="o">%</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">found</span><span class="p">.</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+
+<span class="k">If</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="ss">&quot;%User_Path%&quot;</span><span class="o">==</span><span class="ss">&quot;%User_Path:Git=%&quot;</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">echo</span><span class="w"> </span><span class="n">Already</span><span class="w"> </span><span class="n">added</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">echo</span><span class="w"> </span><span class="n">Adding</span><span class="w"></span>
+<span class="w">    </span><span class="n">setx</span><span class="w"> </span><span class="k">PATH</span><span class="w"> </span><span class="ss">&quot;%User_Path%;c:\Tools\Git64\bin&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+
+<span class="n">echo</span><span class="w"> </span><span class="o">%</span><span class="k">PATH</span><span class="o">%</span><span class="w"></span>
+</code></pre></div>
+
+
+<h3>PowerShell</h3>
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">DisplayPath</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="err">$</span><span class="n">userPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Current path: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">userPath</span><span class="p">)</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+
+<span class="k">function</span><span class="w"> </span><span class="n">EnsurePathAdded</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">param</span><span class="p">(</span><span class="o">[</span><span class="n">System.String</span><span class="o">]</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">  </span><span class="err">$</span><span class="n">userPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="n">userPath</span><span class="p">.</span><span class="k">Contains</span><span class="p">(</span><span class="err">$</span><span class="n">requiredPath</span><span class="p">))</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Exists: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="err">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="err">$</span><span class="n">userPathNew</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">userPath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="ss">&quot;;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="n">userPathNew</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">$</span><span class="n">userPathUpdated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="n">userPathUpdated</span><span class="p">.</span><span class="k">Contains</span><span class="p">(</span><span class="err">$</span><span class="n">requiredPath</span><span class="p">))</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Added: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="err">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Failed to add path: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="err">}</span><span class="w"></span>
+<span class="w">  </span><span class="err">}</span><span class="w"></span>
+<span class="err">}</span><span class="w"></span>
+
+<span class="n">DisplayPath</span><span class="w"></span>
+<span class="n">EnsurePathAdded</span><span class="w"> </span><span class="o">-</span><span class="n">requiredPath</span><span class="w"> </span><span class="ss">&quot;c:\Work\Tools\Git64\bin&quot;</span><span class="w"></span>
+<span class="n">DisplayPath</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>Опциональный запуск через bat:</p>
+<div class="highlight"><pre><span></span><code><span class="err">@echo off</span>
+<span class="err">set dir=%cd%</span>
+<span class="err">PowerShell.exe -ExecutionPolicy bypass %dir%\update-path.ps1</span>
+</code></pre></div>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/git.html">#Git</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

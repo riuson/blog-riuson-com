@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — Сборка Qt 5</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — Сборка Qt 5</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-15T22:02:00+05:00">
+        15 Июль 2014 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Сборка Qt 5 для Debian и BeagleBone.</p>
+<p>Данный материал основан на "Bare Metal Qt 5.2 on BeagleBone Black Ubuntu" <a href="http://armsdr.blogspot.ru/2014/01/bare-metal-qt-52-on-beaglebone-black.html?showComment=1405048695791#c8161014580628478124">Part 1</a>, <a href="http://armsdr.blogspot.ru/2014/01/bare-metal-qt-52-on-beaglebone-black_10.html">Part 2</a>.</p>
+<p><strong>Внимание: для Qt 4.7, 4.8 процедура настройки другая.</strong>
+Её можно посмотреть, например, здесь: <a href="http://we.easyelectronics.ru/rcdimon/qt-na-beagleboard---blueshark.html">Qt на BeagleBoard / BlueShark</a>.</p>
+<p>С <a href="http://download.qt-project.org/">официального сайта</a> берём <a href="http://download.qt-project.org/official_releases/qt/5.2/5.2.1/single/qt-everywhere-opensource-src-5.2.1.tar.xz">qt-everywhere-opensource-src-5.2.1.tar.xz</a>.\
+Распаковываем в /<i>home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7</i> .</p>
+<p>Настраиваем mkspecs.</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7/qtbase/mkspecs/devices
+$ cp -r linux-beagleboard-g++ linux-beaglebone-g++
+$ nano linux-beaglebone-g++/qmake.conf
+</code></pre></div>
+
+
+<p>Меняем во флагах компилятора</p>
+<div class="highlight"><pre><span></span><code>-mfloat-abi=softfp
+</code></pre></div>
+
+
+<p>на</p>
+<div class="highlight"><pre><span></span><code>-mfloat-abi=hard
+</code></pre></div>
+
+
+<p>В конце файла, перед строкой load(qt_config), добавляем строки для Tslib:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">QMAKE_INCDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/include
+<span class="nv">QMAKE_LIBDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/lib
+<span class="nv">QMAKE_RPATHDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/lib
+</code></pre></div>
+
+
+<p>И для ICU:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">QMAKE_INCDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/include
+<span class="nv">QMAKE_LIBDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/lib
+<span class="nv">QMAKE_RPATHDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/lib
+</code></pre></div>
+
+
+<p>Далее:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7/qtbase/mkspecs
+$ cp -r linux-arm-gnueabi-g++ linux-arm-gnueabihf-g++
+$ nano linux-arm-gnueabihf-g++/qmake.conf
+</code></pre></div>
+
+
+<p>Меняем путь к компилятору:</p>
+<div class="highlight"><pre><span></span><code><span class="c"># modifications to g++.conf</span>
+<span class="nv">QMAKE_CC</span>         <span class="o">=</span> arm-linux-gnueabi-gcc
+<span class="nv">QMAKE_CXX</span>        <span class="o">=</span> arm-linux-gnueabi-g++
+<span class="nv">QMAKE_LINK</span>       <span class="o">=</span> arm-linux-gnueabi-g++
+<span class="nv">QMAKE_LINK_SHLIB</span> <span class="o">=</span> arm-linux-gnueabi-g++
+</code></pre></div>
+
+
+<p>на</p>
+<div class="highlight"><pre><span></span><code><span class="c"># modifications to g++.conf</span>
+<span class="nv">CROSS_TOOL</span>       <span class="o">=</span> /home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf
+<span class="nv">QMAKE_CC</span>         <span class="o">=</span> <span class="nv">$$</span>CROSS_TOOL-gcc
+<span class="nv">QMAKE_CXX</span>        <span class="o">=</span> <span class="nv">$$</span>CROSS_TOOL-g++
+<span class="nv">QMAKE_LINK</span>       <span class="o">=</span> <span class="nv">$$</span>CROSS_TOOL-g++
+<span class="nv">QMAKE_LINK_SHLIB</span> <span class="o">=</span> <span class="nv">$$</span>CROSS_TOOL-g++
+</code></pre></div>
+
+
+<p><a href="http://qt-project.org/doc/qt-5/configure-options.html">Конфигурация</a> Qt 5.</p>
+<p>Создаём скрипт конфигурации:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7
+$ touch ./start-conf.sh
+$ chmod +x ./start-conf.sh
+$ nano ./start-conf.sh
+</code></pre></div>
+
+
+<p>Пишем в нём:</p>
+<div class="highlight"><pre><span></span><code>./configure -prefix /usr/share/qt-5.2.1-armv7 -v -release -opensource -confirm-license -no-largefile -no-accessibility -nomake examples -nomake tests -qt-sql-sqlite -plugin-sql-sqlite -qt-zlib -no-gif -qt-libpng -qt-libjpeg -no-nis -no-eglfs -qpa linuxfb -no-cups -tslib -icu -xplatform linux-arm-gnueabihf-g++ -device linux-beaglebone-g++ -device-option <span class="nv">CROSS_COMPILE</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf- -qt-pcre
+</code></pre></div>
+
+
+<p>Сохраняем (Ctrl+O, Enter) и выходим (Ctrl+X).
+Дополнительные опции можно посмотреть по команде:</p>
+<div class="highlight"><pre><span></span><code>$ ./configure --help
+</code></pre></div>
+
+
+<p>Запускаем конфигурацию, собираем и устанавливаем:</p>
+<div class="highlight"><pre><span></span><code>$ ./start-conf.sh
+$ make
+$ sudo make install
+</code></pre></div>
+
+
+<p>Копируем каталог <i>/usr/share/qt-5.2.1-armv7</i> на BeagleBone.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Установка Windows 7 на GPT и UEFI BIOS</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Windows7" />
+    <meta name="tags" content="GPT" />
+    <meta name="tags" content="UEFI" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Установка Windows 7 на GPT и UEFI BIOS</h1>
+    <span class="meta">
+      <time class="published" datetime="2015-01-10T00:00:00+05:00">
+        10 Январь 2015 г., Сб
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Как сделать из обычного диска Windows 7 установочный диск для UEFI/GPT.</p>
+<p>Требуется USB Flash Drive на 4 ГБ или больше.</p>
+<ul>
+<li>Качаем образ оригинальной Windows 7 x64 Ultimate, можно и с MSDN, если есть логин;</li>
+<li>Форматируем флэшку в один раздел с FAT32;</li>
+<li>Распаковываем образ винды на флэшку;</li>
+<li>Удаляем с флэшки 1 файл - <strong>EI.CFG</strong>, лежит по пути <strong>FLASH:\SOURCES\EI.CFG</strong>, это поволит выбрать версию устанавливаемой винды, которая вам нужна;</li>
+<li>Открываем на диске папку <strong>FLASH:\EFI</strong>;</li>
+<li>Создаём внутри неё папку <strong>BOOT</strong> (<strong>FLASH:\EFI\BOOT</strong>);</li>
+<li>Копируем всё содержимое из <strong>FLASH:\EFI\MICROSOFT\BOOT</strong> в <strong>FLASH:\EFI\BOOT</strong>;</li>
+<li>Архиватором 7-zip открываем файл <strong>FLASH:\SOURCES\BOOT.WIM</strong> или <strong>FLASH:\SOURCES\INSTALL.WIM</strong>;</li>
+<li>В архиве переходим в папку <strong>\1\Windows\Boot\EFI</strong>;</li>
+<li>В этот папке архива находим файл <strong>BOOTMGFW.EFI</strong> и копируем его на флэшку в папку <strong>FLASH:\EFI\BOOT\ </strong> ;</li>
+<li>Переименовываем <strong>BOOTMGFW.EFI</strong> в <strong>BOOTX64.EFI</strong> (будет <strong>FLASH:\EFI\BOOT\BOOTX64.EFI</strong>);</li>
+<li>Загружаем комп в биос UEFI;</li>
+<li>В загрузочном меню ищем что-то типа UEFI (FAT) Flash Drive. Там должна быть обычная флэшка, и флэшка в режиме UEFI загрузчика. Вот вторую и надо. См. рисунок ниже;</li>
+<li>Запускаем её и устанавливаем Windows на GPT в режиме UEFI.</li>
+</ul>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/windows7.html">#Windows7</a>
+        <a href="https://blog.riuson.com/tag/gpt.html">#GPT</a>
+        <a href="https://blog.riuson.com/tag/uefi.html">#UEFI</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

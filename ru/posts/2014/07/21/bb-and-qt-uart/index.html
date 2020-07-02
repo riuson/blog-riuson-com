@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — UART</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — UART</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-21T10:13:00+05:00">
+        21 Июль 2014 г., Пн
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <h3>Настройка пинов</h3>
+<p>В комплекте с исходниками ядра можно найти файлы BB-UART1-00A0.dts, BB-UART2-00A0.dts, BB-UART4-00A0.dts, BB-UART4-RTSCTS-00A0.dts, BB-UART5-00A0.dts.
+Перечень задействованных в них пинов:
+  * BB-UART1-00A0.dts
+    * P9.24 - кнопка User1 на BB-View
+    * P9.26
+  * BB-UART2-00A0.dts
+    * P9.21
+    * P9.22
+  * BB-UART4-00A0.dts
+    * P9.13
+    * P9.11 - кнопка User3 на BB-View
+  * BB-UART5-00A0.dts
+    * P8.37 - LCD Data
+    * P8.38 - LCD Data</p>
+<p>Отсюда видно, что можно задействовать UART2.
+На BeagleBone открываем файл настроек окружения:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo nano /boot/uboot/uEnv.txt
+</code></pre></div>
+
+
+<p>Меняем ранее добавленную строку параметров на</p>
+<div class="highlight"><pre><span></span><code>optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01,BB-UART2
+</code></pre></div>
+
+
+<p>Перезагружаемся.</p>
+<p>Теперь пины подключены к UART:</p>
+<div class="highlight"><pre><span></span><code>sudo cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
+...
+group: pinmux_bb_uart2_pins
+pin <span class="m">84</span> <span class="o">(</span>44e10950<span class="o">)</span>
+pin <span class="m">85</span> <span class="o">(</span>44e10954<span class="o">)</span>
+...
+</code></pre></div>
+
+
+<p>В списке устройств должно появиться /dev/ttyO2.</p>
+<h3>Проверка обмена</h3>
+<p>Подключаем к ПК через адаптер RS-232 - UART 3.3V. На ПК можно воспользоваться любым терминалом для работы с RS-232. Настраиваем на скорость 115200, 8 бит, проверки чётности нет, 1 стоп бит.</p>
+<h4>Проверка передачи на ПК</h4>
+<p>На BeagleBone:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo stty -F /dev/ttyO2 speed <span class="m">115200</span> cs8 -cstopb -parenb
+<span class="m">115200</span>
+debian@beaglebone:~$ <span class="nb">echo</span> <span class="s1">&#39;Hello, World!&#39;</span> &gt; /dev/ttyO2
+</code></pre></div>
+
+
+<p>На ПК должна быть принята эта строка.</p>
+<h4>Проверка передачи на BeagleBone</h4>
+<p>Включаем приём на плате:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ cat /dev/ttyO2
+</code></pre></div>
+
+
+<p>Отправляем строку текста с ПК, заканчивающуюся /r или /n. Строка должна отобразиться в консоли BeagleBone.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

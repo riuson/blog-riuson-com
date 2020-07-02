@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - BB & Qt — Tslib</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Qt" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>BB & Qt — Tslib</h1>
+    <span class="meta">
+      <time class="published" datetime="2014-07-15T21:54:00+05:00">
+        15 Июль 2014 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Сборка Tslib для Qt.</p>
+<h3>Сборка</h3>
+<p>Клонируем репозиторий <a href="https://github.com/kergoth/tslib">tslib</a>:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/
+$ mkdir tslib
+$ <span class="nb">cd</span> tslib
+$ git clone https://github.com/kergoth/tslib.git .
+</code></pre></div>
+
+
+<p>Устанавливаем дополнительные пакеты для создания файлов конфигурации:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/tslib/
+$ sudo apt-get install autoconf automake gettext libtool
+$ ./autogen.sh
+</code></pre></div>
+
+
+<p>Создаём скрипт сборки:</p>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/tslib/
+$ touch build.sh
+$ chmod +x build.sh
+$ nano build.sh
+</code></pre></div>
+
+
+<p>С текстом:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf-gcc
+<span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf-g++
+<span class="nb">export</span> <span class="nv">CONFIG_SITE</span><span class="o">=</span>arm-linux.autogen
+./configure --build<span class="o">=</span>i386-linux --host<span class="o">=</span>arm-linux --target<span class="o">=</span>arm --disable-inputapi --prefix<span class="o">=</span>/usr/share/tslib-armv7
+make
+</code></pre></div>
+
+
+<p>Собираем и устанавливаем:</p>
+<div class="highlight"><pre><span></span><code>$ ./build.sh
+$ sudo make install
+</code></pre></div>
+
+
+<p>Получаем каталог <i>/usr/share/tslib-armv7</i>, копируем на BeagleBone.</p>
+<h3>Настройка и калибровка</h3>
+<p>В <i>/dev/input/</i> требуется определить, какой из event'ов относится к touchscreen.
+Можно запустить, например, дамп и понажимать на панель:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo cat /dev/input/event1 <span class="p">|</span> hexdump
+</code></pre></div>
+
+
+<p>Либо запросить инфу о каждом event'е, пока не найдётся tsc:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo udevadm info -n input/event1 -q path
+
+/devices/ocp.3/44e0d000.tscadc/tsc/input/input1/event1
+</code></pre></div>
+
+
+<p>Теперь надо создать симлинк к этому event'у и разрешить доступ к нему.
+Создаём в каталоге <i>/etc/udev/rules.d</i> файл <i>80-touchscreen.rules</i> с одной строкой:</p>
+<div class="highlight"><pre><span></span><code>KERNEL==&quot;event1&quot;, SUBSYSTEM==&quot;input&quot;, SUBSYSTEMS==&quot;input&quot;, ATTRS{name}==&quot;ti-tsc&quot;, SYMLINK+=&quot;input/touchscreen&quot;, MODE=&quot;0644&quot;
+</code></pre></div>
+
+
+<p>и перезагружаемся. Должен появиться <i>/dev/input/touchscreen</i> с правами на чтение для всех.
+<a href="http://rus-linux.net/lib.php?name=/MyLDP/sys-conf/udev.html">Инструкция по udev</a>. В Debian udevinfo заменяется на udevadm info.</p>
+<p>Создаём в Debian скрипт калибровки:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ mkdir /home/debian/test
+debian@beaglebone:~$ <span class="nb">cd</span> /home/debian/test
+debian@beaglebone:~/test$ nano ./calibr.sh
+</code></pre></div>
+
+
+<p>С текстом:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="nb">export</span> <span class="nv">TSLIB_TSDEVICE</span><span class="o">=</span>/dev/input/touchscreen
+<span class="nb">export</span> <span class="nv">TSLIB_CONFFILE</span><span class="o">=</span>/etc/ts.conf
+<span class="nb">export</span> <span class="nv">TSLIB_CALIBFILE</span><span class="o">=</span>/etc/pointercal2
+
+/usr/share/tslib-armv7/bin/ts_calibrate
+<span class="c1">#/usr/share/tslib-armv7/bin/ts_test</span>
+</code></pre></div>
+
+
+<p>Закрываем редактор. Запускаем скрипт калибровки:</p>
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/test$ chmod +x ./calibr.sh
+debian@beaglebone:~/test$ sudo ./calibr.sh
+</code></pre></div>
+
+
+<p>В результате будет создан файл <i>/etc/pointercal2</i> с данными калибровки.
+После калибровки, если в скрипте заменить ts_calibrate на ts_test, можно проверить работу touchscreen.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/beaglebone.html">/BeagleBone</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

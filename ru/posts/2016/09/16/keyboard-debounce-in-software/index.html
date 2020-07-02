@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Программное подавление дребезга контактов</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="STM32" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://blog.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Программное подавление дребезга контактов</h1>
+    <span class="meta">
+      <time class="published" datetime="2016-09-16T00:00:00+05:00">
+        16 Сентябрь 2016 г., Пт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Обычно я использовал следующий алгоритм антидребезга:</p>
+<ol>
+<li>Разрешаем EXTI <abbr title="Interrupt Service Routine">ISR</abbr> по входам с клавиш, по обоим фронтам.</li>
+<li>Происходит ожидание изменения уровня сигнала на входах.</li>
+<li>Прерывание по EXTI, вызов EXTI ISR.<br>
+В EXTI ISR останавливаем и запускаем заново таймер. Например, на 20 мс.</li>
+<li>Если ко времени вызова ISR таймера произойдёт новый вызов EXTI ISR, то таймер будет перезапущен и начнёт считать заново.</li>
+<li>Таймер досчитал, вызывается ISR таймера.
+Таймер останавливаем.<br>
+Здесь состояние клавиатуры можно считать стабильным. Поэтому считываем её состояние и передаём на обработку, куда следует.</li>
+<li>Переходим к пункту 1.</li>
+</ol>
+<p>Этот же метод вполне пригоден для определения таймаута по приёму UART на микроконтроллерах, у которых отсутствует отдельное прерывание по таймауту.</p>
+<p>На CyberForum'е заметили, что при плохом контакте прерывания от клавиатуры могут идти слишком часто и микроконтроллер будет всё время висеть в прерываниях.
+Отсюда возникла небольшая доработка.</p>
+<ol>
+<li>Разрешаем EXTI ISR по входам с клавиш, по обоим фронтам.</li>
+<li>Нажимается ржавая кнопка.</li>
+<li>По первому вызову EXTI ISR:</li>
+<li>Запускается таймер;</li>
+<li>Отключается только вызов ISR по EXTI в NVIC, флаги прерываний продолжают сохраняться в регистре PR;</li>
+<li>В ISR таймера:</li>
+<li>Останавливаем таймер;</li>
+<li>проверяем наличие флага прерывания от EXTI:<ul>
+<li>Если флаг установлен, перезапускаем таймер;</li>
+<li>Если флаг не установлен, то считываем состояние клавиатуры и передаём на обработку.</li>
+</ul>
+</li>
+<li>Переходим к пункту 1.</li>
+</ol>
+<p><a href="https://youtu.be/fA2tO8wWSKo"><i class="fab fa-youtube"></i> Видео: Демонстрация подавления дребезга контактов</a></p>
+<p>Наличие матричной клавиатуры ничего не меняет. Просто на EXTI надо завести все линии строк либо столбцов, чтобы изменение уровня сигнала из-за любой кнопки вызывало прерывание EXTI.
+В момент же считывания состояния матричной клавиатуры прерывания мешать не будут, так как таймер полностью остановлен, а EXTI ISR отключены.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://blog.riuson.com/tag/stm32.html">#STM32</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>
