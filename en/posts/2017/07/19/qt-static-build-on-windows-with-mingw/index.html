@@ -8,17 +8,17 @@
     <meta name="description" content="riuson's blog">
     <meta name="author" content="riuson">
     <!-- Bootstrap core CSS -->
-    <link href="https://blog.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
-    <link href="https://blog.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://www.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!-- Custom styles for this template -->
-    <link href="https://blog.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
-    <link href="https://blog.riuson.com/theme/css/pygments.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/css/pygments.css" rel="stylesheet">
 
 
-          <link rel="alternate" hreflang="ru" href="https://blog.riuson.com/ru/posts/2017/07/19/qt-static-build-on-windows-with-mingw">
+          <link rel="alternate" hreflang="ru" href="https://www.riuson.com/ru/posts/2017/07/19/qt-static-build-on-windows-with-mingw">
 
 
 
@@ -30,7 +30,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="https://blog.riuson.com/">riuson.com</a>
+      <a class="navbar-brand" href="https://www.riuson.com/">riuson.com</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -38,7 +38,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
               <li class="nav-link">
-                <a href="https://blog.riuson.com/ru/about">О</a>
+                <a href="https://www.riuson.com/ru/about">О</a>
               </li>
         </ul>
       </div>
@@ -46,7 +46,7 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('https://blog.riuson.com/theme/img/post-bg.jpg')">
+  <header class="masthead" style="background-image: url('https://www.riuson.com/theme/img/post-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -59,7 +59,7 @@
       </time>
     </span>
     <span class="meta">
-            <a href="https://blog.riuson.com/ru/posts/2017/07/19/qt-static-build-on-windows-with-mingw" hreflang="ru">ru</a>
+            <a href="https://www.riuson.com/ru/posts/2017/07/19/qt-static-build-on-windows-with-mingw" hreflang="ru">ru</a>
 
     </span>
   </div>
@@ -74,7 +74,7 @@
   <article>
     <p>Source: <a href="https://wiki.qt.io/Building_a_static_Qt_for_Windows_using_MinGW">Building a static Qt for Windows using MinGW</a></p>
 <p>Download Qt and install it. Also select toolchain MinGW:</p>
-<p><img alt="Install" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png" /></p>
+<p><img alt="Install" class="img-fluid" src="https://www.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-1.png" /></p>
 <p>Remember directory, where MinGW was installed. For example *<em>D:\Qt\Tools\mingw530_32\bin*</em></p>
 <p>Download script <a href="https://sourceforge.net/p/qtlmovie/code/ci/v1.2.16/tree/build/windows-build-qt-static.ps1?format=raw">windows-build-qt-static.ps1</a>.
 Save it to directory *<em>D:\Qt*</em></p>
@@ -102,11 +102,11 @@ mingw32-make: *** No rule to make target 'install'.
 <p>If you see error about <strong>SQLite</strong>, open file <strong>windows-build-qt-static.ps1</strong> in editor and replace <strong>-qt-sql-sqlite</strong> with <strong>-sql-sqlite</strong>.</p>
 <p>Wait some hours.............</p>
 <p>Add compiled Qt to Qt Creator: <strong>Tools</strong> → <strong>Options</strong> → <strong>Build &amp; Run</strong> → <strong>Qt Versions</strong> → <strong>Add...</strong>. Browse to <strong>qmake.exe</strong>.</p>
-<p><img alt="Qt Versions" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png" /></p>
+<p><img alt="Qt Versions" class="img-fluid" src="https://www.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-2.png" /></p>
 <p>Add new kit: <strong>Tools</strong> → <strong>Options</strong> → <strong>Build &amp; Run</strong> → <strong>Kit</strong> → <strong>Add...</strong>. Select compiler C/C++ = MinGW 5.3.0, debugger = GNU gdb from MinGW 5.3.0 and just compiled Qt Version.</p>
-<p><img alt="Kits" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png" /></p>
+<p><img alt="Kits" class="img-fluid" src="https://www.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-3.png" /></p>
 <p>Select kit for project:</p>
-<p><img alt="Kit's selection" class="img-fluid" src="https://blog.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png" /></p>
+<p><img alt="Kit's selection" class="img-fluid" src="https://www.riuson.com/images/posts/2017/07/19/qt-static-build-on-windows-with-mingw-4.png" /></p>
 <p>After build we could see a large executable file.</p>
   </article>
       </div>
@@ -119,10 +119,10 @@ mingw32-make: *** No rule to make target 'install'.
       <div class="row">
         <div class="col-lg-10 col-md-12 mx-auto">
   <div class="category">
-    <a href="https://blog.riuson.com/category/misc.html">/misc</a>
+    <a href="https://www.riuson.com/category/misc.html">/misc</a>
   </div>
   <div class="tags">
-        <a href="https://blog.riuson.com/tag/qt.html">#Qt</a>
+        <a href="https://www.riuson.com/tag/qt.html">#Qt</a>
   </div>
 
 <hr>
@@ -133,11 +133,11 @@ mingw32-make: *** No rule to make target 'install'.
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="https://blog.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
-  <script src="https://blog.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://www.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom scripts for this template -->
-  <script src="https://blog.riuson.com/theme/js/clean-blog.min.js"></script>
+  <script src="https://www.riuson.com/theme/js/clean-blog.min.js"></script>
 
 </body>
 </html>
