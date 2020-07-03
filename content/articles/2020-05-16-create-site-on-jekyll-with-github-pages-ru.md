@@ -1,5 +1,6 @@
 Title: Создание сайта на GitHub Pages
 Tags: jekyll
+Status: draft
 
 Настройка Jekyll для GitHub Pages на локальной машине.
 

@@ -1,5 +1,6 @@
 Title: Creating Jekyll site with GitHub Pages
 Tags: jekyll
+Status: draft
 
 How to setup Jekyll for GitHub Pages on local machine.
 
