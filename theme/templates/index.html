@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+<!-- Page Header -->
+{% block header_image %}{{ SITEURL }}/theme/img/home-bg.jpg{% endblock %}
+{% block header_content %}
+  <div class="site-heading">
+    <h1>My blog</h1>
+    <span class="subheading">
+      {% block content_title %}{% endblock %}
+    </span>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+  <!-- Main Content -->
+  {% for article in articles_page.object_list %}
+    <div class="post-preview">
+      <a href="{{ SITEURL }}/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">
+        <h2 class="post-title">
+          {{ article.title }}
+        </h2>
+        <h3 class="post-subtitle">
+          {{ article.summary }}
+        </h3>
+      </a>
+      <p class="post-meta"><time class="published" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time></p>
+    </div>
+  <hr>
+  {% endfor %}
+
+  <!-- Pager -->
+  {% if articles_page.has_other_pages() %}
+      {% include 'pagination.html' %}
+  {% endif %}
+
+<!-- /#content -->
+{% endblock content %}
