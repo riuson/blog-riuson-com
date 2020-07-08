@@ -45,7 +45,7 @@ DATE_FORMATS = {
 ARTICLE_PATHS = ['articles']
 PAGES_PATHS = ['pages']
 THEME = 'theme'
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['images', 'redirects']
 FILENAME_METADATA = r'^(?P<date>\d{4}-\d{2}-\d{2})-(?P<slug>.*)-(?P<lang>\w{2})$'
 SUMMARY_MAX_LENGTH = 10
 MARKDOWN = {
@@ -55,6 +55,10 @@ MARKDOWN = {
         'markdown.extensions.fenced_code': {},
         'markdown.extensions.attr_list': {},
     }
+}
+
+EXTRA_PATH_METADATA = {
+    'redirects/lcd-image-converter.html': {'path': 'lcd-image-converter/index.html'}
 }
 
 #PLUGIN_PATHS = ["../pelican-plugins"]
