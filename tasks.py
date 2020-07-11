@@ -117,7 +117,7 @@ def ghpages(c):
     preview(c)
     c.run('ghp-import -b {github_pages_branch} '
           '-m {commit_message} '
-          '-c riuson.com '
+          '-c www.riuson.com '
           '-n '
           '-r github '
           '{deploy_path} -p'.format(**CONFIG))
