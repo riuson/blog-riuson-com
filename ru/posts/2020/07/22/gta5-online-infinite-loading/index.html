@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - Бесконечная загрузка сессии в GTA 5 Online</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://www.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://www.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://www.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="Games" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://www.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://www.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://www.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>Бесконечная загрузка сессии в GTA 5 Online</h1>
+    <span class="meta">
+      <time class="published" datetime="2020-07-22T21:00:00+05:00">
+        22 Июль 2020 г., Ср
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>Всем играющим в GTA 5 Online известны следующие проблемы:</p>
+<ul>
+<li>Иногда нужна сессия без мешающих игроков, но с доступом к миссиям;</li>
+<li>При выходе из миссии или при смене сессии по любой иной причине, сессия может грузиться бесконечно;</li>
+<li>Rockstar ничего исправлять не желает.</li>
+</ul>
+<p>Среди распространённых, более-менее работающих решений есть два:</p>
+<ul>
+<li>Постановка процесса игры на паузу секунд на 10.<br>
+    Это приводит к отмене подключения к выбранной для вас игрой сессии и создании новой сессии с одним игроком.
+    Требуется не стандартный Диспетер задач, предоставляющий возможность приостанавливать процессы.<br>
+    Например, идущий в комплекте с Windows _resmon.exe. Однако он запускается не быстро.</li>
+<li>Отключение сетевого соединения, обычно выполняемое выдёргиванием кабеля Ethernet.<br>
+    Также можно запустить <em>ncpa.cpl</em> и отключить сетевой адаптер через контекстное меню.<br>
+    Это приводит к выбросу из сетевого в сюжетный режим.<br>
+    Также, при частом выдёгивании кабеля, можно повредить коннекторы Ethernet. Что в свою очередь может привести к нестабильной работе сети.</li>
+</ul>
+<p>Чтобы держать оба средства под рукой, написана программа, представленная <a href="https://pauser.riuson.com/">здесь</a>.</p>
+<p>Функциональность представлена в интерфейсе тремя вкладками:</p>
+<ul>
+<li>Network Adapters<br>
+    Позволяет отключать и включать выбранные сетевые адаптеры одним нажатием кнопки.
+    <span class="bg-warning .text-dark">Для управления сетевыми адаптерами программе требуются права администратора.</span></li>
+<li>Processes<br>
+    Позволяет выбрать процессы, у которых в имени есть указанные строки, и остановить/продолжить их.</li>
+<li>Batch<br>
+    Здесь можно составить последовательность операций и запустить их на выполнение одной кнопкой. Список доступных операций следующий:<ul>
+<li>Приоставить подходищие под фильтр процессы;</li>
+<li>Продолжить процессы;</li>
+<li>Отключить выбранные сетевые адаптеры;</li>
+<li>Включить сетевые адаптеры обратно;</li>
+<li>Подождать указанное время (значение вводится в миллисекундах).</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=7AmPYQu1YdM"><i class="fab fa-youtube"></i> Video</a></p>
+<p><img alt="Adapters" class="img-fluid" src="https://www.riuson.com/images/posts/2020/07/20/adapters.png" />
+<img alt="Processes" class="img-fluid" src="https://www.riuson.com/images/posts/2020/07/20/processes.png" />
+<img alt="Batch" class="img-fluid" src="https://www.riuson.com/images/posts/2020/07/20/batch.png" /></p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://www.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://www.riuson.com/tag/games.html">#Games</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://www.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://www.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://www.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>
