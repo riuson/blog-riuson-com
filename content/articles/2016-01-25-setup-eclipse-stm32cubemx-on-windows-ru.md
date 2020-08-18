@@ -67,7 +67,7 @@ Tags: STM32
 В мастере создания нового проекта выбираем _C/C++_ -> _C Project_.
 Далее указываем имя проекта и тип _Hello World ARM C Project_, Toolchain _Cross ARM GCC_.
 Далее меняем каталог исходников Source с _src_ на _Src_. В Linker semi-hosting options стираем всё и пишем 
-```
+```text
 --specs=nosys.specs
 ```
 
@@ -149,7 +149,7 @@ ${ProjDirPath}/Drivers/STM32F0xx_HAL_Driver/Inc
 
 Открываем свойства проекта в Eclipse, идём в _C/C++ Build_ -> _Settings_ -> _Tool Settings_ -> _Cross ARM C Compiler_ -> _Preprocessor_. Добавляем найденные макросы из XML файла в список _Defined symbols (-D)_.
 Список примерно следующий:
-```
+```text
 __weak="__attribute__((weak))"
 __packed="__attribute__((__packed__))"
 USE_HAL_DRIVER
@@ -172,7 +172,7 @@ ARM_MATH_CM0
 # Отладка
 ## Проверка связи с отладчиком и микроконтроллером через J-Flash.
 Запускаем J-Flash. Создаём новый проект. В свойствах проекта выбираем свой отладчик, _Target Interface_, _CPU_ -> _Device_. Выполняем подключение _Target_ -> _Connect_. Если в логах появилась запись 
-```
+```text
 - Connected successfully
 ```
 , то всё OK. Если нет, разбираемся с драйверами и подключением.

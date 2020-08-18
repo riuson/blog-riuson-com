@@ -12,7 +12,7 @@ Tags: Ubuntu
 # r8168
 
 На плате встроенная поддержка сети реализуется с помощью **Realtek® 8111E , 1 x Gigabit LAN Controller(s)**.
-```
+```text
 $ lspci -v
 
 03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
@@ -29,7 +29,7 @@ $ lspci -v
 Раньше надо было собирать драйвер для 8111/8168 из исходников.
 Сейчас в репозитории есть пакет [r8168-dkms](http://packages.ubuntu.com/wily/r8168-dkms).
 После его установки контроллер работает уже с иным драйвером:
-```
+```text
 $ lspci -v
 
 03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
@@ -52,7 +52,7 @@ $ lspci -v
 # ASM1083
 
 Простеньким скриптом было обнаружено время возникновения ошибки. Между двумя этими записями:
-```
+```text
 ======== 2016-02-01T02:06:34+0500 ========
 64 bytes from cache.google.com (xx.xx.xx.xx): icmp_seq=1 ttl=62 time=0.998 ms
           RX packets:500253 errors:211 dropped:2370 overruns:122 frame:0
@@ -67,7 +67,7 @@ $ lspci -v
 ```
 
 В kern.log обнаружилось соответствие:
-```
+```text
 Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the "irqpoll" option)
 Feb  1 02:06:55 ubuntu kernel: [82015.771426] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           OE   4.2.0-25-generic #30-Ubuntu
 Feb  1 02:06:55 ubuntu kernel: [82015.771430] Hardware name: System manufacturer System Product Name/E35M1-M, BIOS 1401 12/21/2011

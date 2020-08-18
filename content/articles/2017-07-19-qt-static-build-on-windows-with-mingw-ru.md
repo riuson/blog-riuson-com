@@ -16,7 +16,7 @@ Summary: Сборка статического комплекта Qt для по
 Выбрать версию Qt в [Qt Downloads](http://download.qt.io/official_releases/qt/) и запомнить ссылку на неё **{Версия}/{Версия}/single/qt-everywhere-opensource-src-{Версия}.zip**. Например, http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip
 
 Создать файл **windows-build-run.bat** со следующим содержимым:
-```
+```bat
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& 'D:\Qt\windows-build-qt-static.ps1' -QtSrcUrl 'http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip' -QtStaticDir 'D:\Qt\Static591' -MingwDir 'D:\Qt\Tools\mingw530_32' -QtVersion '5.9.1-Static'
 ```
 где

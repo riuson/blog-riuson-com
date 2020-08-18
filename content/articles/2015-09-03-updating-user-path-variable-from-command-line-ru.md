@@ -5,7 +5,7 @@ Tags: Git
 
 ### Git Bash:
 
-```
+```bash
 setlocal ENABLEEXTENSIONS
 set KEY_NAME="HKEY_CURRENT_USER\Environment"
 set VALUE_NAME="PATH"
@@ -34,7 +34,7 @@ echo %PATH%
 
 ### PowerShell
 
-```
+```powershell
 function DisplayPath {
   $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
   Write-Host ("Current path: " + $userPath)
@@ -67,7 +67,7 @@ DisplayPath
 ```
 
 Опциональный запуск через bat:
-```
+```bat
 @echo off
 set dir=%cd%
 PowerShell.exe -ExecutionPolicy bypass %dir%\update-path.ps1

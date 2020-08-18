@@ -20,7 +20,7 @@ $ git config --global mergetool.p4merge.path "C:/Program Files/Perforce/p4merge.
 ```
 
 После выполнения merge может возникнуть конфликт
-```
+```bash
 user@desktop MINGW32 /c/projects/project (develop)
 $ git merge --no-ff --no-commit feature-branch
 
@@ -33,7 +33,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ```
 
 Запускаем mergetool
-```
+```bash
 user@desktop MINGW32 /c/projects/project (develop|MERGING)
 $ git mergetool
 ```
