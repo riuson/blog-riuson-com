@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - GNU, Windows и длинные команды</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://www.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://www.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://www.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="STM32" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://www.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://www.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://www.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>GNU, Windows и длинные команды</h1>
+    <span class="meta">
+      <time class="published" datetime="2020-08-18T18:00:00+05:00">
+        18 Август 2020 г., Вт
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <h2>Проблема</h2>
+<p>С увеличением количества файлов в проекте, собираемом с использованием GCC под Windows, однажды можно получить подобную ошибку:</p>
+<div class="highlight"><pre><span></span><code><span class="err">arm-none-eabi-g++ &lt;прочие параметры&gt; &lt;100500 объектных файлов...&gt; </span>
+<span class="err">collect2.exe: fatal error: CreateProcess: No such file or directory</span>
+<span class="err">compilation terminated.</span>
+<span class="err">make[1]: *** [Makefile:140: Output/ReleaseApp/myapplication.elf] Error 1</span>
+<span class="err">make[1]: Leaving directory &#39;D:/projects/Embedded/myapplication&#39;</span>
+<span class="c">make: *** [Makefile:70: all] Error 2</span>
+<span class="err">The terminal process &quot;cmd.exe /C make -j4 all CONF=ReleaseApp&quot; terminated with exit code: 2.</span>
+</code></pre></div>
+
+
+<p>Причиной является ограничение на длину команды в Windows.</p>
+<p><a href="https://devblogs.microsoft.com/oldnewthing/20031210-00/?p=41553">What is the command line length limit? [devblogs.microsoft.com]</a></p>
+<p>При выполнении команды через cmd.exe команда ограничена <strong>8192</strong> символами. При выполнении команды через функцию <code>CreateProcess</code>, ограничение (из-за структуры <a href="https://docs.microsoft.com/en-us/windows/win32/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a>) составляет <strong>32767</strong> символов. Вроде бы много. Но с линкером, принимающим список объектных файлов через аргументы командной строки, достигнуть такой величины - не проблема.</p>
+<h2>Варианты решения</h2>
+<h3>xPack Windows Build Tools</h3>
+<p>https://xpack.github.io/windows-build-tools</p>
+<p>Позволяет обойти ограничение на длину 8192 символа при сборке проктов под Windows тем, что не использует <code>cmd.exe</code> для запуска процессов.</p>
+<h3>Сокращение путей к файлам</h3>
+<p>Объектные файлы перечисляются в аргументах c указанием путей к ним</p>
+<div class="highlight"><pre><span></span><code><span class="err">...</span>
+<span class="err">Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o</span>
+<span class="err">Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o</span>
+<span class="err">Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o</span>
+<span class="err"> ...</span>
+</code></pre></div>
+
+
+<p>Если сократить названия каталогов и вынести их на как можно более высокий уровень в проекте, сократятся пути и, как следствие, длина команды.</p>
+<h3>Применение архивов</h3>
+<p>Группу объектных файлов можно объеденить в архив <code>*.a</code> и уже его передавать линкеру. Это позволит уменьшить длину командной строки тем значительнее, чем больше файлов собрано в архиве.</p>
+<p>Однако, следует следить за тем, чтобы длина команды сборки архива также не была превышена.</p>
+<p>Также следует учесть, что <code>__attribute__((weak))</code> (<a href="https://en.wikipedia.org/wiki/Weak_symbol">Weak symbol - Wikipedia</a>) работает с архивами не так, как ожидается. Данный атрибут широко используется в  исходниках от ST для обработчиков прерываний и функций обратного вызова.</p>
+<p>Вкратце - weak символ не переопределяется символом, находящимся в библиотеке.
+Подробнее <a href="https://community.st.com/s/question/0D50X0000ALx8Fh/stm32-weak-exception-handler-override-in-asm-not-working-armeabigcc">STM32 weak exception handler override in ASM not working (ARM-EABI-GCC)</a> :</p>
+<blockquote>
+<p>Linkers (including the GNU linker) treat libraries in a different way than they treat objects, even if the libraries appear to be only a collection of objects. This has both rational and historical reasons and I am yet to see a concise document outlining all the linker idiosyncrasies in historical context. One of the underlying (unwritten) idea is, that users are not supposed to create libraries, they are supposed to stick with objects, libraries are to be a domain of system creators. Nevertheless, users are often caught with unpleasant surprise when they move their objects into libraries to find that the result is quite different from what it used to be with standalone objects.</p>
+<p>Here, in particular, the fact, that linkers don't search for symbols in libraries if they were already fulfilled, weak or not, is probably the surprising factor. The probable reason for this is the (unwritten, again, and with historic roots too) rule that you should be always able to override library functions with your own version (because of the potentially buggy library one); and the weak/strong mechanism is supposed to help resolving a similar problem entirely in the user (objects) domain.</p>
+<p>Other such factor is that linkers don't iterate when searching for a symbol in libraries (unless forced to do so by some set of command-line switches), ie. if there's a new symbol found in the library (or, in a more rare case in an object linked <em>after</em> having linking libraries) it can't be fulfilled by a definition from a library linked earlier (but it can be fulfilled by a user definition, even if objects were liked earlier). The visible effect is, that library ordering in command line (and/or specs) does matter, and sometimes manual reordering or overriding specs-given ordering results in surprising faults.</p>
+</blockquote>
+<h3>Список файлов в файле</h3>
+<p>У линкера <code>ld</code> и утилиты <code>ar</code> имеется опция <code>@file</code>:</p>
+<blockquote>
+<p>Read command-line options from file. The options read are inserted in place of the original <code>@file</code> option. If file does not exist, or cannot be read, then the option will be treated literally, and not removed.</p>
+<p>Options in file are separated by whitespace. A whitespace character may be included in an option by surrounding the entire option in either single or double quotes. Any character (including a backslash) may be included by prefixing the character to be included with a backslash. The file may itself contain additional <code>@file</code> options; any such options will be processed recursively.</p>
+</blockquote>
+<p>Можно вынести длинный список объектных файлов (да и вообще все опции) в отдельный файл, который затем и передать аргументом.</p>
+<p>Для архива:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">${</span><span class="n">OUTPUT_DIR</span><span class="cp">}</span>/libapplication.a: <span class="cp">${</span><span class="n">APP_C_OBJECTS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">APP_CPP_OBJECTS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">APP_ASM_OBJECTS</span><span class="cp">}</span>
+    @echo &gt; <span class="cp">${</span><span class="n">OUTPUT_DIR</span><span class="cp">}</span>/application.files <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">${^}</span>
+    <span class="err">@${AR}</span> <span class="err">-crs</span> <span class="err">${@}</span> <span class="err">@${OUTPUT_DIR}/application.files</span>
+</code></pre></div>
+
+
+<p>Или для линкера:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">${</span><span class="n">TARGET_ELF</span><span class="cp">}</span>: <span class="cp">${</span><span class="n">C_OBJECTS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">CPP_OBJECTS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">ASM_OBJECTS</span><span class="cp">}</span>
+    @echo &gt; <span class="cp">${</span><span class="n">OUTPUT_DIR</span><span class="cp">}</span>/object.files <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">$(sort</span> <span class="err">$(filter</span> <span class="err">%.o</span> <span class="err">%.a,</span> <span class="err">${^}))</span>
+    <span class="err">${LD}</span> <span class="err">${LINKER_PARAMS}</span> <span class="err">-o</span> <span class="err">${@}</span> <span class="err">@${OUTPUT_DIR}/object.files</span>
+</code></pre></div>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://www.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://www.riuson.com/tag/stm32.html">#STM32</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://www.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://www.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://www.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>
