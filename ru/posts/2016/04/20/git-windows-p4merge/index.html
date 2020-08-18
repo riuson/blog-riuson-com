@@ -86,21 +86,21 @@ $ git config --global mergetool.p4merge.path <span class="s2">&quot;C:/Program F
 
 
 <p>После выполнения merge может возникнуть конфликт</p>
-<div class="highlight"><pre><span></span><code><span class="k">user</span><span class="nv">@desktop</span><span class="w"> </span><span class="n">MINGW32</span><span class="w"> </span><span class="o">/</span><span class="n">c</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">project</span><span class="w"> </span><span class="p">(</span><span class="n">develop</span><span class="p">)</span><span class="w"></span>
-<span class="err">$</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="k">merge</span><span class="w"> </span><span class="c1">--no-ff --no-commit feature-branch</span>
+<div class="highlight"><pre><span></span><code>user@desktop MINGW32 /c/projects/project <span class="o">(</span>develop<span class="o">)</span>
+$ git merge --no-ff --no-commit feature-branch
 
-<span class="n">Auto</span><span class="o">-</span><span class="n">merging</span><span class="w"> </span><span class="n">file1</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
-<span class="n">Removing</span><span class="w"> </span><span class="n">file2</span><span class="p">.</span><span class="n">txt</span><span class="w"></span>
-<span class="p">...</span><span class="w"></span>
-<span class="n">Auto</span><span class="o">-</span><span class="n">merging</span><span class="w"> </span><span class="p">.</span><span class="n">gitignore</span><span class="w"></span>
-<span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="k">Merge</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">.</span><span class="n">gitignore</span><span class="w"></span>
-<span class="n">Automatic</span><span class="w"> </span><span class="k">merge</span><span class="w"> </span><span class="n">failed</span><span class="p">;</span><span class="w"> </span><span class="n">fix</span><span class="w"> </span><span class="n">conflicts</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">result</span><span class="p">.</span><span class="w"></span>
+Auto-merging file1.txt
+Removing file2.txt
+...
+Auto-merging .gitignore
+CONFLICT <span class="o">(</span>content<span class="o">)</span>: Merge conflict in .gitignore
+Automatic merge failed<span class="p">;</span> fix conflicts and <span class="k">then</span> commit the result.
 </code></pre></div>
 
 
 <p>Запускаем mergetool</p>
-<div class="highlight"><pre><span></span><code><span class="err">user@desktop MINGW32 /c/projects/project (develop|MERGING)</span>
-<span class="err">$ git mergetool</span>
+<div class="highlight"><pre><span></span><code>user@desktop MINGW32 /c/projects/project <span class="o">(</span>develop<span class="p">|</span>MERGING<span class="o">)</span>
+$ git mergetool
 </code></pre></div>
 
 

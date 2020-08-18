@@ -75,23 +75,23 @@
     <h2>Как собрать динамические библиотеки, требуемые для приложения на Qt.</h2>
 <p>Исходная статья: <a href="http://doc.qt.io/qt-5/windows-deployment.html">Qt for Windows - Deployment</a></p>
 <p>Создать простой батник *.bat со следующими командами:</p>
-<div class="highlight"><pre><span></span><code><span class="p">;</span> <span class="err">Добавить</span> <span class="err">путь</span> <span class="err">к</span> <span class="err">набору</span> <span class="n">MinGW</span> <span class="err">в</span> <span class="err">переменную</span> <span class="err">окружения</span> <span class="o">%</span><span class="n">PATH</span><span class="o">%</span><span class="p">.</span>
-<span class="k">SET</span> <span class="n">PATH</span><span class="o">=%</span><span class="n">PATH</span><span class="o">%</span><span class="p">;</span><span class="k">c</span><span class="p">:</span><span class="err">\</span><span class="n">Qt</span><span class="err">\</span><span class="n">Tools</span><span class="err">\</span><span class="n">mingw530_32</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span>
+<div class="highlight"><pre><span></span><code>; Добавить путь к набору MinGW в переменную окружения <span class="nv">%PATH%</span>.
+<span class="k">SET</span> <span class="nv">PATH</span><span class="p">=</span><span class="nv">%PATH%</span>;c:\Qt\Tools\mingw530_32\bin\
 
-<span class="p">;</span> <span class="err">Установить</span> <span class="err">путь</span><span class="p">,</span> <span class="err">куда</span> <span class="err">будет</span> <span class="err">помещено</span> <span class="err">приложение</span> <span class="err">и</span> <span class="err">требуемые</span> <span class="err">им</span> <span class="err">библиотеки</span>
-<span class="k">set</span> <span class="n">destination</span><span class="o">=</span><span class="n">d</span><span class="p">:</span><span class="err">\</span><span class="n">projects</span><span class="err">\</span><span class="n">my</span><span class="o">-</span><span class="n">project</span><span class="err">\</span><span class="k">output</span><span class="err">\</span>
+; Установить путь, куда будет помещено приложение и требуемые им библиотеки
+<span class="k">set</span> <span class="nv">destination</span><span class="p">=</span>d:\projects\my-project\output\
 
-<span class="p">;</span> <span class="err">Путь</span> <span class="err">к</span> <span class="err">каталогу</span> <span class="err">со</span> <span class="err">скомпилированным</span> <span class="err">исполняемым</span> <span class="err">файлом</span> <span class="err">приложения</span>
-<span class="k">set</span> <span class="k">source</span><span class="o">=</span><span class="n">d</span><span class="p">:</span><span class="err">\</span><span class="n">projects</span><span class="err">\</span><span class="n">my</span><span class="o">-</span><span class="n">project</span><span class="err">\</span><span class="n">build</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="n">Desktop_Qt_5_9_0_MinGW_32bit</span><span class="o">-</span><span class="n">Release</span><span class="err">\</span><span class="n">release</span><span class="err">\</span><span class="n">windows</span><span class="err">\</span><span class="k">output</span><span class="err">\</span>
+; Путь к каталогу со скомпилированным исполняемым файлом приложения
+<span class="k">set</span> <span class="nv">source</span><span class="p">=</span>d:\projects\my-project\build-my-project-Desktop_Qt_5_9_0_MinGW_32bit-Release\release\windows\output\
 
-<span class="p">;</span> <span class="err">Копируем</span> <span class="err">исполняемый</span> <span class="err">файл</span>
-<span class="n">xcopy</span> <span class="o">%</span><span class="k">source</span><span class="o">%</span><span class="n">my</span><span class="o">-</span><span class="n">project</span><span class="p">.</span><span class="n">exe</span> <span class="o">%</span><span class="n">destination</span><span class="o">%</span> <span class="o">/</span><span class="n">y</span>
+; Копируем исполняемый файл
+xcopy <span class="nv">%source%</span>my-project.exe <span class="nv">%destination%</span> /y
 
-<span class="p">;</span> <span class="err">Копируем</span> <span class="err">остальные</span> <span class="err">необходимые</span> <span class="err">ресурсы</span> <span class="p">...</span>
-<span class="n">xcopy</span> <span class="p">.</span><span class="err">\</span><span class="n">sources</span><span class="err">\</span><span class="n">resources</span><span class="err">\</span><span class="n">readme</span><span class="p">.</span><span class="n">md</span> <span class="o">%</span><span class="n">destination</span><span class="o">%</span> <span class="o">/</span><span class="n">y</span>
+; Копируем остальные необходимые ресурсы ...
+xcopy .\sources\resources\readme.md <span class="nv">%destination%</span> /y
 
-<span class="p">;</span> <span class="err">Копируем</span> <span class="err">библиотеки</span> <span class="err">с</span> <span class="err">помощью</span> <span class="n">windeployqt</span>
-<span class="k">c</span><span class="p">:</span><span class="err">\</span><span class="n">Qt</span><span class="err">\</span><span class="mi">5</span><span class="p">.</span><span class="mi">9</span><span class="err">\</span><span class="n">mingw53_32</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">windeployqt</span> <span class="c1">--release --force --compiler-runtime %destination%my-project.exe</span>
+; Копируем библиотеки с помощью windeployqt
+c<span class="p">:</span><span class="nl">\Qt\5.9\mingw53_32\bin\windeployqt</span><span class="c1"> --release --force --compiler-runtime %destination%my-project.exe</span>
 </code></pre></div>
 
 

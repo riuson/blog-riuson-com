@@ -78,12 +78,12 @@
 <p>На плате встроенная поддержка сети реализуется с помощью <strong>Realtek® 8111E , 1 x Gigabit LAN Controller(s)</strong>.</p>
 <div class="highlight"><pre><span></span><code>$ lspci -v
 
-<span class="m">03</span>:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller <span class="o">(</span>rev <span class="m">06</span><span class="o">)</span>
+03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
     Subsystem: ASUSTeK Computer Inc. P8P67 and other motherboards
-    Flags: bus master, fast devsel, latency <span class="m">0</span>, IRQ <span class="m">24</span>
-    I/O ports at e000 <span class="o">[</span><span class="nv">size</span><span class="o">=</span><span class="m">256</span><span class="o">]</span>
-    Memory at d0004000 <span class="o">(</span><span class="m">64</span>-bit, prefetchable<span class="o">)</span> <span class="o">[</span><span class="nv">size</span><span class="o">=</span>4K<span class="o">]</span>
-    Memory at d0000000 <span class="o">(</span><span class="m">64</span>-bit, prefetchable<span class="o">)</span> <span class="o">[</span><span class="nv">size</span><span class="o">=</span>16K<span class="o">]</span>
+    Flags: bus master, fast devsel, latency 0, IRQ 24
+    I/O ports at e000 [size=256]
+    Memory at d0004000 (64-bit, prefetchable) [size=4K]
+    Memory at d0000000 (64-bit, prefetchable) [size=16K]
     Capabilities: &lt;access denied&gt;
     Kernel driver in use: r8169
 </code></pre></div>
@@ -94,12 +94,12 @@
 После его установки контроллер работает уже с иным драйвером:</p>
 <div class="highlight"><pre><span></span><code>$ lspci -v
 
-<span class="m">03</span>:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller <span class="o">(</span>rev <span class="m">06</span><span class="o">)</span>
+03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
     Subsystem: ASUSTeK Computer Inc. P8P67 and other motherboards
-    Flags: bus master, fast devsel, latency <span class="m">0</span>, IRQ <span class="m">24</span>
-    I/O ports at e000 <span class="o">[</span><span class="nv">size</span><span class="o">=</span><span class="m">256</span><span class="o">]</span>
-    Memory at d0004000 <span class="o">(</span><span class="m">64</span>-bit, prefetchable<span class="o">)</span> <span class="o">[</span><span class="nv">size</span><span class="o">=</span>4K<span class="o">]</span>
-    Memory at d0000000 <span class="o">(</span><span class="m">64</span>-bit, prefetchable<span class="o">)</span> <span class="o">[</span><span class="nv">size</span><span class="o">=</span>16K<span class="o">]</span>
+    Flags: bus master, fast devsel, latency 0, IRQ 24
+    I/O ports at e000 [size=256]
+    Memory at d0004000 (64-bit, prefetchable) [size=4K]
+    Memory at d0000000 (64-bit, prefetchable) [size=16K]
     Capabilities: &lt;access denied&gt;
     Kernel driver in use: r8168
 </code></pre></div>
@@ -112,59 +112,59 @@
 <p>Однако, говорят, что именно эта проблема с r8168 была закрыта. И действительно, установка этого драйвера в данном случае не помогла. Если в прошлый раз отваливалась локальная сеть, за этой сетевой картой, то теперь сеть провайдера за дискретной сетевой на базе 8139.</p>
 <h1>ASM1083</h1>
 <p>Простеньким скриптом было обнаружено время возникновения ошибки. Между двумя этими записями:</p>
-<div class="highlight"><pre><span></span><code><span class="o">========</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span><span class="n">T02</span><span class="p">:</span><span class="mi">06</span><span class="p">:</span><span class="mi">34</span><span class="o">+</span><span class="mi">0500</span> <span class="o">========</span>
-<span class="mi">64</span> <span class="n">bytes</span> <span class="k">from</span> <span class="k">cache</span><span class="p">.</span><span class="n">google</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span><span class="n">xx</span><span class="p">.</span><span class="n">xx</span><span class="p">.</span><span class="n">xx</span><span class="p">.</span><span class="n">xx</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">62</span> <span class="k">time</span><span class="o">=</span><span class="mi">0</span><span class="p">.</span><span class="mi">998</span> <span class="n">ms</span>
-          <span class="n">RX</span> <span class="n">packets</span><span class="p">:</span><span class="mi">500253</span> <span class="n">errors</span><span class="p">:</span><span class="mi">211</span> <span class="n">dropped</span><span class="p">:</span><span class="mi">2370</span> <span class="n">overruns</span><span class="p">:</span><span class="mi">122</span> <span class="n">frame</span><span class="p">:</span><span class="mi">0</span>
-          <span class="n">TX</span> <span class="n">packets</span><span class="p">:</span><span class="mi">411349</span> <span class="n">errors</span><span class="p">:</span><span class="mi">0</span> <span class="n">dropped</span><span class="p">:</span><span class="mi">0</span> <span class="n">overruns</span><span class="p">:</span><span class="mi">0</span> <span class="n">carrier</span><span class="p">:</span><span class="mi">0</span>
-          <span class="n">RX</span> <span class="n">bytes</span><span class="p">:</span><span class="mi">393385246</span> <span class="p">(</span><span class="mi">393</span><span class="p">.</span><span class="mi">3</span> <span class="n">MB</span><span class="p">)</span>  <span class="n">TX</span> <span class="n">bytes</span><span class="p">:</span><span class="mi">127926222</span> <span class="p">(</span><span class="mi">127</span><span class="p">.</span><span class="mi">9</span> <span class="n">MB</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code>======== 2016-02-01T02:06:34+0500 ========
+64 bytes from cache.google.com (xx.xx.xx.xx): icmp_seq=1 ttl=62 time=0.998 ms
+          RX packets:500253 errors:211 dropped:2370 overruns:122 frame:0
+          TX packets:411349 errors:0 dropped:0 overruns:0 carrier:0
+          RX bytes:393385246 (393.3 MB)  TX bytes:127926222 (127.9 MB)
 
-<span class="o">========</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span><span class="n">T02</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">34</span><span class="o">+</span><span class="mi">0500</span> <span class="o">========</span>
-<span class="mi">64</span> <span class="n">bytes</span> <span class="k">from</span> <span class="k">cache</span><span class="p">.</span><span class="n">google</span><span class="p">.</span><span class="n">com</span> <span class="p">(</span><span class="n">xx</span><span class="p">.</span><span class="n">xx</span><span class="p">.</span><span class="n">xx</span><span class="p">.</span><span class="n">xx</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">62</span> <span class="k">time</span><span class="o">=</span><span class="mi">99</span><span class="p">.</span><span class="mi">7</span> <span class="n">ms</span>
-          <span class="n">RX</span> <span class="n">packets</span><span class="p">:</span><span class="mi">500265</span> <span class="n">errors</span><span class="p">:</span><span class="mi">211</span> <span class="n">dropped</span><span class="p">:</span><span class="mi">2370</span> <span class="n">overruns</span><span class="p">:</span><span class="mi">122</span> <span class="n">frame</span><span class="p">:</span><span class="mi">0</span>
-          <span class="n">TX</span> <span class="n">packets</span><span class="p">:</span><span class="mi">411361</span> <span class="n">errors</span><span class="p">:</span><span class="mi">0</span> <span class="n">dropped</span><span class="p">:</span><span class="mi">0</span> <span class="n">overruns</span><span class="p">:</span><span class="mi">0</span> <span class="n">carrier</span><span class="p">:</span><span class="mi">0</span>
-          <span class="n">RX</span> <span class="n">bytes</span><span class="p">:</span><span class="mi">393386290</span> <span class="p">(</span><span class="mi">393</span><span class="p">.</span><span class="mi">3</span> <span class="n">MB</span><span class="p">)</span>  <span class="n">TX</span> <span class="n">bytes</span><span class="p">:</span><span class="mi">127927258</span> <span class="p">(</span><span class="mi">127</span><span class="p">.</span><span class="mi">9</span> <span class="n">MB</span><span class="p">)</span>
+======== 2016-02-01T02:07:34+0500 ========
+64 bytes from cache.google.com (xx.xx.xx.xx): icmp_seq=1 ttl=62 time=99.7 ms
+          RX packets:500265 errors:211 dropped:2370 overruns:122 frame:0
+          TX packets:411361 errors:0 dropped:0 overruns:0 carrier:0
+          RX bytes:393386290 (393.3 MB)  TX bytes:127927258 (127.9 MB)
 </code></pre></div>
 
 
 <p>В kern.log обнаружилось соответствие:</p>
-<div class="highlight"><pre><span></span><code><span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the &quot;irqpoll&quot; option)</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771426] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           OE   4.2.0-25-generic #30-Ubuntu</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771430] Hardware name: System manufacturer System Product Name/E35M1-M, BIOS 1401 12/21/2011</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771435]  0000000000000000 e37fa07b054cf793 ffff88013ec03e28 ffffffff817e94c9</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771442]  0000000000000000 ffff880035cdf0bc ffff88013ec03e58 ffffffff810d6b65</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771447]  ffffffff81cbd600 ffff880035cdf000 0000000000000000 0000000000000012</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771452] Call Trace:</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771456]  &lt;IRQ&gt;  [&lt;ffffffff817e94c9&gt;] dump_stack+0x45/0x57</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771474]  [&lt;ffffffff810d6b65&gt;] __report_bad_irq+0x35/0xd0</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771479]  [&lt;ffffffff810d6f0d&gt;] note_interrupt+0x24d/0x290</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771484]  [&lt;ffffffff810d432c&gt;] handle_irq_event_percpu+0x11c/0x180</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771489]  [&lt;ffffffff810d43d9&gt;] handle_irq_event+0x49/0x70</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771494]  [&lt;ffffffff810d742a&gt;] handle_fasteoi_irq+0x9a/0x150</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771499]  [&lt;ffffffff810172b5&gt;] handle_irq+0x25/0x40</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771504]  [&lt;ffffffff817f2eaf&gt;] do_IRQ+0x4f/0xe0</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771508]  [&lt;ffffffff817f0e2b&gt;] common_interrupt+0x6b/0x6b</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771510]  &lt;EOI&gt;  [&lt;ffffffff81060526&gt;] ? native_safe_halt+0x6/0x10</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771522]  [&lt;ffffffff81488261&gt;] arch_safe_halt+0x9/0xd</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771526]  [&lt;ffffffff814889b7&gt;] acpi_safe_halt+0x22/0x2b</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771530]  [&lt;ffffffff814889e0&gt;] acpi_idle_do_entry+0x20/0x30</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771534]  [&lt;ffffffff81488eb0&gt;] acpi_idle_enter+0x1e8/0x21e</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771540]  [&lt;ffffffff81687074&gt;] cpuidle_enter_state+0xf4/0x270</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771544]  [&lt;ffffffff81687227&gt;] cpuidle_enter+0x17/0x20</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771548]  [&lt;ffffffff810bd4f2&gt;] call_cpuidle+0x32/0x60</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771552]  [&lt;ffffffff81687203&gt;] ? cpuidle_select+0x13/0x20</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771556]  [&lt;ffffffff810bd788&gt;] cpu_startup_entry+0x268/0x320</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771562]  [&lt;ffffffff817dda2c&gt;] rest_init+0x7c/0x80</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771568]  [&lt;ffffffff81d50025&gt;] start_kernel+0x48b/0x4ac</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771573]  [&lt;ffffffff81d4f120&gt;] ? early_idt_handler_array+0x120/0x120</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771577]  [&lt;ffffffff81d4f339&gt;] x86_64_start_reservations+0x2a/0x2c</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771581]  [&lt;ffffffff81d4f485&gt;] x86_64_start_kernel+0x14a/0x16d</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771584] handlers:</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771613] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771663] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771712] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771761] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771815] [&lt;ffffffffc01361c0&gt;] rtl8139_interrupt [8139too]</span>
-<span class="err">Feb  1 02:06:55 ubuntu kernel: [82015.771878] Disabling IRQ #18</span>
+<div class="highlight"><pre><span></span><code>Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the &quot;irqpoll&quot; option)
+Feb  1 02:06:55 ubuntu kernel: [82015.771426] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           OE   4.2.0-25-generic #30-Ubuntu
+Feb  1 02:06:55 ubuntu kernel: [82015.771430] Hardware name: System manufacturer System Product Name/E35M1-M, BIOS 1401 12/21/2011
+Feb  1 02:06:55 ubuntu kernel: [82015.771435]  0000000000000000 e37fa07b054cf793 ffff88013ec03e28 ffffffff817e94c9
+Feb  1 02:06:55 ubuntu kernel: [82015.771442]  0000000000000000 ffff880035cdf0bc ffff88013ec03e58 ffffffff810d6b65
+Feb  1 02:06:55 ubuntu kernel: [82015.771447]  ffffffff81cbd600 ffff880035cdf000 0000000000000000 0000000000000012
+Feb  1 02:06:55 ubuntu kernel: [82015.771452] Call Trace:
+Feb  1 02:06:55 ubuntu kernel: [82015.771456]  &lt;IRQ&gt;  [&lt;ffffffff817e94c9&gt;] dump_stack+0x45/0x57
+Feb  1 02:06:55 ubuntu kernel: [82015.771474]  [&lt;ffffffff810d6b65&gt;] __report_bad_irq+0x35/0xd0
+Feb  1 02:06:55 ubuntu kernel: [82015.771479]  [&lt;ffffffff810d6f0d&gt;] note_interrupt+0x24d/0x290
+Feb  1 02:06:55 ubuntu kernel: [82015.771484]  [&lt;ffffffff810d432c&gt;] handle_irq_event_percpu+0x11c/0x180
+Feb  1 02:06:55 ubuntu kernel: [82015.771489]  [&lt;ffffffff810d43d9&gt;] handle_irq_event+0x49/0x70
+Feb  1 02:06:55 ubuntu kernel: [82015.771494]  [&lt;ffffffff810d742a&gt;] handle_fasteoi_irq+0x9a/0x150
+Feb  1 02:06:55 ubuntu kernel: [82015.771499]  [&lt;ffffffff810172b5&gt;] handle_irq+0x25/0x40
+Feb  1 02:06:55 ubuntu kernel: [82015.771504]  [&lt;ffffffff817f2eaf&gt;] do_IRQ+0x4f/0xe0
+Feb  1 02:06:55 ubuntu kernel: [82015.771508]  [&lt;ffffffff817f0e2b&gt;] common_interrupt+0x6b/0x6b
+Feb  1 02:06:55 ubuntu kernel: [82015.771510]  &lt;EOI&gt;  [&lt;ffffffff81060526&gt;] ? native_safe_halt+0x6/0x10
+Feb  1 02:06:55 ubuntu kernel: [82015.771522]  [&lt;ffffffff81488261&gt;] arch_safe_halt+0x9/0xd
+Feb  1 02:06:55 ubuntu kernel: [82015.771526]  [&lt;ffffffff814889b7&gt;] acpi_safe_halt+0x22/0x2b
+Feb  1 02:06:55 ubuntu kernel: [82015.771530]  [&lt;ffffffff814889e0&gt;] acpi_idle_do_entry+0x20/0x30
+Feb  1 02:06:55 ubuntu kernel: [82015.771534]  [&lt;ffffffff81488eb0&gt;] acpi_idle_enter+0x1e8/0x21e
+Feb  1 02:06:55 ubuntu kernel: [82015.771540]  [&lt;ffffffff81687074&gt;] cpuidle_enter_state+0xf4/0x270
+Feb  1 02:06:55 ubuntu kernel: [82015.771544]  [&lt;ffffffff81687227&gt;] cpuidle_enter+0x17/0x20
+Feb  1 02:06:55 ubuntu kernel: [82015.771548]  [&lt;ffffffff810bd4f2&gt;] call_cpuidle+0x32/0x60
+Feb  1 02:06:55 ubuntu kernel: [82015.771552]  [&lt;ffffffff81687203&gt;] ? cpuidle_select+0x13/0x20
+Feb  1 02:06:55 ubuntu kernel: [82015.771556]  [&lt;ffffffff810bd788&gt;] cpu_startup_entry+0x268/0x320
+Feb  1 02:06:55 ubuntu kernel: [82015.771562]  [&lt;ffffffff817dda2c&gt;] rest_init+0x7c/0x80
+Feb  1 02:06:55 ubuntu kernel: [82015.771568]  [&lt;ffffffff81d50025&gt;] start_kernel+0x48b/0x4ac
+Feb  1 02:06:55 ubuntu kernel: [82015.771573]  [&lt;ffffffff81d4f120&gt;] ? early_idt_handler_array+0x120/0x120
+Feb  1 02:06:55 ubuntu kernel: [82015.771577]  [&lt;ffffffff81d4f339&gt;] x86_64_start_reservations+0x2a/0x2c
+Feb  1 02:06:55 ubuntu kernel: [82015.771581]  [&lt;ffffffff81d4f485&gt;] x86_64_start_kernel+0x14a/0x16d
+Feb  1 02:06:55 ubuntu kernel: [82015.771584] handlers:
+Feb  1 02:06:55 ubuntu kernel: [82015.771613] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq
+Feb  1 02:06:55 ubuntu kernel: [82015.771663] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq
+Feb  1 02:06:55 ubuntu kernel: [82015.771712] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq
+Feb  1 02:06:55 ubuntu kernel: [82015.771761] [&lt;ffffffff815db9c0&gt;] usb_hcd_irq
+Feb  1 02:06:55 ubuntu kernel: [82015.771815] [&lt;ffffffffc01361c0&gt;] rtl8139_interrupt [8139too]
+Feb  1 02:06:55 ubuntu kernel: [82015.771878] Disabling IRQ #18
 </code></pre></div>
 
 

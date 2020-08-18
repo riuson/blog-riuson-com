@@ -71,70 +71,70 @@
   <article>
     <p>Обновление пользовательской переменной окружения PATH из командной строки.</p>
 <h3>Git Bash:</h3>
-<div class="highlight"><pre><span></span><code><span class="n">setlocal</span><span class="w"> </span><span class="n">ENABLEEXTENSIONS</span><span class="w"></span>
-<span class="k">set</span><span class="w"> </span><span class="n">KEY_NAME</span><span class="o">=</span><span class="ss">&quot;HKEY_CURRENT_USER\Environment&quot;</span><span class="w"></span>
-<span class="k">set</span><span class="w"> </span><span class="n">VALUE_NAME</span><span class="o">=</span><span class="ss">&quot;PATH&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code>setlocal ENABLEEXTENSIONS
+<span class="nb">set</span> <span class="nv">KEY_NAME</span><span class="o">=</span><span class="s2">&quot;HKEY_CURRENT_USER\Environment&quot;</span>
+<span class="nb">set</span> <span class="nv">VALUE_NAME</span><span class="o">=</span><span class="s2">&quot;PATH&quot;</span>
 
-<span class="k">FOR</span><span class="w"> </span><span class="o">/</span><span class="n">F</span><span class="w"> </span><span class="ss">&quot;usebackq skip=2 tokens=1,2*&quot;</span><span class="w"> </span><span class="o">%%</span><span class="n">A</span><span class="w"> </span><span class="ow">IN</span><span class="w"> </span><span class="p">(</span><span class="err">`</span><span class="n">REG</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="o">%</span><span class="n">KEY_NAME</span><span class="o">%</span><span class="w"> </span><span class="o">/</span><span class="n">v</span><span class="w"> </span><span class="o">%</span><span class="n">VALUE_NAME</span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="o">^&gt;</span><span class="n">nul</span><span class="err">`</span><span class="p">)</span><span class="w"> </span><span class="n">DO</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">ValueName</span><span class="o">=%%</span><span class="n">A</span><span class="w"></span>
-<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">ValueType</span><span class="o">=%%</span><span class="n">B</span><span class="w"></span>
-<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">User_Path</span><span class="o">=%%</span><span class="n">C</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+FOR /F <span class="s2">&quot;usebackq skip=2 tokens=1,2*&quot;</span> %%A IN <span class="o">(</span><span class="sb">`</span>REG QUERY %KEY_NAME% /v %VALUE_NAME% <span class="m">2</span>^&gt;nul<span class="sb">`</span><span class="o">)</span> DO <span class="o">(</span>
+    <span class="nb">set</span> <span class="nv">ValueName</span><span class="o">=</span>%%A
+    <span class="nb">set</span> <span class="nv">ValueType</span><span class="o">=</span>%%B
+    <span class="nb">set</span> <span class="nv">User_Path</span><span class="o">=</span>%%C
+<span class="o">)</span>
 
-<span class="k">if</span><span class="w"> </span><span class="n">defined</span><span class="w"> </span><span class="n">ValueName</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nv">@echo</span><span class="w"> </span><span class="n">User_Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">User_Path</span><span class="o">%</span><span class="w"></span>
-<span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="nv">@echo</span><span class="w"> </span><span class="o">%</span><span class="n">KEY_NAME</span><span class="o">%</span><span class="err">\</span><span class="o">%</span><span class="n">VALUE_NAME</span><span class="o">%</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">found</span><span class="p">.</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="k">if</span> defined ValueName <span class="o">(</span>
+    @echo <span class="nv">User_Path</span> <span class="o">=</span> %User_Path%
+<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+    @echo %KEY_NAME%<span class="se">\%</span>VALUE_NAME% not found.
+<span class="o">)</span>
 
-<span class="k">If</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="ss">&quot;%User_Path%&quot;</span><span class="o">==</span><span class="ss">&quot;%User_Path:Git=%&quot;</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="n">echo</span><span class="w"> </span><span class="n">Already</span><span class="w"> </span><span class="n">added</span><span class="w"></span>
-<span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">    </span><span class="n">echo</span><span class="w"> </span><span class="n">Adding</span><span class="w"></span>
-<span class="w">    </span><span class="n">setx</span><span class="w"> </span><span class="k">PATH</span><span class="w"> </span><span class="ss">&quot;%User_Path%;c:\Tools\Git64\bin&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+If NOT <span class="s2">&quot;%User_Path%&quot;</span><span class="o">==</span><span class="s2">&quot;%User_Path:Git=%&quot;</span> <span class="o">(</span>
+    <span class="nb">echo</span> Already added
+<span class="o">)</span> <span class="k">else</span> <span class="o">(</span>
+    <span class="nb">echo</span> Adding
+    setx PATH <span class="s2">&quot;%User_Path%;c:\Tools\Git64\bin&quot;</span>
+<span class="o">)</span>
 
-<span class="n">echo</span><span class="w"> </span><span class="o">%</span><span class="k">PATH</span><span class="o">%</span><span class="w"></span>
+<span class="nb">echo</span> %PATH%
 </code></pre></div>
 
 
 <h3>PowerShell</h3>
-<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="n">DisplayPath</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="err">$</span><span class="n">userPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Current path: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">userPath</span><span class="p">)</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">function</span> <span class="n">DisplayPath</span> <span class="p">{</span>
+  <span class="nv">$userPath</span> <span class="p">=</span> <span class="no">[Environment]</span><span class="p">::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;Path&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
+  <span class="nb">Write-Host</span> <span class="p">(</span><span class="s2">&quot;Current path: &quot;</span> <span class="p">+</span> <span class="nv">$userPath</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="k">function</span><span class="w"> </span><span class="n">EnsurePathAdded</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">param</span><span class="p">(</span><span class="o">[</span><span class="n">System.String</span><span class="o">]</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
+<span class="k">function</span> <span class="n">EnsurePathAdded</span> <span class="p">{</span>
+  <span class="k">param</span><span class="p">(</span><span class="no">[System.String]</span> <span class="nv">$requiredPath</span><span class="p">)</span>
 
-<span class="w">  </span><span class="err">$</span><span class="n">userPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+  <span class="nv">$userPath</span> <span class="p">=</span> <span class="no">[Environment]</span><span class="p">::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;Path&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="n">userPath</span><span class="p">.</span><span class="k">Contains</span><span class="p">(</span><span class="err">$</span><span class="n">requiredPath</span><span class="p">))</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Exists: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="err">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">    </span><span class="err">$</span><span class="n">userPathNew</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="n">userPath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="ss">&quot;;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="w"></span>
-<span class="w">    </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="n">userPathNew</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+  <span class="k">if</span> <span class="p">(</span><span class="nv">$userPath</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="nv">$requiredPath</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nb">Write-Host</span> <span class="p">(</span><span class="s2">&quot;Exists: &quot;</span> <span class="p">+</span> <span class="nv">$requiredPath</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nv">$userPathNew</span> <span class="p">=</span> <span class="nv">$userPath</span> <span class="p">+</span> <span class="s2">&quot;;&quot;</span> <span class="p">+</span> <span class="nv">$requiredPath</span>
+    <span class="no">[Environment]</span><span class="p">::</span><span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;Path&quot;</span><span class="p">,</span> <span class="nv">$userPathNew</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="err">$</span><span class="n">userPathUpdated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">Environment</span><span class="o">]::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="ss">&quot;Path&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;User&quot;</span><span class="p">)</span><span class="w"></span>
+    <span class="nv">$userPathUpdated</span> <span class="p">=</span> <span class="no">[Environment]</span><span class="p">::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;Path&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="n">userPathUpdated</span><span class="p">.</span><span class="k">Contains</span><span class="p">(</span><span class="err">$</span><span class="n">requiredPath</span><span class="p">))</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Added: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="err">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">Write</span><span class="o">-</span><span class="k">Host</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Failed to add path: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">$</span><span class="n">requiredPath</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="err">}</span><span class="w"></span>
-<span class="w">  </span><span class="err">}</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$userPathUpdated</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="nv">$requiredPath</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nb">Write-Host</span> <span class="p">(</span><span class="s2">&quot;Added: &quot;</span> <span class="p">+</span> <span class="nv">$requiredPath</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nb">Write-Host</span> <span class="p">(</span><span class="s2">&quot;Failed to add path: &quot;</span> <span class="p">+</span> <span class="nv">$requiredPath</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-<span class="n">DisplayPath</span><span class="w"></span>
-<span class="n">EnsurePathAdded</span><span class="w"> </span><span class="o">-</span><span class="n">requiredPath</span><span class="w"> </span><span class="ss">&quot;c:\Work\Tools\Git64\bin&quot;</span><span class="w"></span>
-<span class="n">DisplayPath</span><span class="w"></span>
+<span class="n">DisplayPath</span>
+<span class="n">EnsurePathAdded</span> <span class="n">-requiredPath</span> <span class="s2">&quot;c:\Work\Tools\Git64\bin&quot;</span>
+<span class="n">DisplayPath</span>
 </code></pre></div>
 
 
 <p>Опциональный запуск через bat:</p>
-<div class="highlight"><pre><span></span><code><span class="err">@echo off</span>
-<span class="err">set dir=%cd%</span>
-<span class="err">PowerShell.exe -ExecutionPolicy bypass %dir%\update-path.ps1</span>
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">echo</span> off
+<span class="k">set</span> <span class="nv">dir</span><span class="p">=</span><span class="nv">%cd%</span>
+PowerShell.exe -ExecutionPolicy bypass <span class="nv">%dir%</span>\update-path.ps1
 </code></pre></div>
   </article>
       </div>
