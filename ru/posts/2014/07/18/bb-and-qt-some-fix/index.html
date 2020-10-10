@@ -72,7 +72,7 @@
     <h3>Синий пингвин</h3>
 <p>Нужно поменять местами красный и синий цвета. Решение найдено <a href="http://www.element14.com/community/message/108736/l/re-how-to-bb-view-on-latest-debian#108736">здесь</a>.
 Для этого открываем файл <i>/linux-dev/KERNEL/drivers/gpu/drm/drm_fb_helper.c</i>, ищем все инициализации смещения цветовых каналов и меняем местами red/blue.</p>
-<div class="highlight"><pre><span></span><code><span class="gd">--- ./drm_fb_helper.c.orig  2014-07-03 19:48:33.465438683 +0600</span>
+<div class="diff highlight"><pre><span></span><code><span class="gd">--- ./drm_fb_helper.c.orig  2014-07-03 19:48:33.465438683 +0600</span>
 <span class="gi">+++ ./drm_fb_helper.c   2014-07-18 18:52:09.336754771 +0600</span>
 <span class="gu">@@ -603,5 +603,5 @@</span>
     case 8:
@@ -156,11 +156,9 @@
         info-&gt;var.red.length = 8;
 </code></pre></div>
 
-
 <p>Затем пересобираем ядро:</p>
-<div class="highlight"><pre><span></span><code>$ ./tools/rebuild.sh
+<div class="bash highlight"><pre><span></span><code>$ ./tools/rebuild.sh
 </code></pre></div>
-
 
 <p>Снова копируем файлы на карту памяти, загружаемся с неё и видим уже нормального Тукса.</p>
 <h3>pin 44e10978 already requested by 4819c000.i2c</h3>
@@ -168,18 +166,17 @@
   * <a href="http://www.embedded-things.com/bbb/beaglebone-black-pin-mux-spreadsheet">BeagleBone Black Pin Mux Spreadsheet</a>
   * <a href="http://inspire.logicsupply.com/p/building-custom-cape.html">Building A Custom Cape</a></p>
 <p>При загрузке в логах можно увидеть конфликт назначения функции пина P9.20 (gpio0.12, смещение DT 0x178):</p>
-<div class="highlight"><pre><span></span><code>...
+<div class="text highlight"><pre><span></span><code>...
 [    0.811465] pinctrl-single 44e10800.pinmux: pin 44e10978 already requested by 4819c000.i2c; cannot claim for gpio-leds-cape-lcd.12
 [    0.823793] pinctrl-single 44e10800.pinmux: pin-94 (gpio-leds-cape-lcd.12) status -22
 [    0.831988] pinctrl-single 44e10800.pinmux: could not request pin 94 on device pinctrl-single
 ...
 </code></pre></div>
 
-
 <p>Он используется как линия SDA в интерфейсе I2C2 на BeagleBone Black для поиска плат расширения. Каждая из них должна иметь I2C микросхему памяти с информацией о плате (см. BeagleBone Black SRM, пункт 8.2.2 - I2C Bus).</p>
 <p>На плате BB-View место под миксрохему предусмотрено, но сама она отсутствует. А в DTS файле из Angstrom, да и в на плате BB-View, пин P9.20 обозначен как подключенный к светодиоду LED1. При попытке его инициализации как GPIO и возникает эта ошибка.</p>
 <p>Удаляем из файла DTS упоминания о P9.20, а также некоторых других неиспользуемых здесь пинах.</p>
-<div class="highlight"><pre><span></span><code><span class="gd">--- ./BB-VIEW-LCD7-01-00A0.dts.orig 2014-07-18 18:18:59.172344896 +0600</span>
+<div class="diff highlight"><pre><span></span><code><span class="gd">--- ./BB-VIEW-LCD7-01-00A0.dts.orig 2014-07-18 18:18:59.172344896 +0600</span>
 <span class="gi">+++ ./BB-VIEW-LCD7-01-00A0.dts  2014-07-18 18:20:11.771734973 +0600</span>
 <span class="gu">@@ -38,21 +38,16 @@</span>
         &quot;P8.29&quot;,    /* lcd: lcd_hsync */
@@ -247,10 +244,9 @@
             bb_view_gpio_keys {
 </code></pre></div>
 
-
 <p>Обновляем ядро.</p>
 <p>После загрузки можно увидеть следующие группы пинов:</p>
-<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
+<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ sudo cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
 registered pin groups:
 group: pinmux_userled_pins
 pin <span class="m">21</span> <span class="o">(</span>44e10854<span class="o">)</span>

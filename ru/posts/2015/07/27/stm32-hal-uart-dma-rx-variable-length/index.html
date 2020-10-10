@@ -71,7 +71,7 @@
   <article>
     <p>STM32 HAL UART Приём данных переменной длины с помощью DMA.</p>
 <p>Добавляем определение обработчика для IDLE.</p>
-<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h b/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h</span>
+<div class="diff highlight"><pre><span></span><code><span class="gh">diff --git a/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h b/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h</span>
 <span class="gd">--- a/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h</span>
 <span class="gi">+++ b/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h</span>
 <span class="gu">@@ -693,6 +693,7 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart);</span>
@@ -83,9 +83,8 @@
  void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart);
 </code></pre></div>
 
-
 <p>Добавляем обработку прерывания IDLE в обработчик прерываний UART.</p>
-<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c b/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c</span>
+<div class="diff highlight"><pre><span></span><code><span class="gh">diff --git a/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c b/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c</span>
 <span class="gd">--- a/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c</span>
 <span class="gi">+++ b/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c</span>
 <span class="gu">@@ -1238,6 +1238,15 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)</span>
@@ -126,12 +125,11 @@
    *                the configuration information for the specified UART module.
 </code></pre></div>
 
-
 <p>Доработка задачи приёма.<br>
 Настраивается приём через DMA для пакета размером в весь доступный буфер.<br>
 Затем идёт ожидание семафора. Семафор устанавливается в обработчике IDLE.<br>
 После, вычисляется количество принятых данных, как разница между ожидаемым количеством (размером буфера) и оставшимся (ещё не принятым) CNDTR.</p>
-<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/Src/freertos.c b/Src/freertos.c</span>
+<div class="diff highlight"><pre><span></span><code><span class="gh">diff --git a/Src/freertos.c b/Src/freertos.c</span>
 <span class="gh">index a7db5b3..5ffd4df 100644</span>
 <span class="gd">--- a/Src/freertos.c</span>
 <span class="gi">+++ b/Src/freertos.c</span>

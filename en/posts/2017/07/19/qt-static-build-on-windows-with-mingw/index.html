@@ -80,9 +80,8 @@
 Save it to directory *<em>D:\Qt*</em></p>
 <p>Select Qt version from <a href="http://download.qt.io/official_releases/qt/">Qt Downloads</a> and remember url for <strong>{VERSION}/{VERSION}/single/qt-everywhere-opensource-src-{VERSION}.zip</strong>. For example http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip</p>
 <p>Create file <strong>windows-build-run.bat</strong> with content:</p>
-<div class="highlight"><pre><span></span><code>PowerShell -NoProfile -ExecutionPolicy Bypass -Command <span class="s2">&quot;&amp; &#39;D:\Qt\windows-build-qt-static.ps1&#39; -QtSrcUrl &#39;http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip&#39; -QtStaticDir &#39;D:\Qt\Static591&#39; -MingwDir &#39;D:\Qt\Tools\mingw530_32&#39; -QtVersion &#39;5.9.1-Static&#39;</span>
+<div class="bat highlight"><pre><span></span><code>PowerShell -NoProfile -ExecutionPolicy Bypass -Command <span class="s2">&quot;&amp; &#39;D:\Qt\windows-build-qt-static.ps1&#39; -QtSrcUrl &#39;http://download.qt.io/official_releases/qt/5.9/5.9.1/single/qt-everywhere-opensource-src-5.9.1.zip&#39; -QtStaticDir &#39;D:\Qt\Static591&#39; -MingwDir &#39;D:\Qt\Tools\mingw530_32&#39; -QtVersion &#39;5.9.1-Static&#39;</span>
 </code></pre></div>
-
 
 <p>where
   * -QtSrcUrl - Url to source codes archive;

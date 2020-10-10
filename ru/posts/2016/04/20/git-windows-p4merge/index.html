@@ -78,15 +78,13 @@
 $ git config --global mergetool.p4merge.path <span class="s2">&quot;C:/Program Files/Perforce/p4merge.exe&quot;</span>
 </code></pre></div>
 
-
 <p>После этого в файле конфигурации Git'а добавятся строки:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mergetool &quot;p4merge&quot;]</span>
     <span class="na">path</span> <span class="o">=</span> <span class="s">&quot;C:/Program Files/Perforce/p4merge.exe&quot;</span>
 </code></pre></div>
 
-
 <p>После выполнения merge может возникнуть конфликт</p>
-<div class="highlight"><pre><span></span><code>user@desktop MINGW32 /c/projects/project <span class="o">(</span>develop<span class="o">)</span>
+<div class="bash highlight"><pre><span></span><code>user@desktop MINGW32 /c/projects/project <span class="o">(</span>develop<span class="o">)</span>
 $ git merge --no-ff --no-commit feature-branch
 
 Auto-merging file1.txt
@@ -97,12 +95,10 @@ CONFLICT <span class="o">(</span>content<span class="o">)</span>: Merge conflict
 Automatic merge failed<span class="p">;</span> fix conflicts and <span class="k">then</span> commit the result.
 </code></pre></div>
 
-
 <p>Запускаем mergetool</p>
-<div class="highlight"><pre><span></span><code>user@desktop MINGW32 /c/projects/project <span class="o">(</span>develop<span class="p">|</span>MERGING<span class="o">)</span>
+<div class="bash highlight"><pre><span></span><code>user@desktop MINGW32 /c/projects/project <span class="o">(</span>develop<span class="p">|</span>MERGING<span class="o">)</span>
 $ git mergetool
 </code></pre></div>
-
 
 <p>Git показывает список файлов с конфликтами и начинает по очереди применять к ним настроенный merge tool.
   * <span style="color:blue">REMOTE ▼</span> - удалённая версия (та, что вливается сюда извне);

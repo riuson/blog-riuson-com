@@ -75,7 +75,7 @@
     <h2>How to deploy dynamically linked application with DLLs.</h2>
 <p>Source article: <a href="http://doc.qt.io/qt-5/windows-deployment.html">Qt for Windows - Deployment</a></p>
 <p>Create simple Windows Batch file *.bat with commands:</p>
-<div class="highlight"><pre><span></span><code>; Add path to MinGW tools to <span class="nv">%PATH%</span> environment variable.
+<div class="bat highlight"><pre><span></span><code>; Add path to MinGW tools to <span class="nv">%PATH%</span> environment variable.
 <span class="k">SET</span> <span class="nv">PATH</span><span class="p">=</span><span class="nv">%PATH%</span>;c:\Qt\Tools\mingw530_32\bin\
 
 ; <span class="k">Set</span> <span class="nv">output path for application and DLLs</span>
@@ -93,7 +93,6 @@ xcopy .\sources\resources\readme.md <span class="nv">%destination%</span> /y
 ; Run windeployqt
 c<span class="p">:</span><span class="nl">\Qt\5.9\mingw53_32\bin\windeployqt</span><span class="c1"> --release --force --compiler-runtime %destination%my-project.exe</span>
 </code></pre></div>
-
 
 <p>Run batch file.</p>
   </article>

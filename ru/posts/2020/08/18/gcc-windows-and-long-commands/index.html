@@ -71,7 +71,7 @@
   <article>
     <h2>Проблема</h2>
 <p>С увеличением количества файлов в проекте, собираемом с использованием GCC под Windows, однажды можно получить подобную ошибку:</p>
-<div class="highlight"><pre><span></span><code>arm-none-eabi-g++ &lt;прочие параметры&gt; &lt;100500 объектных файлов...&gt; 
+<div class="text highlight"><pre><span></span><code>arm-none-eabi-g++ &lt;прочие параметры&gt; &lt;100500 объектных файлов...&gt; 
 collect2.exe: fatal error: CreateProcess: No such file or directory
 compilation terminated.
 make[1]: *** [Makefile:140: Output/ReleaseApp/myapplication.elf] Error 1
@@ -79,7 +79,6 @@ make[1]: Leaving directory &#39;D:/projects/Embedded/myapplication&#39;
 make: *** [Makefile:70: all] Error 2
 The terminal process &quot;cmd.exe /C make -j4 all CONF=ReleaseApp&quot; terminated with exit code: 2.
 </code></pre></div>
-
 
 <p>Причиной является ограничение на длину команды в Windows.</p>
 <p><a href="https://devblogs.microsoft.com/oldnewthing/20031210-00/?p=41553">What is the command line length limit? [devblogs.microsoft.com]</a></p>
@@ -90,13 +89,12 @@ The terminal process &quot;cmd.exe /C make -j4 all CONF=ReleaseApp&quot; termina
 <p>Позволяет обойти ограничение на длину 8192 символа при сборке проктов под Windows тем, что не использует <code>cmd.exe</code> для запуска процессов.</p>
 <h3>Сокращение путей к файлам</h3>
 <p>Объектные файлы перечисляются в аргументах c указанием путей к ним</p>
-<div class="highlight"><pre><span></span><code>...
+<div class="text highlight"><pre><span></span><code>...
 Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal.o
 Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc.o
 Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.o
  ...
 </code></pre></div>
-
 
 <p>Если сократить названия каталогов и вынести их на как можно более высокий уровень в проекте, сократятся пути и, как следствие, длина команды.</p>
 <h3>Применение архивов</h3>
@@ -118,14 +116,13 @@ Output/ReleaseApp/Sources/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_adc_ex.
 </blockquote>
 <p>Можно вынести длинный список объектных файлов (да и вообще все опции) в отдельный файл, который затем и передать аргументом.</p>
 <p>Для архива:</p>
-<div class="highlight"><pre><span></span><code><span class="nf">${OUTPUT_DIR}/libapplication.a</span><span class="o">:</span> ${<span class="n">APP_C_OBJECTS</span>} ${<span class="n">APP_CPP_OBJECTS</span>} ${<span class="n">APP_ASM_OBJECTS</span>}
+<div class="make highlight"><pre><span></span><code><span class="nf">${OUTPUT_DIR}/libapplication.a</span><span class="o">:</span> ${<span class="n">APP_C_OBJECTS</span>} ${<span class="n">APP_CPP_OBJECTS</span>} ${<span class="n">APP_ASM_OBJECTS</span>}
     @echo &gt; <span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/application.files &lt;&lt;EOF <span class="si">${</span><span class="p">^</span><span class="si">}</span>
     @<span class="si">${</span><span class="nv">AR</span><span class="si">}</span> -crs <span class="si">${</span><span class="p">@</span><span class="si">}</span> @<span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/application.files
 </code></pre></div>
 
-
 <p>Или для линкера:</p>
-<div class="highlight"><pre><span></span><code><span class="nf">${TARGET_ELF}</span><span class="o">:</span> ${<span class="n">C_OBJECTS</span>} ${<span class="n">CPP_OBJECTS</span>} ${<span class="n">ASM_OBJECTS</span>}
+<div class="make highlight"><pre><span></span><code><span class="nf">${TARGET_ELF}</span><span class="o">:</span> ${<span class="n">C_OBJECTS</span>} ${<span class="n">CPP_OBJECTS</span>} ${<span class="n">ASM_OBJECTS</span>}
     @echo &gt; <span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/object.files <span class="s">&lt;&lt;EOF $(sort $(filter %.o %.a, ${^}))</span>
 <span class="s">    ${LD} ${LINKE</span>R_PARAMS<span class="o">}</span> -o <span class="si">${</span><span class="p">@</span><span class="si">}</span> @<span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/object.files
 </code></pre></div>

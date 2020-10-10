@@ -75,7 +75,7 @@
     <h2>Как собрать динамические библиотеки, требуемые для приложения на Qt.</h2>
 <p>Исходная статья: <a href="http://doc.qt.io/qt-5/windows-deployment.html">Qt for Windows - Deployment</a></p>
 <p>Создать простой батник *.bat со следующими командами:</p>
-<div class="highlight"><pre><span></span><code>; Добавить путь к набору MinGW в переменную окружения <span class="nv">%PATH%</span>.
+<div class="bat highlight"><pre><span></span><code>; Добавить путь к набору MinGW в переменную окружения <span class="nv">%PATH%</span>.
 <span class="k">SET</span> <span class="nv">PATH</span><span class="p">=</span><span class="nv">%PATH%</span>;c:\Qt\Tools\mingw530_32\bin\
 
 ; Установить путь, куда будет помещено приложение и требуемые им библиотеки
@@ -93,7 +93,6 @@ xcopy .\sources\resources\readme.md <span class="nv">%destination%</span> /y
 ; Копируем библиотеки с помощью windeployqt
 c<span class="p">:</span><span class="nl">\Qt\5.9\mingw53_32\bin\windeployqt</span><span class="c1"> --release --force --compiler-runtime %destination%my-project.exe</span>
 </code></pre></div>
-
 
 <p>Запустить батник.</p>
   </article>

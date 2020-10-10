@@ -74,7 +74,7 @@
   <article>
     <h2>Исходные данные</h2>
 <p>Возник такой вопрос: как создать изображение в формате "С" для использования с BSP (Board Support Package) на STM32F429I-Disco?</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#ifndef __STLOGO_H</span>
+<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef __STLOGO_H</span>
 <span class="cp">#define __STLOGO_H</span>
 
 <span class="cp">#if defined ( __ICCARM__ ) </span><span class="cm">/*!&lt; IAR Compiler */</span><span class="cp"></span>
@@ -90,7 +90,6 @@
 <span class="p">...</span>
 </code></pre></div>
 
-
 <h2>Формат данных</h2>
 <p>После изучения указанного участка файла, а также исходников функции <code>void BSP_LCD_DrawBitmap(uint32_t X, uint32_t Y, uint8_t *pBmp)</code> из файла <code>stm32f429i_discovery_lcd.c</code> стало понятно, что это структура заголовка <a href="https://ru.wikipedia.org/wiki/BMP">формата BMP</a>. Видимо, это нужно для простой загрузки изображений с карт памяти SD.</p>
 <p>Также, по исходникам этой функции можно предположить, что поддерживаются только лишь форматы A8R8G8B8, R5G6B5 и R8G8B8.</p>
@@ -99,7 +98,7 @@
 <p>Как сделать с помощью LCD Image Converter?</p>
 <p>Можно просто решить (как некоторые и делают :), что это невозможно, потому что ни одна из встроенных настроек это не позволяет. Однако, задача состоит лишь в воспроизведении структуры заголовков BMP и заполнении их правильными данными.</p>
 <p>Из упомянутой выше статьи получается такая структура:</p>
-<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagBITMAPFILEHEADER</span> <span class="p">{</span>
+<div class="cpp highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">tagBITMAPFILEHEADER</span> <span class="p">{</span>
   <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span> <span class="c1">// Тип файла, &#39;BM&#39;, little-endian.</span>
   <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span> <span class="c1">// Размер всего файла в байтах.</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
@@ -108,7 +107,7 @@
 <span class="p">}</span> <span class="n">BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// 14 байт</span>
 
 <span class="c1">// Версия 3, BITMAPINFOHEADER.</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagBITMAPINFOHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">tagBITMAPINFOHEADER</span> <span class="p">{</span>
   <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span> <span class="c1">// Размер этой структуры, также указывающий её версию.</span>
   <span class="kt">int32_t</span>   <span class="n">biWidth</span><span class="p">;</span> <span class="c1">// Ширина изображения, должна быть больше 0.</span>
   <span class="kt">int32_t</span>   <span class="n">biHeight</span><span class="p">;</span> <span class="c1">// Высота изображения, должна быть больше 0.</span>
@@ -123,11 +122,10 @@
 <span class="p">}</span> <span class="n">BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// 40 байт</span>
 </code></pre></div>
 
-
 <h2>Шаблон</h2>
 <p>Цвета будем хранить в формате R5G6B5, т.е. в 16 битах. Для этого удобнее в качестве единицы хранения взять не <code>uint8_t</code>, а <code>uin16_t</code>, что скажется на данных в заголовке.</p>
 <p>Шаблон для заполнения такой структуры, для компилятора GCC, будет выглядеть следующим образом:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#ifndef $(doc_name_ws)_H_</span>
+<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef $(doc_name_ws)_H_</span>
 <span class="cp">#define $(doc_name_ws)_H_</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
@@ -135,17 +133,17 @@
 <span class="c1">// struct packing, pragma for GCC !!!</span>
 <span class="cp">#pragma pack(push, 1)</span>
 
-<span class="err">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
+<span class="n">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPFILEHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPFILEHEADER</span> <span class="p">{</span>
   <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span>
   <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved2</span><span class="p">;</span>
   <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span>
-<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
+<span class="p">}</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPINFOHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPINFOHEADER</span> <span class="p">{</span>
   <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biWidth</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biHeight</span><span class="p">;</span>
@@ -157,52 +155,51 @@
   <span class="kt">uint32_t</span>  <span class="n">biYPelsPerMeter</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biClrUsed</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span>
-<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
+<span class="p">}</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tag_Struct</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tag_Struct</span> <span class="p">{</span>
   <span class="c1">// offset 0, size 14</span>
-  <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
+  <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
   <span class="c1">// offset 14, size 40</span>
-  <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span> <span class="n">infoHeader</span><span class="p">;</span>
+  <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span> <span class="n">infoHeader</span><span class="p">;</span>
   <span class="c1">// offset 54, size $(out_blocks_count) words</span>
-  <span class="kt">uint16_t</span> <span class="n">data</span><span class="p">[</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)];</span>
-<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span><span class="p">;</span>
+  <span class="kt">uint16_t</span> <span class="n">data</span><span class="p">[</span><span class="n">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)];</span>
+<span class="p">}</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span><span class="p">;</span>
 
 
-<span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">{</span>
     <span class="mh">0x4d42u</span><span class="p">,</span>
-    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
     <span class="mh">0x0000u</span><span class="p">,</span>
     <span class="mh">0x0000u</span><span class="p">,</span>
-    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span>
   <span class="p">},</span>
   <span class="p">{</span>
-    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">),</span>
-    <span class="err">$</span><span class="p">(</span><span class="n">out_image_width</span><span class="p">),</span>
-    <span class="err">$</span><span class="p">(</span><span class="n">out_image_height</span><span class="p">),</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">),</span>
+    <span class="n">$</span><span class="p">(</span><span class="n">out_image_width</span><span class="p">),</span>
+    <span class="n">$</span><span class="p">(</span><span class="n">out_image_height</span><span class="p">),</span>
     <span class="mi">1u</span><span class="p">,</span>
-    <span class="err">$</span><span class="p">(</span><span class="n">out_bpp</span><span class="p">),</span>
+    <span class="n">$</span><span class="p">(</span><span class="n">out_bpp</span><span class="p">),</span>
     <span class="mh">0x00000003u</span><span class="p">,</span>
-    <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
     <span class="mh">0x00000000ul</span><span class="p">,</span>
     <span class="mh">0x00000000ul</span><span class="p">,</span>
     <span class="mh">0x00000000ul</span><span class="p">,</span>
     <span class="mh">0x00000000ul</span>
   <span class="p">},</span>
   <span class="p">{</span>
-  <span class="err">$</span><span class="p">(</span><span class="n">out_image_data</span><span class="p">)</span>
+  <span class="n">$</span><span class="p">(</span><span class="n">out_image_data</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="err">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
+<span class="n">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
 
 <span class="c1">// struct packing, pragma for GCC !!!</span>
 <span class="cp">#pragma pack (pop)</span>
 
 <span class="cp">#endif </span><span class="cm">/* $(doc_name_ws)_H_ */</span><span class="cp"></span>
 </code></pre></div>
-
 
 <h2>Настройки</h2>
 <p>Основное окно программы.</p>
@@ -216,7 +213,7 @@
 <p>Здесь надо указать шаблон вывода, приведённый выше.</p>
 <p><img alt="Настройки - Преобразование - Шаблоны" class="img-fluid" src="https://www.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5.png" /></p>
 <h2>Результаты</h2>
-<div class="highlight"><pre><span></span><code><span class="cp">#ifndef butterfly_H_</span>
+<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef butterfly_H_</span>
 <span class="cp">#define butterfly_H_</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
@@ -226,7 +223,7 @@
 
 
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tagBITMAPFILEHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">butterfly_tagBITMAPFILEHEADER</span> <span class="p">{</span>
   <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span>
   <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
@@ -234,7 +231,7 @@
   <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">butterfly_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tagBITMAPINFOHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">butterfly_tagBITMAPINFOHEADER</span> <span class="p">{</span>
   <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biWidth</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biHeight</span><span class="p">;</span>
@@ -248,7 +245,7 @@
   <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">butterfly_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tag_Struct</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">butterfly_tag_Struct</span> <span class="p">{</span>
   <span class="c1">// offset 0, size 14</span>
   <span class="n">butterfly_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
   <span class="c1">// offset 14, size 40</span>
@@ -291,7 +288,6 @@
 
 <span class="cp">#endif </span><span class="cm">/* butterfly_H_ */</span><span class="cp"></span>
 </code></pre></div>
-
 
 <p>Фото платы STM32F429I-Disco с полученным изображением
 <img alt="Фото платы STM32F429I-Disco с полученным изображением" class="img-fluid" src="https://www.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-6.png" /></p>

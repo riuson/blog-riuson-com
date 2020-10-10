@@ -71,7 +71,7 @@
   <article>
     <h3>Замена дат в предыдущих коммитах.</h3>
 <p><a href="http://eddmann.com/posts/changing-the-timestamp-of-a-previous-git-commit/">Changing the timestamp of a previous Git commit</a></p>
-<div class="highlight"><pre><span></span><code>$ git filter-branch --env-filter <span class="se">\</span>
+<div class="bash highlight"><pre><span></span><code>$ git filter-branch --env-filter <span class="se">\</span>
 <span class="s2">&quot;if test \$GIT_COMMIT = &#39;e6dbcffca68e4b51887ef660e2389052193ba4f4&#39;</span>
 <span class="s2">then</span>
 <span class="s2">    export GIT_AUTHOR_DATE=&#39;Sat, 14 Dec 2013 12:40:00 +0000&#39;</span>
@@ -79,9 +79,8 @@
 <span class="s2">fi&quot;</span> <span class="o">&amp;&amp;</span> rm -fr <span class="s2">&quot;</span><span class="k">$(</span>git rev-parse --git-dir<span class="k">)</span><span class="s2">/refs/original/&quot;</span>
 </code></pre></div>
 
-
 <h3>Замена даты в новом коммите.</h3>
-<div class="highlight"><pre><span></span><code><span class="nv">GIT_COMMITTER_DATE</span><span class="o">=</span><span class="s2">&quot;2000-01-01 12:00:00 +0300&quot;</span> git commit --date <span class="s2">&quot;2000-01-01 12:00:00 +0300&quot;</span>
+<div class="bash highlight"><pre><span></span><code><span class="nv">GIT_COMMITTER_DATE</span><span class="o">=</span><span class="s2">&quot;2000-01-01 12:00:00 +0300&quot;</span> git commit --date <span class="s2">&quot;2000-01-01 12:00:00 +0300&quot;</span>
 </code></pre></div>
   </article>
       </div>

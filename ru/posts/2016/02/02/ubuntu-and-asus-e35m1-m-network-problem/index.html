@@ -76,7 +76,7 @@
 После переустановки системы проблема всплыла снова.</p>
 <h1>r8168</h1>
 <p>На плате встроенная поддержка сети реализуется с помощью <strong>Realtek® 8111E , 1 x Gigabit LAN Controller(s)</strong>.</p>
-<div class="highlight"><pre><span></span><code>$ lspci -v
+<div class="text highlight"><pre><span></span><code>$ lspci -v
 
 03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
     Subsystem: ASUSTeK Computer Inc. P8P67 and other motherboards
@@ -88,11 +88,10 @@
     Kernel driver in use: r8169
 </code></pre></div>
 
-
 <p>Раньше надо было собирать драйвер для 8111/8168 из исходников.
 Сейчас в репозитории есть пакет <a href="http://packages.ubuntu.com/wily/r8168-dkms">r8168-dkms</a>.
 После его установки контроллер работает уже с иным драйвером:</p>
-<div class="highlight"><pre><span></span><code>$ lspci -v
+<div class="text highlight"><pre><span></span><code>$ lspci -v
 
 03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
     Subsystem: ASUSTeK Computer Inc. P8P67 and other motherboards
@@ -104,7 +103,6 @@
     Kernel driver in use: r8168
 </code></pre></div>
 
-
 <p>Откатить на прежний драйвер можно удалением этого пакета через --purge.</p>
 <p><a href="https://bugs.launchpad.net/ubuntu/+source/linux/+bug/141343">Bug #141343: r8169 driver does not work with Realtek "PCI-E" 8111B integrated network controller</a><br/>
 <a href="https://unixblogger.wordpress.com/2011/10/18/the-pain-of-an-realtek-rtl8111rtl8168-ethernet-card/">The pain of an Realtek (RTL8111/RTL8168) ethernet card</a></br>
@@ -112,7 +110,7 @@
 <p>Однако, говорят, что именно эта проблема с r8168 была закрыта. И действительно, установка этого драйвера в данном случае не помогла. Если в прошлый раз отваливалась локальная сеть, за этой сетевой картой, то теперь сеть провайдера за дискретной сетевой на базе 8139.</p>
 <h1>ASM1083</h1>
 <p>Простеньким скриптом было обнаружено время возникновения ошибки. Между двумя этими записями:</p>
-<div class="highlight"><pre><span></span><code>======== 2016-02-01T02:06:34+0500 ========
+<div class="text highlight"><pre><span></span><code>======== 2016-02-01T02:06:34+0500 ========
 64 bytes from cache.google.com (xx.xx.xx.xx): icmp_seq=1 ttl=62 time=0.998 ms
           RX packets:500253 errors:211 dropped:2370 overruns:122 frame:0
           TX packets:411349 errors:0 dropped:0 overruns:0 carrier:0
@@ -125,9 +123,8 @@
           RX bytes:393386290 (393.3 MB)  TX bytes:127927258 (127.9 MB)
 </code></pre></div>
 
-
 <p>В kern.log обнаружилось соответствие:</p>
-<div class="highlight"><pre><span></span><code>Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the &quot;irqpoll&quot; option)
+<div class="text highlight"><pre><span></span><code>Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the &quot;irqpoll&quot; option)
 Feb  1 02:06:55 ubuntu kernel: [82015.771426] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           OE   4.2.0-25-generic #30-Ubuntu
 Feb  1 02:06:55 ubuntu kernel: [82015.771430] Hardware name: System manufacturer System Product Name/E35M1-M, BIOS 1401 12/21/2011
 Feb  1 02:06:55 ubuntu kernel: [82015.771435]  0000000000000000 e37fa07b054cf793 ffff88013ec03e28 ffffffff817e94c9
@@ -166,7 +163,6 @@ Feb  1 02:06:55 ubuntu kernel: [82015.771761] [&lt;ffffffff815db9c0&gt;] usb_hcd
 Feb  1 02:06:55 ubuntu kernel: [82015.771815] [&lt;ffffffffc01361c0&gt;] rtl8139_interrupt [8139too]
 Feb  1 02:06:55 ubuntu kernel: [82015.771878] Disabling IRQ #18
 </code></pre></div>
-
 
 <p>Поиск по <strong>irq "nobody cared"</strong> прояснил, что проблема, вероятно, кроется в чипе ASM1083, используемом на данной материнской плате и на других от Asus:
 <a href="https://bugzilla.kernel.org/show_bug.cgi?id=38632">Bug 38632 - IRQ Nobody Cared on Sandybridge Additional Ethernet Card</a></p>
