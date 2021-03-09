@@ -5,3 +5,4 @@ _site
 _backup/
 __pycache__/
 output/
+.venvs/
