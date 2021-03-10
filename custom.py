@@ -60,15 +60,25 @@ def configure():
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pelican' ])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'invoke' ])
 
-#def build():
-    #invoke build
+def build():
+    print('Build site...')
+    res = subprocess.check_call([
+        sys.executable,
+        '-m',
+        'pelican',
+        os.path.join(getMyDirectory(), 'content'),
+        '-o',
+        os.path.join(getMyDirectory(), 'output'),
+        '-s',
+        os.path.join(getMyDirectory(), 'pelicanconf.py'),
+    ])
 
 scriptCommand = args.command
 
 handlers = {
     'hello': hello,
     'configure': configure,
-    #'build': build,
+    'build': build,
 }
 
 if scriptCommand == 'prepare':
