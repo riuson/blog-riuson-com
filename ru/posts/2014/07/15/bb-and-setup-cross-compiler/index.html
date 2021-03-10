@@ -74,12 +74,12 @@
 На BeagleBone Black - Debian 7.5 Wheezy.</p>
 <h3>32-битные библиотеки</h3>
 <p>Начиная с Ubuntu 13.10 выпилен пакет ia32-libs. Поэтому команда </p>
-<div class="bash highlight"><pre><span></span><code>$ sudo apt-get install ia32-libs
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install ia32-libs
 </code></pre></div>
 
 <p>уже не пройдёт.</p>
 <p>Устанавливаем библиотеки как объяснено <a href="http://www.linuxrussia.com/2014/02/32-libs-ubuntu.html">здесь</a> и <a href="http://gnuarmeclipse.livius.net/blog/toolchain-install/">здесь</a>.</p>
-<div class="bash highlight"><pre><span></span><code>$ sudo dpkg --add-architecture i386
+<div class="highlight"><pre><span></span><code>$ sudo dpkg --add-architecture i386
 $ sudo apt-get update 
 
 $ sudo apt-get install libc6:i386 libstdc++6:i386
@@ -96,7 +96,7 @@ $ sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0
 <p>Скачиваем исходники <a href="https://launchpad.net/gdb-linaro/+download">Linaro GDB</a>.
 Распаковываем в <i>/home/user/beaglebone/gdb-linaro-7.6-2013.05-sources</i>
 Собираем:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/gdb-linaro-7.6-2013.05-sources
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/gdb-linaro-7.6-2013.05-sources
 ~/beaglebone/gdb-linaro-7.6-2013.05-sources$ ./configure --target<span class="o">=</span>arm-elf-linux-gnueabihf --prefix<span class="o">=</span>/home/user/beaglebone/gdb-linaro-7.6-2013.05
 ~/beaglebone/gdb-linaro-7.6-2013.05-sources$ make -j <span class="m">2</span>
 ~/beaglebone/gdb-linaro-7.6-2013.05-sources$ make install

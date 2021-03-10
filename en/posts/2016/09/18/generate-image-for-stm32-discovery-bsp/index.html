@@ -74,7 +74,7 @@
   <article>
     <h2>Initial data</h2>
 <p>And once there was a question ... How do I create an image for the board STM32F429I-Disco in "C" format for use with the <abbr title="Board Support Package">BSP</abbr>?</p>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef __STLOGO_H</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef __STLOGO_H</span>
 <span class="cp">#define __STLOGO_H</span>
 
 <span class="cp">#if defined ( __ICCARM__ ) </span><span class="cm">/*!&lt; IAR Compiler */</span><span class="cp"></span>
@@ -100,7 +100,7 @@ I think it was made for ease of use the image files from the SD memory card.</p>
 <p>The simplest - is to decide that the conversion is not possible, as there is no ready-made presets for this.
 However, the problem is only in the reconstruction of the structure header BMP and filling them with the right data.</p>
 <p>From Wiki article mentioned above, we can obtain the following structure:</p>
-<div class="cpp highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">tagBITMAPFILEHEADER</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagBITMAPFILEHEADER</span> <span class="p">{</span>
   <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span> <span class="c1">// File type, &#39;BM&#39;, little-endian.</span>
   <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span> <span class="c1">// Size of file, in bytes.</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
@@ -109,7 +109,7 @@ However, the problem is only in the reconstruction of the structure header BMP a
 <span class="p">}</span> <span class="n">BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// 14 bytes</span>
 
 <span class="c1">// Версия 3, BITMAPINFOHEADER.</span>
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">tagBITMAPINFOHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">tagBITMAPINFOHEADER</span> <span class="p">{</span>
   <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span> <span class="c1">// Size of this structure and its version.</span>
   <span class="kt">int32_t</span>   <span class="n">biWidth</span><span class="p">;</span> <span class="c1">// Width of image, must be freater than 0.</span>
   <span class="kt">int32_t</span>   <span class="n">biHeight</span><span class="p">;</span> <span class="c1">// Height of image, must be freater than 0.</span>
@@ -128,7 +128,7 @@ However, the problem is only in the reconstruction of the structure header BMP a
 <p>Colors will be stored in R5G6B5 format, ie 16 bits.
 For this purpose, it is more convenient to take as a storage unit <code>uin16_t</code>, instead <code>uint8_t</code>, which will affect the data in the header.</p>
 <p>Template for filling such a structure, for the GCC compiler, will be as follows:</p>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef $(doc_name_ws)_H_</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef $(doc_name_ws)_H_</span>
 <span class="cp">#define $(doc_name_ws)_H_</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
@@ -136,17 +136,17 @@ For this purpose, it is more convenient to take as a storage unit <code>uin16_t<
 <span class="c1">// struct packing, pragma for GCC !!!</span>
 <span class="cp">#pragma pack(push, 1)</span>
 
-<span class="n">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
+<span class="err">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPFILEHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPFILEHEADER</span> <span class="p">{</span>
   <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span>
   <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved2</span><span class="p">;</span>
   <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
+<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPINFOHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tagBITMAPINFOHEADER</span> <span class="p">{</span>
   <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biWidth</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biHeight</span><span class="p">;</span>
@@ -158,45 +158,45 @@ For this purpose, it is more convenient to take as a storage unit <code>uin16_t<
   <span class="kt">uint32_t</span>  <span class="n">biYPelsPerMeter</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biClrUsed</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
+<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tag_Struct</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_tag_Struct</span> <span class="p">{</span>
   <span class="c1">// offset 0, size 14</span>
-  <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
+  <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
   <span class="c1">// offset 14, size 40</span>
-  <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span> <span class="n">infoHeader</span><span class="p">;</span>
+  <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span> <span class="n">infoHeader</span><span class="p">;</span>
   <span class="c1">// offset 54, size $(out_blocks_count) words</span>
-  <span class="kt">uint16_t</span> <span class="n">data</span><span class="p">[</span><span class="n">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)];</span>
-<span class="p">}</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span><span class="p">;</span>
+  <span class="kt">uint16_t</span> <span class="n">data</span><span class="p">[</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)];</span>
+<span class="p">}</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span><span class="p">;</span>
 
 
-<span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span> <span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
+<span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_Struct</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">{</span>
     <span class="mh">0x4d42u</span><span class="p">,</span>
-    <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
     <span class="mh">0x0000u</span><span class="p">,</span>
     <span class="mh">0x0000u</span><span class="p">,</span>
-    <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPFILEHEADER</span><span class="p">)</span>
   <span class="p">},</span>
   <span class="p">{</span>
-    <span class="k">sizeof</span><span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">),</span>
-    <span class="n">$</span><span class="p">(</span><span class="n">out_image_width</span><span class="p">),</span>
-    <span class="n">$</span><span class="p">(</span><span class="n">out_image_height</span><span class="p">),</span>
+    <span class="k">sizeof</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_BITMAPINFOHEADER</span><span class="p">),</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_image_width</span><span class="p">),</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_image_height</span><span class="p">),</span>
     <span class="mi">1u</span><span class="p">,</span>
-    <span class="n">$</span><span class="p">(</span><span class="n">out_bpp</span><span class="p">),</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_bpp</span><span class="p">),</span>
     <span class="mh">0x00000003u</span><span class="p">,</span>
-    <span class="p">(</span><span class="n">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_blocks_count</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
     <span class="mh">0x00000000ul</span><span class="p">,</span>
     <span class="mh">0x00000000ul</span><span class="p">,</span>
     <span class="mh">0x00000000ul</span><span class="p">,</span>
     <span class="mh">0x00000000ul</span>
   <span class="p">},</span>
   <span class="p">{</span>
-  <span class="n">$</span><span class="p">(</span><span class="n">out_image_data</span><span class="p">)</span>
+  <span class="err">$</span><span class="p">(</span><span class="n">out_image_data</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="n">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
+<span class="err">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
 
 <span class="c1">// struct packing, pragma for GCC !!!</span>
 <span class="cp">#pragma pack (pop)</span>
@@ -218,7 +218,7 @@ For this purpose, it is more convenient to take as a storage unit <code>uin16_t<
 <p>Template file.</p>
 <p><img alt="Options - Conversion - Templates" class="img-fluid" src="https://www.riuson.com/images/posts/2016/09/18/generate-image-for-stm32-discovery-bsp-5.png" /></p>
 <h2>Results</h2>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef butterfly_H_</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef butterfly_H_</span>
 <span class="cp">#define butterfly_H_</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
@@ -228,7 +228,7 @@ For this purpose, it is more convenient to take as a storage unit <code>uin16_t<
 
 
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">butterfly_tagBITMAPFILEHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tagBITMAPFILEHEADER</span> <span class="p">{</span>
   <span class="kt">uint16_t</span>   <span class="n">bfType</span><span class="p">;</span>
   <span class="kt">uint32_t</span>   <span class="n">bfSize</span><span class="p">;</span>
   <span class="kt">uint16_t</span>   <span class="n">bfReserved1</span><span class="p">;</span>
@@ -236,7 +236,7 @@ For this purpose, it is more convenient to take as a storage unit <code>uin16_t<
   <span class="kt">uint32_t</span>   <span class="n">bfOffBits</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">butterfly_BITMAPFILEHEADER</span><span class="p">;</span> <span class="c1">// size is 14 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">butterfly_tagBITMAPINFOHEADER</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tagBITMAPINFOHEADER</span> <span class="p">{</span>
   <span class="kt">uint32_t</span>  <span class="n">biSize</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biWidth</span><span class="p">;</span>
   <span class="kt">uint32_t</span>  <span class="n">biHeight</span><span class="p">;</span>
@@ -250,7 +250,7 @@ For this purpose, it is more convenient to take as a storage unit <code>uin16_t<
   <span class="kt">uint32_t</span>  <span class="n">biClrImportant</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">butterfly_BITMAPINFOHEADER</span><span class="p">;</span> <span class="c1">// size is 40 bytes</span>
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">butterfly_tag_Struct</span> <span class="p">{</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">butterfly_tag_Struct</span> <span class="p">{</span>
   <span class="c1">// offset 0, size 14</span>
   <span class="n">butterfly_BITMAPFILEHEADER</span> <span class="n">fileHeader</span><span class="p">;</span>
   <span class="c1">// offset 14, size 40</span>

@@ -75,13 +75,13 @@
     <p>Настройка KDiff3 в качестве mergetool и difftool в Git for Windows.</p>
 <p>Устанавливаем <a href="https://sourceforge.net/projects/kdiff3">KDiff3</a>.</p>
 <p>В Git Bash прописываем:</p>
-<div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="o">--</span><span class="n">add</span> <span class="n">merge</span><span class="o">.</span><span class="k">tool</span> <span class="n">kdiff3</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="o">--</span><span class="n">add</span> <span class="n">mergetool</span><span class="o">.</span><span class="n">kdiff3</span><span class="o">.</span><span class="n">path</span> <span class="s2">&quot;C:/Program Files/KDiff3/kdiff3.exe&quot;</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="o">--</span><span class="n">add</span> <span class="n">mergetool</span><span class="o">.</span><span class="n">kdiff3</span><span class="o">.</span><span class="n">trustExitCode</span> <span class="bp">false</span>
+<div class="highlight"><pre><span></span><code><span class="n">git</span> <span class="n">config</span> <span class="c1">--global --add merge.tool kdiff3</span>
+<span class="n">git</span> <span class="n">config</span> <span class="c1">--global --add mergetool.kdiff3.path &quot;C:/Program Files/KDiff3/kdiff3.exe&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="c1">--global --add mergetool.kdiff3.trustExitCode false</span>
 
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="o">--</span><span class="n">add</span> <span class="n">diff</span><span class="o">.</span><span class="n">guitool</span> <span class="n">kdiff3</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="o">--</span><span class="n">add</span> <span class="n">difftool</span><span class="o">.</span><span class="n">kdiff3</span><span class="o">.</span><span class="n">path</span> <span class="s2">&quot;C:/Program Files/KDiff3/kdiff3.exe&quot;</span>
-<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="o">--</span><span class="n">add</span> <span class="n">difftool</span><span class="o">.</span><span class="n">kdiff3</span><span class="o">.</span><span class="n">trustExitCode</span> <span class="bp">false</span>
+<span class="n">git</span> <span class="n">config</span> <span class="c1">--global --add diff.guitool kdiff3</span>
+<span class="n">git</span> <span class="n">config</span> <span class="c1">--global --add difftool.kdiff3.path &quot;C:/Program Files/KDiff3/kdiff3.exe&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="c1">--global --add difftool.kdiff3.trustExitCode false</span>
 </code></pre></div>
   </article>
       </div>

@@ -72,27 +72,27 @@
     <p>Сборка Tslib для Qt.</p>
 <h3>Сборка</h3>
 <p>Клонируем репозиторий <a href="https://github.com/kergoth/tslib">tslib</a>:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/
 $ mkdir tslib
 $ <span class="nb">cd</span> tslib
 $ git clone https://github.com/kergoth/tslib.git .
 </code></pre></div>
 
 <p>Устанавливаем дополнительные пакеты для создания файлов конфигурации:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/tslib/
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/tslib/
 $ sudo apt-get install autoconf automake gettext libtool
 $ ./autogen.sh
 </code></pre></div>
 
 <p>Создаём скрипт сборки:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/tslib/
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/tslib/
 $ touch build.sh
 $ chmod +x build.sh
 $ nano build.sh
 </code></pre></div>
 
 <p>С текстом:</p>
-<div class="bash highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf-gcc
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf-gcc
 <span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf-g++
 <span class="nb">export</span> <span class="nv">CONFIG_SITE</span><span class="o">=</span>arm-linux.autogen
 ./configure --build<span class="o">=</span>i386-linux --host<span class="o">=</span>arm-linux --target<span class="o">=</span>arm --disable-inputapi --prefix<span class="o">=</span>/usr/share/tslib-armv7
@@ -100,7 +100,7 @@ make
 </code></pre></div>
 
 <p>Собираем и устанавливаем:</p>
-<div class="bash highlight"><pre><span></span><code>$ ./build.sh
+<div class="highlight"><pre><span></span><code>$ ./build.sh
 $ sudo make install
 </code></pre></div>
 
@@ -108,30 +108,30 @@ $ sudo make install
 <h3>Настройка и калибровка</h3>
 <p>В <i>/dev/input/</i> требуется определить, какой из event'ов относится к touchscreen.
 Можно запустить, например, дамп и понажимать на панель:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ sudo cat /dev/input/event1 <span class="p">|</span> hexdump
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo cat /dev/input/event1 <span class="p">|</span> hexdump
 </code></pre></div>
 
 <p>Либо запросить инфу о каждом event'е, пока не найдётся tsc:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ sudo udevadm info -n input/event1 -q path
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo udevadm info -n input/event1 -q path
 
 /devices/ocp.3/44e0d000.tscadc/tsc/input/input1/event1
 </code></pre></div>
 
 <p>Теперь надо создать симлинк к этому event'у и разрешить доступ к нему.
 Создаём в каталоге <i>/etc/udev/rules.d</i> файл <i>80-touchscreen.rules</i> с одной строкой:</p>
-<div class="text highlight"><pre><span></span><code>KERNEL==&quot;event1&quot;, SUBSYSTEM==&quot;input&quot;, SUBSYSTEMS==&quot;input&quot;, ATTRS{name}==&quot;ti-tsc&quot;, SYMLINK+=&quot;input/touchscreen&quot;, MODE=&quot;0644&quot;
+<div class="highlight"><pre><span></span><code>KERNEL==&quot;event1&quot;, SUBSYSTEM==&quot;input&quot;, SUBSYSTEMS==&quot;input&quot;, ATTRS{name}==&quot;ti-tsc&quot;, SYMLINK+=&quot;input/touchscreen&quot;, MODE=&quot;0644&quot;
 </code></pre></div>
 
 <p>и перезагружаемся. Должен появиться <i>/dev/input/touchscreen</i> с правами на чтение для всех.
 <a href="http://rus-linux.net/lib.php?name=/MyLDP/sys-conf/udev.html">Инструкция по udev</a>. В Debian udevinfo заменяется на udevadm info.</p>
 <p>Создаём в Debian скрипт калибровки:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ mkdir /home/debian/test
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ mkdir /home/debian/test
 debian@beaglebone:~$ <span class="nb">cd</span> /home/debian/test
 debian@beaglebone:~/test$ nano ./calibr.sh
 </code></pre></div>
 
 <p>С текстом:</p>
-<div class="bash highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 <span class="nb">export</span> <span class="nv">TSLIB_TSDEVICE</span><span class="o">=</span>/dev/input/touchscreen
 <span class="nb">export</span> <span class="nv">TSLIB_CONFFILE</span><span class="o">=</span>/etc/ts.conf
 <span class="nb">export</span> <span class="nv">TSLIB_CALIBFILE</span><span class="o">=</span>/etc/pointercal2
@@ -141,7 +141,7 @@ debian@beaglebone:~/test$ nano ./calibr.sh
 </code></pre></div>
 
 <p>Закрываем редактор. Запускаем скрипт калибровки:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~/test$ chmod +x ./calibr.sh
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/test$ chmod +x ./calibr.sh
 debian@beaglebone:~/test$ sudo ./calibr.sh
 </code></pre></div>
 

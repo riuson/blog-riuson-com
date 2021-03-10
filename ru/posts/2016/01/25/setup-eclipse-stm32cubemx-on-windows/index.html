@@ -122,7 +122,7 @@
 <p>В мастере создания нового проекта выбираем <em>C/C++</em> -&gt; <em>C Project</em>.
 Далее указываем имя проекта и тип <em>Hello World ARM C Project</em>, Toolchain <em>Cross ARM GCC</em>.
 Далее меняем каталог исходников Source с <em>src</em> на <em>Src</em>. В Linker semi-hosting options стираем всё и пишем </p>
-<div class="text highlight"><pre><span></span><code>--specs=nosys.specs
+<div class="highlight"><pre><span></span><code>--specs=nosys.specs
 </code></pre></div>
 
 <p>Пробуем собрать проект.</p>
@@ -150,7 +150,7 @@
 Делаем его текст более читаемым через любое средство форматирования XML, позволяющее разнести атрибуты по строкам.</p>
 <h4>Include</h4>
 <p>Ищем в XML файле пути для Include, в ноде, подобной следующей:</p>
-<div class="xml highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
     <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
     <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
     <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
@@ -178,7 +178,7 @@
 
 <h4>Define</h4>
 <p>Ищем в XML файле макросы, в ноде, подобной следующей:</p>
-<div class="xml highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
     <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
     <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
     <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
@@ -195,7 +195,7 @@
 
 <p>Открываем свойства проекта в Eclipse, идём в <em>C/C++ Build</em> -&gt; <em>Settings</em> -&gt; <em>Tool Settings</em> -&gt; <em>Cross ARM C Compiler</em> -&gt; <em>Preprocessor</em>. Добавляем найденные макросы из XML файла в список <em>Defined symbols (-D)</em>.
 Список примерно следующий:</p>
-<div class="text highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
 __packed=&quot;__attribute__((__packed__))&quot;
 USE_HAL_DRIVER
 STM32F030x6
@@ -214,7 +214,7 @@ ARM_MATH_CM0
 <h1>Отладка</h1>
 <h2>Проверка связи с отладчиком и микроконтроллером через J-Flash.</h2>
 <p>Запускаем J-Flash. Создаём новый проект. В свойствах проекта выбираем свой отладчик, <em>Target Interface</em>, <em>CPU</em> -&gt; <em>Device</em>. Выполняем подключение <em>Target</em> -&gt; <em>Connect</em>. Если в логах появилась запись </p>
-<div class="text highlight"><pre><span></span><code>- Connected successfully
+<div class="highlight"><pre><span></span><code>- Connected successfully
 </code></pre></div>
 
 <p>, то всё OK. Если нет, разбираемся с драйверами и подключением.

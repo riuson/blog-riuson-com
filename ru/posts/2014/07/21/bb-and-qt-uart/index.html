@@ -85,16 +85,16 @@
     * P8.38 - LCD Data</p>
 <p>Отсюда видно, что можно задействовать UART2.
 На BeagleBone открываем файл настроек окружения:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ sudo nano /boot/uboot/uEnv.txt
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo nano /boot/uboot/uEnv.txt
 </code></pre></div>
 
 <p>Меняем ранее добавленную строку параметров на</p>
-<div class="text highlight"><pre><span></span><code>optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01,BB-UART2
+<div class="highlight"><pre><span></span><code>optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01,BB-UART2
 </code></pre></div>
 
 <p>Перезагружаемся.</p>
 <p>Теперь пины подключены к UART:</p>
-<div class="bash highlight"><pre><span></span><code>sudo cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
+<div class="highlight"><pre><span></span><code>sudo cat /sys/kernel/debug/pinctrl/44e10800.pinmux/pingroups
 ...
 group: pinmux_bb_uart2_pins
 pin <span class="m">84</span> <span class="o">(</span>44e10950<span class="o">)</span>
@@ -107,7 +107,7 @@ pin <span class="m">85</span> <span class="o">(</span>44e10954<span class="o">)<
 <p>Подключаем к ПК через адаптер RS-232 - UART 3.3V. На ПК можно воспользоваться любым терминалом для работы с RS-232. Настраиваем на скорость 115200, 8 бит, проверки чётности нет, 1 стоп бит.</p>
 <h4>Проверка передачи на ПК</h4>
 <p>На BeagleBone:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ sudo stty -F /dev/ttyO2 speed <span class="m">115200</span> cs8 -cstopb -parenb
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ sudo stty -F /dev/ttyO2 speed <span class="m">115200</span> cs8 -cstopb -parenb
 <span class="m">115200</span>
 debian@beaglebone:~$ <span class="nb">echo</span> <span class="s1">&#39;Hello, World!&#39;</span> &gt; /dev/ttyO2
 </code></pre></div>
@@ -115,7 +115,7 @@ debian@beaglebone:~$ <span class="nb">echo</span> <span class="s1">&#39;Hello, W
 <p>На ПК должна быть принята эта строка.</p>
 <h4>Проверка передачи на BeagleBone</h4>
 <p>Включаем приём на плате:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ cat /dev/ttyO2
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ cat /dev/ttyO2
 </code></pre></div>
 
 <p>Отправляем строку текста с ПК, заканчивающуюся /r или /n. Строка должна отобразиться в консоли BeagleBone.</p>

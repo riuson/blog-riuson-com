@@ -74,7 +74,7 @@
 При выборе комплекта выбираем Desktop Qt 5.2.1 GCC и ARMv7 Qt 5.2.1 GCC ARM.</p>
 <p>В проекте будет всего 2 файла, bb-test-console.pro и main.cpp.
 bb-test-console.pro:</p>
-<div class="text highlight"><pre><span></span><code>#-------------------------------------------------
+<div class="highlight"><pre><span></span><code>#-------------------------------------------------
 #
 # Project created by QtCreator 2014-07-15T20:59:08
 #
@@ -93,7 +93,7 @@ SOURCES += main.cpp
 </code></pre></div>
 
 <p>main.cpp приводим к следующему виду:</p>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;QCoreApplication&gt;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;QCoreApplication&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
@@ -110,7 +110,7 @@ SOURCES += main.cpp
 <p><img alt="kit-selection" class="img-fluid" src="https://www.riuson.com/images/posts/2014/07/16/bb-and-qt-test-application-1.png" /></p>
 <p>Собираем и копируем на BeagleBone.</p>
 <p>Проверить наличие требуемых библиотек можно командой ldd -v на устройстве:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ldd -v bb-test-console 
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ldd -v bb-test-console 
     libQt5Core.so.5 <span class="o">=</span>&gt; /usr/share/qt-5.2.1-armv7/lib/libQt5Core.so.5 <span class="o">(</span>0xb6bed000<span class="o">)</span>
     librt.so.1 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/librt.so.1 <span class="o">(</span>0xb6bcf000<span class="o">)</span>
     libdl.so.2 <span class="o">=</span>&gt; /lib/arm-linux-gnueabihf/libdl.so.2 <span class="o">(</span>0xb6bc4000<span class="o">)</span>
@@ -194,7 +194,7 @@ debian@beaglebone:~/usr-share$
 </code></pre></div>
 
 <p>Запускаем:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ./bb-test-console 
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ./bb-test-console 
 Hello, World!
 debian@beaglebone:~/usr-share$ 
 </code></pre></div>
@@ -227,7 +227,7 @@ debian@beaglebone:~/usr-share$
 </code></pre></div>
 
 <p>mainwindow.h:</p>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#ifndef MAINWINDOW_H</span>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef MAINWINDOW_H</span>
 <span class="cp">#define MAINWINDOW_H</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;QMainWindow&gt;</span><span class="cp"></span>
@@ -259,7 +259,7 @@ debian@beaglebone:~/usr-share$
 </code></pre></div>
 
 <p>main.cpp:</p>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;mainwindow.h&quot;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;mainwindow.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;QApplication&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
@@ -274,7 +274,7 @@ debian@beaglebone:~/usr-share$
 </code></pre></div>
 
 <p>mainwindow.cpp:</p>
-<div class="cpp highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;mainwindow.h&quot;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;mainwindow.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;ui_mainwindow.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;QTimer&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;QDateTime&gt;</span><span class="cp"></span>
@@ -321,7 +321,7 @@ debian@beaglebone:~/usr-share$
 </code></pre></div>
 
 <p>mainwindow.ui:</p>
-<div class="xml highlight"><pre><span></span><code><span class="nt">&lt;code&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;code&gt;</span>
 <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;ui</span> <span class="na">version=</span><span class="s">&quot;4.0&quot;</span><span class="nt">&gt;</span>
  <span class="nt">&lt;class&gt;</span>MainWindow<span class="nt">&lt;/class&gt;</span>
@@ -388,14 +388,14 @@ debian@beaglebone:~/usr-share$
 <p>Здесь размер окна подгоняется под размер экрана. Каждую секунду выводится текущее время и размер экрана.
 При нажатии на кнопку происходит выход из приложения.</p>
 <p>Для запуска создаём скрипт:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ <span class="nb">cd</span> usr-share/
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ <span class="nb">cd</span> usr-share/
 debian@beaglebone:~/usr-share$ touch run.sh
 debian@beaglebone:~/usr-share$ chmod +x run.sh 
 debian@beaglebone:~/usr-share$ nano run.sh 
 </code></pre></div>
 
 <p>В нём пишем:</p>
-<div class="bash highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 <span class="nb">export</span> <span class="nv">QWS_KEYBOARD</span><span class="o">=</span>usb
 
 <span class="nb">export</span> <span class="nv">TSLIB_TSDEVICE</span><span class="o">=</span>/dev/input/touchscreen
@@ -412,7 +412,7 @@ debian@beaglebone:~/usr-share$ nano run.sh
 </code></pre></div>
 
 <p>Запускаем:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ./run.sh 
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~/usr-share$ ./run.sh 
 </code></pre></div>
 
 <p>Если выполнять запуск по SSH, то консоль устройства не отключится. На экране поверх приложения будет мигать курсор. Также, приложение можно остановить комбинацией Ctrl+C.
@@ -420,7 +420,7 @@ debian@beaglebone:~/usr-share$ nano run.sh
 <h3>Запуск из Qt Creator</h3>
 <p>При настроенном устройстве и комплекте Qt, в параметрах Qt Creator, можно выполнять запуск (для отладки нужна поддержка python в gdb) приложения из самого Qt Creator.
 Для этого надо в файл проекта добавить пару строк:</p>
-<div class="text highlight"><pre><span></span><code>...
+<div class="highlight"><pre><span></span><code>...
 TARGET = bb-test-console
 target.files = bb-test-console
 target.path = /home/debian/usr-share

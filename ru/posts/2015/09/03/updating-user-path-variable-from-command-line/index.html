@@ -71,7 +71,7 @@
   <article>
     <p>Обновление пользовательской переменной окружения PATH из командной строки.</p>
 <h3>Git Bash:</h3>
-<div class="bash highlight"><pre><span></span><code>setlocal ENABLEEXTENSIONS
+<div class="highlight"><pre><span></span><code>setlocal ENABLEEXTENSIONS
 <span class="nb">set</span> <span class="nv">KEY_NAME</span><span class="o">=</span><span class="s2">&quot;HKEY_CURRENT_USER\Environment&quot;</span>
 <span class="nb">set</span> <span class="nv">VALUE_NAME</span><span class="o">=</span><span class="s2">&quot;PATH&quot;</span>
 
@@ -98,7 +98,7 @@ If NOT <span class="s2">&quot;%User_Path%&quot;</span><span class="o">==</span><
 </code></pre></div>
 
 <h3>PowerShell</h3>
-<div class="powershell highlight"><pre><span></span><code><span class="k">function</span> <span class="n">DisplayPath</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">function</span> <span class="n">DisplayPath</span> <span class="p">{</span>
   <span class="nv">$userPath</span> <span class="p">=</span> <span class="no">[Environment]</span><span class="p">::</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;Path&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
   <span class="nb">Write-Host</span> <span class="p">(</span><span class="s2">&quot;Current path: &quot;</span> <span class="p">+</span> <span class="nv">$userPath</span><span class="p">)</span>
 <span class="p">}</span>
@@ -130,7 +130,7 @@ If NOT <span class="s2">&quot;%User_Path%&quot;</span><span class="o">==</span><
 </code></pre></div>
 
 <p>Опциональный запуск через bat:</p>
-<div class="bat highlight"><pre><span></span><code><span class="p">@</span><span class="k">echo</span> off
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">echo</span> off
 <span class="k">set</span> <span class="nv">dir</span><span class="p">=</span><span class="nv">%cd%</span>
 PowerShell.exe -ExecutionPolicy bypass <span class="nv">%dir%</span>\update-path.ps1
 </code></pre></div>

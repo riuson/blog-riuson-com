@@ -75,25 +75,25 @@
 "How-to BB-View on latest Debian"<br>
 http://www.element14.com/community/thread/31051/l/how-to-bb-view-on-latest-debian</p>
 <p>Создаём каталог <i>/home/user/beaglebone/kernel</i> и заходим в него:</p>
-<div class="bash highlight"><pre><span></span><code>$ mkdir /home/user/beaglebone/kernel
+<div class="highlight"><pre><span></span><code>$ mkdir /home/user/beaglebone/kernel
 $ <span class="nb">cd</span> /home/user/beaglebone/kernel
 </code></pre></div>
 
 <p>Если на ПК <strong>git</strong> ещё не установлен, устанавливаем:</p>
-<div class="bash highlight"><pre><span></span><code>$ sudo apt-get install git
+<div class="highlight"><pre><span></span><code>$ sudo apt-get install git
 </code></pre></div>
 
 <p>Клонируем проект <strong>linux-dev</strong> автора Robert Nelson. Готовьтесь к большой загрузке (~100 МБ для кросс-компилятора и ~700 МБ для исходников ядра).</p>
-<div class="bash highlight"><pre><span></span><code>$ git clone https://github.com/RobertCNelson/linux-dev.git
+<div class="highlight"><pre><span></span><code>$ git clone https://github.com/RobertCNelson/linux-dev.git
 </code></pre></div>
 
 <p>Заходим в новый каталог <i>linux-dev</i> и выбираем ветку/тег, соответствующую версии Debian.</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> linux-dev
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> linux-dev
 $ git checkout <span class="m">3</span>.8.13-bone53 -b tmp
 </code></pre></div>
 
 <p>Теперь нам нужно собрать базовый образ, чтобы каталог драйверов плат расширения заполнился. Сценарий подскажет вам, если понадобится что-то сделать или доустановить.</p>
-<div class="bash highlight"><pre><span></span><code>$ ./build_kernel.sh
+<div class="highlight"><pre><span></span><code>$ ./build_kernel.sh
 </code></pre></div>
 
 <p>Процесс будет длиться час или около того. Наберитесь терпения...</p>
@@ -101,7 +101,7 @@ $ git checkout <span class="m">3</span>.8.13-bone53 -b tmp
 Скачиваем в каталог <i>/home/user/beaglebone/kernel</i> архив <i>BB-View Angstrom Source Code</i>.
 Взять его можно здесь: <a href="http://www.element14.com/community/docs/DOC-55844?ICID=beagleboneblack-bbview-learn">Expansion Board for BeagleBone family with 7 inch LCD</a> - <a href="http://www.element14.com/community/docs/DOC-55844?ICID=beagleboneblack-bbview-learn#cdownloads">Downloads</a>.</p>
 <p>Вытаскиваем оттуда два файла:</p>
-<div class="bash highlight"><pre><span></span><code>$ unzip angstrom-source.zip
+<div class="highlight"><pre><span></span><code>$ unzip angstrom-source.zip
 $ bzip2 -cd bb-black-kernel-3.8.13-bb-view.tar.bz2 <span class="p">|</span> tar -xvf -
 $ cp kernel/kernel/drivers/input/touchscreen/ti_am335x_tsc.c ../linux-dev/KERNEL/drivers/input/touchscreen/
 $ cp kernel/kernel/firmware/capes/BB-VIEW-LCD7-01-00A0.dts ../linux-dev/KERNEL/firmware/capes/
@@ -111,7 +111,7 @@ $ cp kernel/kernel/firmware/capes/BB-VIEW-LCD7-01-00A0.dts ../linux-dev/KERNEL/f
 Скачиваем в каталог <i>/home/user/beaglebone/kernel</i> архив <i>Debian Source Code Patched for BB View</i>.
 Взять его можно здесь: <a href="http://www.element14.com/community/docs/DOC-67958?ICID=beagleboneblack-bbview-software">element14: BB View LCD Cape Software Download Centre[1]</a>.</p>
 <p>Вытаскиваем оттуда три файла:</p>
-<div class="bash highlight"><pre><span></span><code>$ unzip BB<span class="se">\ </span>VIEW<span class="se">\ </span>Debian<span class="se">\ </span>Source<span class="se">\ </span>Code.zip
+<div class="highlight"><pre><span></span><code>$ unzip BB<span class="se">\ </span>VIEW<span class="se">\ </span>Debian<span class="se">\ </span>Source<span class="se">\ </span>Code.zip
 $ <span class="nb">cd</span> BB<span class="se">\ </span>VIEW<span class="se">\ </span>Debian<span class="se">\ </span>Source<span class="se">\ </span>Code/
 $ bzip2 -cd bb-black-kernel-3.8.13-bb-view.tar.bz2 <span class="p">|</span> tar -xvf -
 $ cp kernel/kernel/drivers/input/touchscreen/ti_am335x_tsc.c ../linux-dev/KERNEL/drivers/input/touchscreen/
@@ -120,20 +120,20 @@ $ cp kernel/kernel/firmware/capes/BB-VIEW-LCD7-01-00A0.dts ../linux-dev/KERNEL/f
 </code></pre></div>
 
 <p>Теперь надо включить добавленное в сборку. Открываем файл:</p>
-<div class="bash highlight"><pre><span></span><code>$ nano /home/user/beaglebone/kernel/linux-dev/KERNEL/firmware/Makefile
+<div class="highlight"><pre><span></span><code>$ nano /home/user/beaglebone/kernel/linux-dev/KERNEL/firmware/Makefile
 </code></pre></div>
 
 <p>Добавляем следующую строку где-то около 192-ой (CTRL-C показывает текущую позицию курсора):</p>
-<div class="text highlight"><pre><span></span><code>BB-VIEW-LCD7-01-00A0.dtbo \
+<div class="highlight"><pre><span></span><code>BB-VIEW-LCD7-01-00A0.dtbo \
 </code></pre></div>
 
 <p>Не забываем про закрывающий слеш, это важно. Теперь сохраняем и выходим, нажимая CTRL-O, Enter, CTRL-X.
 Переходим обратно в корневой каталог <i>linux-dev</i>:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/kernel/linux-dev
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/beaglebone/kernel/linux-dev
 </code></pre></div>
 
 <p>Теперь запускаем пересборку ядра, это уже не должно занять много времени:</p>
-<div class="bash highlight"><pre><span></span><code>$ ./tools/rebuild.sh
+<div class="highlight"><pre><span></span><code>$ ./tools/rebuild.sh
 </code></pre></div>
 
 <p>В итоге получаем каталог <i>/home/user/beaglebone/kernel/linux-dev/deploy</i> .
@@ -145,11 +145,11 @@ $ cp kernel/kernel/firmware/capes/BB-VIEW-LCD7-01-00A0.dts ../linux-dev/KERNEL/f
   * <i>deploy/3.8.13-bone53-modules.tar.gz</i> распаковываем в <i>rootfs/</i></p>
 <p>Также, надо включить поддержку этого дисплея.
 Открываем файл <i>BEAGLE_BONE/uEnv.txt</i>. Где-то после строки #Disable HDMI добавляем параметры загрузки, в которых отключаем поддержку HDMI и включаем BB-View:</p>
-<div class="text highlight"><pre><span></span><code>optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01
+<div class="highlight"><pre><span></span><code>optargs=capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN capemgr.enable_partno=BB-VIEW-LCD7-01
 </code></pre></div>
 
 <p>Подключаем карту памяти к плате и загружаемся. Проверяем, что HDMI выключен (должна отсутствовать буква ...-L в списке), а BB-View включен:</p>
-<div class="bash highlight"><pre><span></span><code>debian@beaglebone:~$ cat /sys/devices/bone_capemgr.9/slots
+<div class="highlight"><pre><span></span><code>debian@beaglebone:~$ cat /sys/devices/bone_capemgr.9/slots
  <span class="m">0</span>: <span class="m">54</span>:PF--- 
  <span class="m">1</span>: <span class="m">55</span>:PF--- 
  <span class="m">2</span>: <span class="m">56</span>:PF--- 

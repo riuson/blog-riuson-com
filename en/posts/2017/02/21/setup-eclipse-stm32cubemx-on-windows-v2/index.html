@@ -137,7 +137,7 @@ Choose <em>Help</em> -&gt; <em>Install New Libraries</em> from STM32CubeMX menu 
 <p>Choose menu <em>C/C++</em> -&gt; <em>C Project</em>.
 Write a project's name and select type <em>Hello World ARM C++ Project</em>, Toolchain <em>Cross ARM GCC</em>.
 Replace source's directory from <em>src</em> to <em>Src</em>. At <em>Linker semi-hosting options</em> write only next string </p>
-<div class="text highlight"><pre><span></span><code>--specs=nosys.specs
+<div class="highlight"><pre><span></span><code>--specs=nosys.specs
 </code></pre></div>
 
 <p>Build project.</p>
@@ -153,7 +153,7 @@ Close STM32CubeMX.</p>
 <p>Refresh project tree in Eclipse. You can see newly added directories, <em>Driver</em> and <em>Inc</em>. <em>Src</em> directory combined with existing.<br>
 Newly added directories disabled by default, so enable it thru properties dialog.<br></p>
 <p>Create file <em>startup.asm</em> in <em>Src</em> directory. Add path to generated assembler startup file:</p>
-<div class="asm highlight"><pre><span></span><code><span class="na">.include</span> <span class="s">&quot;../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xe.s&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="na">.include</span> <span class="s">&quot;../Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xe.s&quot;</span>
 </code></pre></div>
 
 <h3>Migrate settings</h3>
@@ -163,7 +163,7 @@ Newly added directories disabled by default, so enable it thru properties dialog
 Format XML with any tool for easy reading. For example, xmlbeautifier.</p>
 <h4>Symbols</h4>
 <p>Locate nodes with symbols in XML file (SW4STM32), like next:</p>
-<div class="xml highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
     <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
     <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
     <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
@@ -181,7 +181,7 @@ Format XML with any tool for easy reading. For example, xmlbeautifier.</p>
 
 <p>Locate nodes with markers in other XML file (Eclipse) and replace it.
 List of symbols looks like next:</p>
-<div class="text highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
 __packed=&quot;__attribute__((__packed__))&quot;
 USE_HAL_DRIVER
 STM32F103RE
@@ -190,12 +190,12 @@ ARM_MATH_CM3
 
 <p>Last line missing in XML file, but it is required for build.<br>
 Quote at __weak and __packed are required. In XML file quotes need to be escaped as <code>"</code> :</p>
-<div class="text highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
+<div class="highlight"><pre><span></span><code>__weak=&quot;__attribute__((weak))&quot;
 </code></pre></div>
 
 <h4>Includes</h4>
 <p>Locate nodes with Include paths in XML file (SW4STM32) like this:</p>
-<div class="xml highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;tool</span>
     <span class="na">id=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler.147826764&quot;</span>
     <span class="na">name=</span><span class="s">&quot;MCU GCC Compiler&quot;</span>
     <span class="na">superClass=</span><span class="s">&quot;fr.ac6.managedbuild.tool.gnu.cross.c.compiler&quot;</span><span class="nt">&gt;</span>
@@ -212,12 +212,12 @@ Quote at __weak and __packed are required. In XML file quotes need to be escaped
 </code></pre></div>
 
 <p>Change prefix from relative path</p>
-<div class="text highlight"><pre><span></span><code>../../../Inc
+<div class="highlight"><pre><span></span><code>../../../Inc
 ../../../Drivers/STM32F1xx_HAL_Driver/Inc
 </code></pre></div>
 
 <p>to variable</p>
-<div class="text highlight"><pre><span></span><code>${ProjDirPath}/Inc
+<div class="highlight"><pre><span></span><code>${ProjDirPath}/Inc
 ${ProjDirPath}/Drivers/STM32F1xx_HAL_Driver/Inc
 </code></pre></div>
 
@@ -235,13 +235,13 @@ You can set <em>C/C++ Build</em> -&gt; <em>Behavior</em> -&gt; <em>Enable parall
 <h1>Debug</h1>
 <h2>Check connection with debugger and MCU thru J-Flash.</h2>
 <p>Start J-Flash. Create new project. Select debugger, <em>Target Interface</em>, <em>CPU</em> -&gt; <em>Device</em>. Click menu <em>Target</em> -&gt; <em>Connect</em>. You should see message in log: </p>
-<div class="text highlight"><pre><span></span><code>Connected successfully
+<div class="highlight"><pre><span></span><code>Connected successfully
 </code></pre></div>
 
 <p>If you don't see it, something going wrong.<br>
 Then select <em>Target</em> -&gt; <em>Manual programming -&gt; _Erase chip</em>.
 You should see message in log: </p>
-<div class="text highlight"><pre><span></span><code>Erase operaion completed successfully.
+<div class="highlight"><pre><span></span><code>Erase operaion completed successfully.
 </code></pre></div>
 
 <h2>Setup debugger in Eclipse</h2>

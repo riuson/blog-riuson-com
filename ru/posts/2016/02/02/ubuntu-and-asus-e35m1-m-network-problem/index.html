@@ -76,7 +76,7 @@
 После переустановки системы проблема всплыла снова.</p>
 <h1>r8168</h1>
 <p>На плате встроенная поддержка сети реализуется с помощью <strong>Realtek® 8111E , 1 x Gigabit LAN Controller(s)</strong>.</p>
-<div class="text highlight"><pre><span></span><code>$ lspci -v
+<div class="highlight"><pre><span></span><code>$ lspci -v
 
 03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
     Subsystem: ASUSTeK Computer Inc. P8P67 and other motherboards
@@ -91,7 +91,7 @@
 <p>Раньше надо было собирать драйвер для 8111/8168 из исходников.
 Сейчас в репозитории есть пакет <a href="http://packages.ubuntu.com/wily/r8168-dkms">r8168-dkms</a>.
 После его установки контроллер работает уже с иным драйвером:</p>
-<div class="text highlight"><pre><span></span><code>$ lspci -v
+<div class="highlight"><pre><span></span><code>$ lspci -v
 
 03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller (rev 06)
     Subsystem: ASUSTeK Computer Inc. P8P67 and other motherboards
@@ -110,7 +110,7 @@
 <p>Однако, говорят, что именно эта проблема с r8168 была закрыта. И действительно, установка этого драйвера в данном случае не помогла. Если в прошлый раз отваливалась локальная сеть, за этой сетевой картой, то теперь сеть провайдера за дискретной сетевой на базе 8139.</p>
 <h1>ASM1083</h1>
 <p>Простеньким скриптом было обнаружено время возникновения ошибки. Между двумя этими записями:</p>
-<div class="text highlight"><pre><span></span><code>======== 2016-02-01T02:06:34+0500 ========
+<div class="highlight"><pre><span></span><code>======== 2016-02-01T02:06:34+0500 ========
 64 bytes from cache.google.com (xx.xx.xx.xx): icmp_seq=1 ttl=62 time=0.998 ms
           RX packets:500253 errors:211 dropped:2370 overruns:122 frame:0
           TX packets:411349 errors:0 dropped:0 overruns:0 carrier:0
@@ -124,7 +124,7 @@
 </code></pre></div>
 
 <p>В kern.log обнаружилось соответствие:</p>
-<div class="text highlight"><pre><span></span><code>Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the &quot;irqpoll&quot; option)
+<div class="highlight"><pre><span></span><code>Feb  1 02:06:55 ubuntu kernel: [82015.771329] irq 18: nobody cared (try booting with the &quot;irqpoll&quot; option)
 Feb  1 02:06:55 ubuntu kernel: [82015.771426] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G           OE   4.2.0-25-generic #30-Ubuntu
 Feb  1 02:06:55 ubuntu kernel: [82015.771430] Hardware name: System manufacturer System Product Name/E35M1-M, BIOS 1401 12/21/2011
 Feb  1 02:06:55 ubuntu kernel: [82015.771435]  0000000000000000 e37fa07b054cf793 ffff88013ec03e28 ffffffff817e94c9

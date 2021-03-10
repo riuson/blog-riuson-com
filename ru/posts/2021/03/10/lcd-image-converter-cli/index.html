@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - LCD Image Converter - командная строка</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://www.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://www.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://www.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+    <meta name="tags" content="lcd-image-converter" />
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://www.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://www.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://www.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>LCD Image Converter - командная строка</h1>
+    <span class="meta">
+      <time class="published" datetime="2021-03-10T21:58:00+05:00">
+        10 Март 2021 г., Ср
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <p>У программы имеется интерфейс командной строки, о котором, я полагаю, почти никто не знает. Описание <a href="https://lcd-image-converter.riuson.com/en/docs/others/command-line/">приведено на сайте</a>.</p>
+<p>Создавался он для решения таких задач:</p>
+<ul>
+<li>Есть прошивка для МК и дисплея, в которой имеется множество изображений (значки в меню).
+После изменения изображения надо его сохранить, открыть в программе, конвертировать, сохранить.
+Что-то из этой последовательности можно забыть. Особенно, если изменяется множество изображений за короткое время.
+Соответствие между графическим файлом и полученным исходником мимолётом не определяется.</li>
+<li>Сконвертировал файлы и готово. Через 10 лет открыл проект, надо поправить значки или добавить символы в шрифт. Открываешь сохранённый файл, а вот настроек преобразования, что ранее использовались, уже нет. Т.к. хранятся они по умолчанию в реестре (Windows) или каталогах пользователя (Linux).</li>
+</ul>
+<p>Посему, было решено хранить под контролем версий изображения в их оригинальном формате, а также необходимые параметры преобразования.</p>
+<p>В проекте создан каталог <em>resources</em>, содержащий файлы шрифтов <em>font*.xml</em>, файлы изображений в <em>*.png</em>, шаблоны <em>*.txt</em>, файлы предустановок преобразования <em>presets.xml</em> :</p>
+<div class="highlight"><pre><span></span><code>resources\.gitignore
+resources\update-resources.py
+
+resources\fonts\fontLarge.xml
+resources\fonts\fontMiddle.xml
+resources\fonts\fontSmall.xml
+resources\fonts\presets.xml
+resources\fonts\template.txt
+
+resources\images\default.png
+resources\images\presets.xml
+resources\images\template.txt
+</code></pre></div>
+
+<p>Содержимое <em>.gitignore</em>, т.к. эти файлы будут создаваться скриптом:</p>
+<div class="highlight"><pre><span></span><code>fonts/*.cpp
+fonts/*.h*
+images/*.cpp
+images/*.h*
+</code></pre></div>
+
+<p>В <em>tasks.json</em> у VS Code добавляется задача:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Update resources&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;process&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;python.exe&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;args&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;${workspaceFolder}\\sources\\resources\\update-resources.py&quot;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;cwd&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;PATH&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}\\..\\tools\\python-3.9.1;C:\\Windows\\System32;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;PYTHONPATH&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceFolder}\\..\\tools\\python-3.9.1;${workspaceFolder}\\..\\tools\\python-3.9.1\\Lib;\\${workspaceFolder}\\..\\tools\\python-3.9.1\\Lib\\site-packages;&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;build&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Далее она вызывается</p>
+<div class="highlight"><pre><span></span><code>Update resources...
+  Fonts...   
+    fontLarge
+    fontMiddle
+    fontSmall
+  Images...
+    image_default
+...Completed.
+</code></pre></div>
+
+<p>и получаем результаты преобразования</p>
+<div class="highlight"><pre><span></span><code>resources\.gitignore
+resources\update-resources.py
+
+resources\fonts\fontLarge.cpp
+resources\fonts\fontLarge.xml
+resources\fonts\fontMiddle.cpp
+resources\fonts\fontMiddle.xml
+resources\fonts\fonts.hpp
+resources\fonts\fontSmall.cpp
+resources\fonts\fontSmall.xml
+resources\fonts\presets.xml
+resources\fonts\template.txt
+
+resources\images\default.cpp
+resources\images\default.png
+resources\images\images.hpp
+resources\images\presets.xml
+resources\images\template.txt
+</code></pre></div>
+
+<p>В файлах <em>*.hpp</em> собираются объявления шрифтов и изображений соответственно, для удобного обращения к ним.</p>
+<p class="bg-warning">Сохранение самого изображения или шрифта в заголовочный файл, при условии его дальнейшего включения/использования в нескольких местах, - идея плохая. В этом случае, для каждого места включения может быть создана своя копия данных, напрасно занимающая место во Flash. Поэтому следует разделять объявления и определения.</p>
+<p>Например, <em>images.hpp</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#ifndef APP_RESOURCES_IMAGES_H</span>
+<span class="cp">#define APP_RESOURCES_IMAGES_H</span>
+
+<span class="c1">// Этот файл сгенерирован автоматически.</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;defs/graphics/image.hpp&quot;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="n">App</span><span class="o">::</span><span class="n">Resources</span><span class="o">::</span><span class="n">Images</span>
+<span class="p">{</span>
+
+<span class="k">extern</span> <span class="k">const</span> <span class="n">Defs</span><span class="o">::</span><span class="n">Graphics</span><span class="o">::</span><span class="n">Image</span> <span class="n">image_default</span><span class="p">;</span>
+
+<span class="p">}</span> <span class="c1">// namespace App::Resources::Images</span>
+
+<span class="cp">#endif </span><span class="c1">// APP_RESOURCES_IMAGES_H</span>
+</code></pre></div>
+
+<p>Использование:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;resources/images/images.hpp&quot;</span><span class="cp"></span>
+<span class="p">...</span>
+<span class="n">Drivers</span><span class="o">::</span><span class="n">Display</span><span class="o">::</span><span class="n">drawImage</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">App</span><span class="o">::</span><span class="n">Resources</span><span class="o">::</span><span class="n">Images</span><span class="o">::</span><span class="n">image_default</span><span class="p">,</span> <span class="n">Defs</span><span class="o">::</span><span class="n">Graphics</span><span class="o">::</span><span class="n">Color</span><span class="o">::</span><span class="n">Foreground</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Код, выполняющий все операции, приведён ниже.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="c1"># Каталог ресурсов.</span>
+<span class="n">resourcesDirectory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="c1"># Программа преобразования изображений/шрифтов в исходный код.</span>
+<span class="n">licPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">resourcesDirectory</span><span class="p">,</span> <span class="s1">&#39;../../../tools/lic/lcd-image-converter.exe&#39;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">makeFonts</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Fonts...&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Список файлов шрифтов.</span>
+    <span class="n">sourceDirectory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">resourcesDirectory</span><span class="p">,</span> <span class="s1">&#39;fonts&#39;</span><span class="p">)</span>
+    <span class="n">sourceFiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;font*.xml&#39;</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># Путь к пресетам.</span>
+    <span class="n">presetsPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;presets.xml&#39;</span><span class="p">)</span>
+    <span class="c1"># Путь к шаблону.</span>
+    <span class="n">templatePath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;template.txt&#39;</span><span class="p">)</span>
+    <span class="c1"># Путь к заголовочному файлу.</span>
+    <span class="n">headerPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;fonts.hpp&#39;</span><span class="p">)</span>
+
+    <span class="n">headerContent</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\</span>
+<span class="s1">#ifndef APP_RESOURCES_FONTS_H</span><span class="se">\n\</span>
+<span class="s1">#define APP_RESOURCES_FONTS_H</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">// Этот файл сгенерирован автоматически.</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">#include &quot;defs/graphics/font.hpp&quot;</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">namespace App::Resources::Fonts</span><span class="se">\n\</span>
+<span class="s1">{</span><span class="se">\n\n\</span>
+<span class="s1">&#39;</span>
+
+    <span class="c1"># Обработка списка файлов.</span>
+    <span class="k">for</span> <span class="n">sourceFile</span> <span class="ow">in</span> <span class="n">sourceFiles</span><span class="p">:</span>
+        <span class="c1"># Выходной путь файла шрифта.</span>
+        <span class="n">outputFile</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">sourceFile</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.cpp&#39;</span><span class="p">)</span>
+        <span class="c1"># Имя документа.</span>
+        <span class="n">documentName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sourceFile</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Добавление в заголовочный файл.</span>
+        <span class="n">headerContent</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;extern const Defs::Graphics::Font </span><span class="si">{</span><span class="n">documentName</span><span class="si">}</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="c1"># Преобразование.</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">licPath</span><span class="p">,</span>
+            <span class="s1">&#39;--mode=convert-font&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;--preset-name=MonochromeCode&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--input=</span><span class="si">{</span><span class="n">sourceFile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--output=</span><span class="si">{</span><span class="n">outputFile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--template=</span><span class="si">{</span><span class="n">templatePath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--config-presets=</span><span class="si">{</span><span class="n">presetsPath</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="c1"># f&quot;--doc-name={documentName}&quot;,</span>
+        <span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">documentName</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">headerContent</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\</span>
+<span class="s1">} // namespace App::Resources::Fonts</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">#endif // APP_RESOURCES_FONTS_H</span><span class="se">\n\</span>
+<span class="s1">&#39;</span>
+    <span class="n">headerFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">headerPath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">headerFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">headerContent</span><span class="p">)</span>
+    <span class="n">headerFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">makeImages</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Images...&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Список файлов шрифтов.</span>
+    <span class="n">sourceDirectory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">resourcesDirectory</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">)</span>
+    <span class="n">sourceFiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;*.png&#39;</span><span class="p">),</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># Путь к пресетам.</span>
+    <span class="n">presetsPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;presets.xml&#39;</span><span class="p">)</span>
+    <span class="c1"># Путь к шаблону.</span>
+    <span class="n">templatePath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;template.txt&#39;</span><span class="p">)</span>
+    <span class="c1"># Путь к заголовочному файлу.</span>
+    <span class="n">headerPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourceDirectory</span><span class="p">,</span> <span class="s1">&#39;images.hpp&#39;</span><span class="p">)</span>
+
+    <span class="n">headerContent</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\</span>
+<span class="s1">#ifndef APP_RESOURCES_IMAGES_H</span><span class="se">\n\</span>
+<span class="s1">#define APP_RESOURCES_IMAGES_H</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">// Этот файл сгенерирован автоматически.</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">#include &quot;defs/graphics/image.hpp&quot;</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">namespace App::Resources::Images</span><span class="se">\n\</span>
+<span class="s1">{</span><span class="se">\n\n\</span>
+<span class="s1">&#39;</span>
+
+    <span class="c1"># Обработка списка файлов.</span>
+    <span class="k">for</span> <span class="n">sourceFile</span> <span class="ow">in</span> <span class="n">sourceFiles</span><span class="p">:</span>
+        <span class="c1"># Выходной путь файла шрифта.</span>
+        <span class="n">outputFile</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">sourceFile</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.cpp&#39;</span><span class="p">)</span>
+        <span class="c1"># Имя документа.</span>
+        <span class="n">documentName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sourceFile</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">documentName</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">documentName</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;icon&#39;</span><span class="p">)):</span>
+            <span class="n">documentName</span> <span class="o">=</span> <span class="s1">&#39;image_&#39;</span> <span class="o">+</span> <span class="n">documentName</span>
+
+        <span class="c1"># Добавление в заголовочный файл.</span>
+        <span class="n">headerContent</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;extern const Defs::Graphics::Image </span><span class="si">{</span><span class="n">documentName</span><span class="si">}</span><span class="s1">;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="c1"># Преобразование.</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">licPath</span><span class="p">,</span>
+            <span class="s1">&#39;--mode=convert-image&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;--preset-name=MonochromeCode&#39;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--input=</span><span class="si">{</span><span class="n">sourceFile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--output=</span><span class="si">{</span><span class="n">outputFile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--template=</span><span class="si">{</span><span class="n">templatePath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--config-presets=</span><span class="si">{</span><span class="n">presetsPath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;--doc-name=</span><span class="si">{</span><span class="n">documentName</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">documentName</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">headerContent</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\</span>
+<span class="s1">} // namespace App::Resources::Images</span><span class="se">\n\</span>
+<span class="se">\n\</span>
+<span class="s1">#endif // APP_RESOURCES_IMAGES_H</span><span class="se">\n\</span>
+<span class="s1">&#39;</span>
+    <span class="n">headerFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">headerPath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">headerFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">headerContent</span><span class="p">)</span>
+    <span class="n">headerFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Update resources...&#39;</span><span class="p">)</span>
+<span class="n">makeFonts</span><span class="p">()</span>
+<span class="n">makeImages</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...Completed.&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Для редактирования предустановок можно использовать те же задачи VS Code:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Run Image&#39;s Editor&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceRoot}/../tools/lic/lcd-image-converter.exe --config-presets ${workspaceRoot}/sources/resources/images/presets.xml&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;cwd&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceRoot}&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;build&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Run Font&#39;s Editor&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceRoot}/../tools/lic/lcd-image-converter.exe --config-presets ${workspaceRoot}/sources/resources/fonts/presets.xml&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;cwd&quot;</span><span class="p">:</span> <span class="s2">&quot;${workspaceRoot}&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;build&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://www.riuson.com/category/misc.html">/misc</a>
+  </div>
+  <div class="tags">
+        <a href="https://www.riuson.com/tag/lcd-image-converter.html">#lcd-image-converter</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://www.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://www.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://www.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>

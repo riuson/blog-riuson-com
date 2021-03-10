@@ -72,24 +72,24 @@
     <p>Как перенести каталог пользователя C:\Users\User на другой диск, чтобы не забивать зря пространство.</p>
 <p>Установили Windows 7, получили одного пользователя (например, <em>Vasya</em>) с правами администратора.</p>
 <p>Активируем учётную запись <em>Администратора</em>.</p>
-<div class="bat highlight"><pre><span></span><code>net user administrator /active:yes
+<div class="highlight"><pre><span></span><code>net user administrator /active:yes
 </code></pre></div>
 
 <p>Выходим из учётной записи <em>Vasya</em>, заходим под <em>Администратором</em>.</p>
 <p>Создаём на диске другом диске каталог для пользователя.</p>
-<div class="bat highlight"><pre><span></span><code><span class="k">mkdir</span> D:\Users\Vasya
+<div class="highlight"><pre><span></span><code><span class="k">mkdir</span> D:\Users\Vasya
 </code></pre></div>
 
 <p>Копируем прежний каталог пользователя в новое место</p>
-<div class="bat highlight"><pre><span></span><code>robocopy /copyall /mir /xj C:\Users\Vasya D:\Users\Vasya
+<div class="highlight"><pre><span></span><code>robocopy /copyall /mir /xj C:\Users\Vasya D:\Users\Vasya
 </code></pre></div>
 
 <p>Удаляем прежний каталог пользователя</p>
-<div class="bat highlight"><pre><span></span><code><span class="k">rmdir</span> /S /Q C:\Users\Vasya
+<div class="highlight"><pre><span></span><code><span class="k">rmdir</span> /S /Q C:\Users\Vasya
 </code></pre></div>
 
 <p>Создаём ссылку со старого местоположения на новое</p>
-<div class="bat highlight"><pre><span></span><code><span class="k">mklink</span> /J C:\Users\Vasya D:\Users\Vasya
+<div class="highlight"><pre><span></span><code><span class="k">mklink</span> /J C:\Users\Vasya D:\Users\Vasya
 Junction created for C:\Users\Vasya <span class="p">&lt;</span>&lt;===<span class="p">&gt;&gt;</span> D:\Users\Vasya
 </code></pre></div>
 

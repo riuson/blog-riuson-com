@@ -76,39 +76,39 @@
 <p>С <a href="http://download.qt-project.org/">официального сайта</a> берём <a href="http://download.qt-project.org/official_releases/qt/5.2/5.2.1/single/qt-everywhere-opensource-src-5.2.1.tar.xz">qt-everywhere-opensource-src-5.2.1.tar.xz</a>.\
 Распаковываем в /<i>home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7</i> .</p>
 <p>Настраиваем mkspecs.</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7/qtbase/mkspecs/devices
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7/qtbase/mkspecs/devices
 $ cp -r linux-beagleboard-g++ linux-beaglebone-g++
 $ nano linux-beaglebone-g++/qmake.conf
 </code></pre></div>
 
 <p>Меняем во флагах компилятора</p>
-<div class="text highlight"><pre><span></span><code>-mfloat-abi=softfp
+<div class="highlight"><pre><span></span><code>-mfloat-abi=softfp
 </code></pre></div>
 
 <p>на</p>
-<div class="text highlight"><pre><span></span><code>-mfloat-abi=hard
+<div class="highlight"><pre><span></span><code>-mfloat-abi=hard
 </code></pre></div>
 
 <p>В конце файла, перед строкой load(qt_config), добавляем строки для Tslib:</p>
-<div class="make highlight"><pre><span></span><code><span class="nv">QMAKE_INCDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/include
+<div class="highlight"><pre><span></span><code><span class="nv">QMAKE_INCDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/include
 <span class="nv">QMAKE_LIBDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/lib
 <span class="nv">QMAKE_RPATHDIR</span> <span class="o">+=</span> /usr/share/tslib-armv7/lib
 </code></pre></div>
 
 <p>И для ICU:</p>
-<div class="make highlight"><pre><span></span><code><span class="nv">QMAKE_INCDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/include
+<div class="highlight"><pre><span></span><code><span class="nv">QMAKE_INCDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/include
 <span class="nv">QMAKE_LIBDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/lib
 <span class="nv">QMAKE_RPATHDIR</span> <span class="o">+=</span> /usr/share/icu-4c-53.1-armv7/lib
 </code></pre></div>
 
 <p>Далее:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7/qtbase/mkspecs
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7/qtbase/mkspecs
 $ cp -r linux-arm-gnueabi-g++ linux-arm-gnueabihf-g++
 $ nano linux-arm-gnueabihf-g++/qmake.conf
 </code></pre></div>
 
 <p>Меняем путь к компилятору:</p>
-<div class="make highlight"><pre><span></span><code><span class="c"># modifications to g++.conf</span>
+<div class="highlight"><pre><span></span><code><span class="c"># modifications to g++.conf</span>
 <span class="nv">QMAKE_CC</span>         <span class="o">=</span> arm-linux-gnueabi-gcc
 <span class="nv">QMAKE_CXX</span>        <span class="o">=</span> arm-linux-gnueabi-g++
 <span class="nv">QMAKE_LINK</span>       <span class="o">=</span> arm-linux-gnueabi-g++
@@ -116,7 +116,7 @@ $ nano linux-arm-gnueabihf-g++/qmake.conf
 </code></pre></div>
 
 <p>на</p>
-<div class="make highlight"><pre><span></span><code><span class="c"># modifications to g++.conf</span>
+<div class="highlight"><pre><span></span><code><span class="c"># modifications to g++.conf</span>
 <span class="nv">CROSS_TOOL</span>       <span class="o">=</span> /home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf
 <span class="nv">QMAKE_CC</span>         <span class="o">=</span> <span class="nv">$$</span>CROSS_TOOL-gcc
 <span class="nv">QMAKE_CXX</span>        <span class="o">=</span> <span class="nv">$$</span>CROSS_TOOL-g++
@@ -126,23 +126,23 @@ $ nano linux-arm-gnueabihf-g++/qmake.conf
 
 <p><a href="http://qt-project.org/doc/qt-5/configure-options.html">Конфигурация</a> Qt 5.</p>
 <p>Создаём скрипт конфигурации:</p>
-<div class="bash highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7
+<div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> /home/user/Qt/qt-everywhere-opensource-src-5.2.1-armv7
 $ touch ./start-conf.sh
 $ chmod +x ./start-conf.sh
 $ nano ./start-conf.sh
 </code></pre></div>
 
 <p>Пишем в нём:</p>
-<div class="bash highlight"><pre><span></span><code>./configure -prefix /usr/share/qt-5.2.1-armv7 -v -release -opensource -confirm-license -no-largefile -no-accessibility -nomake examples -nomake tests -qt-sql-sqlite -plugin-sql-sqlite -qt-zlib -no-gif -qt-libpng -qt-libjpeg -no-nis -no-eglfs -qpa linuxfb -no-cups -tslib -icu -xplatform linux-arm-gnueabihf-g++ -device linux-beaglebone-g++ -device-option <span class="nv">CROSS_COMPILE</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf- -qt-pcre
+<div class="highlight"><pre><span></span><code>./configure -prefix /usr/share/qt-5.2.1-armv7 -v -release -opensource -confirm-license -no-largefile -no-accessibility -nomake examples -nomake tests -qt-sql-sqlite -plugin-sql-sqlite -qt-zlib -no-gif -qt-libpng -qt-libjpeg -no-nis -no-eglfs -qpa linuxfb -no-cups -tslib -icu -xplatform linux-arm-gnueabihf-g++ -device linux-beaglebone-g++ -device-option <span class="nv">CROSS_COMPILE</span><span class="o">=</span>/home/user/beaglebone/gcc-linaro-arm-linux-gnueabi-4.8-2014.03_linux/bin/arm-linux-gnueabihf- -qt-pcre
 </code></pre></div>
 
 <p>Сохраняем (Ctrl+O, Enter) и выходим (Ctrl+X).
 Дополнительные опции можно посмотреть по команде:</p>
-<div class="bash highlight"><pre><span></span><code>$ ./configure --help
+<div class="highlight"><pre><span></span><code>$ ./configure --help
 </code></pre></div>
 
 <p>Запускаем конфигурацию, собираем и устанавливаем:</p>
-<div class="bash highlight"><pre><span></span><code>$ ./start-conf.sh
+<div class="highlight"><pre><span></span><code>$ ./start-conf.sh
 $ make
 $ sudo make install
 </code></pre></div>
