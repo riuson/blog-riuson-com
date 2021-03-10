@@ -19,6 +19,7 @@ parser.add_argument(
         'build',
         'serve',
         'preview',
+        'publish',
     ]
 )
 args = parser.parse_args()
@@ -94,6 +95,8 @@ def configure():
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'Markdown'])
     subprocess.check_call(
         [sys.executable, '-m', 'pip', 'install', 'typogrify'])
+    subprocess.check_call(
+        [sys.executable, '-m', 'pip', 'install', 'ghp-import'])
 
 
 def build():
@@ -133,6 +136,22 @@ def preview():
     ])
 
 
+def publish():
+    preview()
+    print('Build site for publising...')
+    commit_message = "\"Publish site on {}\"".format(
+        datetime.date.today().isoformat())
+    res = subprocess.check_call([
+        sys.executable,
+        '-m', commit_message,
+        'ghp-import',
+        '-n',
+        '-c', 'www.riuson.com',
+        '-r', 'github',
+        outputPath
+    ])
+
+
 scriptCommand = args.command
 
 handlers = {
@@ -141,6 +160,7 @@ handlers = {
     'build': build,
     'serve': serve,
     'preview': preview,
+    'publish': publish,
 }
 
 if scriptCommand == 'prepare':
