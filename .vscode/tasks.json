@@ -1,0 +1,112 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Prepare",
+            "command": "python",
+            "type": "process",
+            "group": "build",
+            "args": [
+                "${workspaceFolder}/custom.py",
+                "prepare"
+            ],
+			"options": {
+				"cwd": "${workspaceFolder}",
+			},
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Build",
+            "command": "python",
+            "type": "process",
+            "group": "build",
+            "args": [
+                "${workspaceFolder}/custom.py",
+                "build"
+            ],
+			"options": {
+				"cwd": "${workspaceFolder}",
+			},
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Serve",
+            "command": "python",
+            "type": "process",
+            "group": "build",
+            "args": [
+                "${workspaceFolder}/custom.py",
+                "serve"
+            ],
+			"options": {
+				"cwd": "${workspaceFolder}",
+			},
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Preview",
+            "command": "python",
+            "type": "process",
+            "group": "build",
+            "args": [
+                "${workspaceFolder}/custom.py",
+                "preview"
+            ],
+			"options": {
+				"cwd": "${workspaceFolder}",
+			},
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Publish",
+            "command": "python",
+            "type": "process",
+            "group": "build",
+            "args": [
+                "${workspaceFolder}/custom.py",
+                "publish"
+            ],
+			"options": {
+				"cwd": "${workspaceFolder}",
+			},
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+    ]
+}
