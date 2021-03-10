@@ -18,6 +18,7 @@ parser.add_argument(
         'hello',
         'build',
         'serve',
+        'preview',
     ]
 )
 args = parser.parse_args()
@@ -64,6 +65,13 @@ def passToVirtualEnvironment(command):
 def hello():
     print("Hello!")
 
+
+# Paths.
+contentPath = os.path.join(getMyDirectory(), 'content')
+outputPath = os.path.join(getMyDirectory(), 'output')
+localConfigPath = os.path.join(getMyDirectory(), 'pelicanconf.py')
+publishConfigPath = os.path.join(getMyDirectory(), 'publishconf.py')
+
 # Prepare environmemt.
 
 
@@ -84,7 +92,8 @@ def configure():
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pelican'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'invoke'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'Markdown'])
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'typogrify'])
+    subprocess.check_call(
+        [sys.executable, '-m', 'pip', 'install', 'typogrify'])
 
 
 def build():
@@ -93,12 +102,9 @@ def build():
         sys.executable,
         '-m',
         'pelican',
-        os.path.join(getMyDirectory(), 'content'),
-        '-o',
-        os.path.join(getMyDirectory(), 'output'),
-        '-s',
-        os.path.join(getMyDirectory(), 'pelicanconf.py'),
-        '-D'
+        contentPath,
+        '-o', outputPath,
+        '-s', localConfigPath,
     ])
 
 
@@ -109,11 +115,21 @@ def serve():
         '-m',
         'pelican',
         '-l',
-        os.path.join(getMyDirectory(), 'content'),
-        '-o',
-        os.path.join(getMyDirectory(), 'output'),
-        '-s',
-        os.path.join(getMyDirectory(), 'pelicanconf.py'),
+        contentPath,
+        '-o', outputPath,
+        '-s', localConfigPath,
+    ])
+
+
+def preview():
+    print('Build site for publising...')
+    res = subprocess.check_call([
+        sys.executable,
+        '-m',
+        'pelican',
+        contentPath,
+        '-o', outputPath,
+        '-s', publishConfigPath,
     ])
 
 
@@ -124,6 +140,7 @@ handlers = {
     'configure': configure,
     'build': build,
     'serve': serve,
+    'preview': preview,
 }
 
 if scriptCommand == 'prepare':
