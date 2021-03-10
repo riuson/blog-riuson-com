@@ -5,6 +5,7 @@ import os
 import sys
 import subprocess
 import argparse
+import datetime
 
 parser = argparse.ArgumentParser(
     description='Processing commands from vscode tasks.')
@@ -90,6 +91,7 @@ def configure():
     print('Executing inside venv...')
     subprocess.check_call([sys.executable, '-m', 'pip',
                            'install', '--upgrade', 'pip'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'wheel'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pelican'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'invoke'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'Markdown'])
@@ -141,15 +143,14 @@ def publish():
     print('Build site for publising...')
     commit_message = "\"Publish site on {}\"".format(
         datetime.date.today().isoformat())
-    res = subprocess.check_call([
-        sys.executable,
-        '-m', commit_message,
-        'ghp-import',
-        '-n',
-        '-c', 'www.riuson.com',
-        '-r', 'github',
-        outputPath
-    ])
+    from ghp_import import ghp_import
+    ghp_import(
+      outputPath,
+      push=True,
+      cname='www.riuson.com',
+      remote='github',
+      mesg=commit_message,
+      nojekill=True)
 
 
 scriptCommand = args.command
