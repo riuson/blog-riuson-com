@@ -6,11 +6,25 @@ import sys
 import subprocess
 import argparse
 
-parser = argparse.ArgumentParser(description='Processing commands from vscode tasks.')
-parser.add_argument('command', help='Command to execute', type=str, choices=['prepare', 'configure', 'hello', 'build'])
+parser = argparse.ArgumentParser(
+    description='Processing commands from vscode tasks.')
+parser.add_argument(
+    'command',
+    help='Command to execute',
+    type=str,
+    choices=[
+        'prepare',
+        'configure',
+        'hello',
+        'build',
+        'serve',
+    ]
+)
 args = parser.parse_args()
 
 # Path to this file.
+
+
 def getMyPath():
     if getattr(sys, 'frozen', False):
         return sys.executable
@@ -18,11 +32,15 @@ def getMyPath():
         return __file__
 
 # Path to directory with this file.
+
+
 def getMyDirectory():
     return os.path.dirname(getMyPath())
 
+
 def isVirtualEnvironment():
     return sys.prefix != sys.base_prefix
+
 
 def getEnvironmentDirectory():
     # Get path to venv directory.
@@ -30,21 +48,25 @@ def getEnvironmentDirectory():
     environmentDirectory = os.path.normpath(environmentDirectory)
     return environmentDirectory
 
+
 def passToVirtualEnvironment(command):
     environmentDirectory = getEnvironmentDirectory()
-    
+
     # Run this file in venv.
     pythonBin = os.path.join(environmentDirectory, "Scripts/python.exe")
     pythonBin = os.path.normpath(pythonBin)
     scriptPath = getMyPath()
-    #print(isVirtualEnvironment())
+    # print(isVirtualEnvironment())
     res = subprocess.Popen([pythonBin, scriptPath, command])
     res.wait()
+
 
 def hello():
     print("Hello!")
 
 # Prepare environmemt.
+
+
 def prepare():
     environmentDirectory = getEnvironmentDirectory()
 
@@ -54,11 +76,16 @@ def prepare():
 
     passToVirtualEnvironment('configure')
 
+
 def configure():
     print('Executing inside venv...')
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--upgrade', 'pip' ])
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pelican' ])
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'invoke' ])
+    subprocess.check_call([sys.executable, '-m', 'pip',
+                           'install', '--upgrade', 'pip'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pelican'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'invoke'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'Markdown'])
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'typogrify'])
+
 
 def build():
     print('Build site...')
@@ -71,7 +98,24 @@ def build():
         os.path.join(getMyDirectory(), 'output'),
         '-s',
         os.path.join(getMyDirectory(), 'pelicanconf.py'),
+        '-D'
     ])
+
+
+def serve():
+    print('Serve site...')
+    res = subprocess.check_call([
+        sys.executable,
+        '-m',
+        'pelican',
+        '-l',
+        os.path.join(getMyDirectory(), 'content'),
+        '-o',
+        os.path.join(getMyDirectory(), 'output'),
+        '-s',
+        os.path.join(getMyDirectory(), 'pelicanconf.py'),
+    ])
+
 
 scriptCommand = args.command
 
@@ -79,6 +123,7 @@ handlers = {
     'hello': hello,
     'configure': configure,
     'build': build,
+    'serve': serve,
 }
 
 if scriptCommand == 'prepare':
