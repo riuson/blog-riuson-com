@@ -1,6 +1,6 @@
 Title: LCD Image Converter - командная строка
 Date: 2021-03-10 21:58:00 +0500
-Tags: lcd-image-converter
+Category: LCD Image Converter
 Summary: Как использовать командную строку для автоматизации.
 
 У программы имеется интерфейс командной строки, о котором, я полагаю, почти никто не знает. Описание [приведено на сайте](https://lcd-image-converter.riuson.com/en/docs/others/command-line/).
