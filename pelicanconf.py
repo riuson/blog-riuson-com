@@ -58,7 +58,9 @@ MARKDOWN = {
 }
 
 EXTRA_PATH_METADATA = {
-    'redirects/lcd-image-converter.html': {'path': 'lcd-image-converter/index.html'}
+    'redirects/lcd-image-converter.html': {'path': 'lcd-image-converter/index.html'},
+    'redirects/lcd-image-converter-download.html': {'path': 'lcd-image-converter/download/index.html'},
+    'redirects/lcd-image-converter-changelog.html': {'path': 'lcd-image-converter/changelog/index.html'}
 }
 
 #PLUGIN_PATHS = ["../pelican-plugins"]
