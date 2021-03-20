@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+      <title>riuson.com - LCD Image Converter - The Dot Factory</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Pelican" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="riuson's blog">
+    <meta name="author" content="riuson">
+    <!-- Bootstrap core CSS -->
+    <link href="https://www.riuson.com/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="https://www.riuson.com/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="https://www.riuson.com/theme/css/clean-blog.min.css" rel="stylesheet">
+    <link href="https://www.riuson.com/theme/css/pygments.css" rel="stylesheet">
+
+
+
+
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://www.riuson.com/">riuson.com</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+              <li class="nav-link">
+                <a href="https://www.riuson.com/ru/about">О</a>
+              </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://www.riuson.com/theme/img/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+  <div class="post-heading">
+    <h1>LCD Image Converter - The Dot Factory</h1>
+    <span class="meta">
+      <time class="published" datetime="2021-03-17T22:45:00+05:00">
+        17 Март 2021 г., Ср
+      </time>
+    </span>
+    <span class="meta">
+      
+    </span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 mx-auto">
+  <article>
+    <h2>Как сформировать шрифт, похожий на результат The Dot Factory (далее TDF).</h2>
+<p>Генерируем в TDF шрифт с настройками по умолчанию.</p>
+<p>Файл исходника (.c):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// </span>
+<span class="c1">//  Font data for Ubuntu 8pt</span>
+<span class="c1">// </span>
+
+<span class="c1">// Character bitmaps for Ubuntu 8pt</span>
+<span class="k">const</span> <span class="n">uint_8</span> <span class="n">ubuntu_8ptBitmaps</span><span class="p">[]</span> <span class="o">=</span> 
+<span class="p">{</span>
+    <span class="c1">// @0 &#39;0&#39; (4 pixels wide)</span>
+    <span class="mh">0x60</span><span class="p">,</span> <span class="c1">//  ## </span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x60</span><span class="p">,</span> <span class="c1">//  ## </span>
+
+    <span class="c1">// @8 &#39;1&#39; (3 pixels wide)</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   #</span>
+    <span class="mh">0x60</span><span class="p">,</span> <span class="c1">//  ##</span>
+    <span class="mh">0xA0</span><span class="p">,</span> <span class="c1">// # #</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   #</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   #</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   #</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   #</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   #</span>
+
+    <span class="c1">// @16 &#39;2&#39; (4 pixels wide)</span>
+    <span class="mh">0x60</span><span class="p">,</span> <span class="c1">//  ## </span>
+    <span class="mh">0x90</span><span class="p">,</span> <span class="c1">// #  #</span>
+    <span class="mh">0x10</span><span class="p">,</span> <span class="c1">//    #</span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   # </span>
+    <span class="mh">0x20</span><span class="p">,</span> <span class="c1">//   # </span>
+    <span class="mh">0x40</span><span class="p">,</span> <span class="c1">//  #  </span>
+    <span class="mh">0x80</span><span class="p">,</span> <span class="c1">// #   </span>
+    <span class="mh">0xF0</span><span class="p">,</span> <span class="c1">// ####</span>
+
+    <span class="c1">// @24 &#39;3&#39; (4 pixels wide)</span>
+    <span class="mh">0xE0</span><span class="p">,</span> <span class="c1">// ### </span>
+    <span class="mh">0x10</span><span class="p">,</span> <span class="c1">//    #</span>
+    <span class="mh">0x10</span><span class="p">,</span> <span class="c1">//    #</span>
+    <span class="mh">0x60</span><span class="p">,</span> <span class="c1">//  ## </span>
+    <span class="mh">0x10</span><span class="p">,</span> <span class="c1">//    #</span>
+    <span class="mh">0x10</span><span class="p">,</span> <span class="c1">//    #</span>
+    <span class="mh">0x10</span><span class="p">,</span> <span class="c1">//    #</span>
+    <span class="mh">0xE0</span><span class="p">,</span> <span class="c1">// ### </span>
+<span class="p">};</span>
+
+<span class="c1">// Character descriptors for Ubuntu 8pt</span>
+<span class="c1">// { [Char width in bits], [Offset into ubuntu_8ptCharBitmaps in bytes] }</span>
+<span class="k">const</span> <span class="n">FONT_CHAR_INFO</span> <span class="n">ubuntu_8ptDescriptors</span><span class="p">[]</span> <span class="o">=</span> 
+<span class="p">{</span>
+    <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>         <span class="c1">// 0 </span>
+    <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>         <span class="c1">// 1 </span>
+    <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">},</span>        <span class="c1">// 2 </span>
+    <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">24</span><span class="p">},</span>        <span class="c1">// 3 </span>
+<span class="p">};</span>
+
+<span class="c1">// Font information for Ubuntu 8pt</span>
+<span class="k">const</span> <span class="n">FONT_INFO</span> <span class="n">ubuntu_8ptFontInfo</span> <span class="o">=</span>
+<span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="c1">//  Character height</span>
+    <span class="sc">&#39;0&#39;</span><span class="p">,</span> <span class="c1">//  Start character</span>
+    <span class="sc">&#39;3&#39;</span><span class="p">,</span> <span class="c1">//  End character</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="c1">//  Width, in pixels, of space character</span>
+    <span class="n">ubuntu_8ptDescriptors</span><span class="p">,</span> <span class="c1">//  Character descriptor array</span>
+    <span class="n">ubuntu_8ptBitmaps</span><span class="p">,</span> <span class="c1">//  Character bitmap array</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Заголовочный файл: (.h):</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Font data for Ubuntu 8pt</span>
+<span class="k">extern</span> <span class="k">const</span> <span class="n">uint_8</span> <span class="n">ubuntu_8ptBitmaps</span><span class="p">[];</span>
+<span class="k">extern</span> <span class="k">const</span> <span class="n">FONT_INFO</span> <span class="n">ubuntu_8ptFontInfo</span><span class="p">;</span>
+<span class="k">extern</span> <span class="k">const</span> <span class="n">FONT_CHAR_INFO</span> <span class="n">ubuntu_8ptDescriptors</span><span class="p">[];</span>
+</code></pre></div>
+
+<p>Для LIC создаём файл шаблона:</p>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="p">(</span><span class="n">start_block_header</span><span class="p">)</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/*</span>
+
+<span class="cm">// Character&#39;s info struct.</span>
+<span class="cm">typedef struct FontTable {</span>
+<span class="cm">  uint16_t    width; // Character&#39;s width.</span>
+<span class="cm">  uint16_t    start; // Index of first character&#39;s byte.</span>
+<span class="cm">} FONT_CHAR_INFO;</span>
+
+<span class="cm">// Font&#39;s info struct.</span>
+<span class="cm">typedef struct</span>
+<span class="cm">{</span>
+<span class="cm">  uint8_t Height;                  // Character&#39;s height.</span>
+<span class="cm">  uint8_t FirstChar;               // First character.</span>
+<span class="cm">  uint8_t LastChar;                // Last character.</span>
+<span class="cm">  uint8_t FontSpace;               // Width of space character.</span>
+<span class="cm">  const FONT_CHAR_INFO *FontTable; // Character descriptor array</span>
+<span class="cm">  const uint8_t *FontBitmaps;      // Character bitmap array</span>
+<span class="cm">} FONT_INFO;</span>
+
+<span class="cm">*/</span>
+<span class="err">$</span><span class="p">(</span><span class="n">end_block_header</span><span class="p">)</span>
+
+<span class="c1">// </span>
+<span class="c1">//  Font data for $(fnt_family) $(fnt_size)pt</span>
+<span class="c1">// </span>
+
+<span class="c1">// Character bitmaps for $(fnt_family) $(fnt_size)pt</span>
+<span class="k">const</span> <span class="n">uint</span><span class="err">$</span><span class="p">(</span><span class="n">img_data_block_size</span><span class="p">)</span><span class="n">_t</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_bitmaps</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="err">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
+    <span class="c1">// at $(out_char_offset) &#39;$(out_char_text)&#39; #$(out_char_code)h ($(out_image_width) pixel(s) wide)</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_image_preview</span><span class="p">)</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_image_data</span><span class="p">)</span>
+<span class="cp">#if ($(out_image_height) &gt; 1)</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_comma</span><span class="p">)</span>
+<span class="cp">#endif</span>
+<span class="err">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="c1">// Character descriptors for $(fnt_family) $(fnt_size)pt</span>
+<span class="c1">// { [Char width in bits], [Offset into $(doc_name_ws)_bitmaps in bytes] }</span>
+<span class="k">const</span> <span class="n">FONT_CHAR_INFO</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_descriptors</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="err">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
+    <span class="p">{</span> <span class="err">$</span><span class="p">(</span><span class="n">out_image_width</span><span class="p">),</span> <span class="err">$</span><span class="p">(</span><span class="n">out_char_offset</span><span class="p">)</span> <span class="p">}</span> <span class="c1">// &#39;$(out_char_text)&#39; #$(out_char_code)h</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">out_comma</span><span class="p">)</span>
+<span class="err">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="err">$</span><span class="p">(</span><span class="n">start_block_images_table</span><span class="p">)</span>
+<span class="cp">#ifndef FIRST_CHAR</span>
+<span class="cp">#define FIRST_CHAR &#39;$(out_char_text)&#39;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef LAST_CHAR</span>
+<span class="cp">#undef LAST_CHAR</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define LAST_CHAR &#39;$(out_char_text)&#39;</span>
+
+<span class="cp">#if (0x$(out_char_code) == 32)</span>
+<span class="cp">#define SPACE_WIDTH $(out_image_height)</span>
+<span class="cp">#endif</span>
+<span class="err">$</span><span class="p">(</span><span class="n">end_block_images_table</span><span class="p">)</span>
+
+<span class="c1">// Space width by default.</span>
+<span class="cp">#ifndef SPACE_WIDTH</span>
+<span class="cp">#define SPACE_WIDTH 0</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// Font information for $(fnt_family) $(fnt_size)pt</span>
+<span class="k">const</span> <span class="n">FONT_INFO</span> <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_FontInfo</span> <span class="o">=</span>
+<span class="p">{</span>
+    <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_images_max_height</span><span class="p">)</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="n">out_images_max_height</span><span class="p">)</span><span class="o">%</span><span class="mi">8</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">),</span> <span class="c1">// Character height</span>
+    <span class="n">FIRST_CHAR</span><span class="p">,</span>  <span class="c1">// Start character</span>
+    <span class="n">LAST_CHAR</span><span class="p">,</span>   <span class="c1">// End character</span>
+    <span class="n">SPACE_WIDTH</span><span class="p">,</span> <span class="c1">// Width, in pixels, of space character</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_descriptors</span><span class="p">,</span> <span class="c1">// Character descriptor array</span>
+    <span class="err">$</span><span class="p">(</span><span class="n">doc_name_ws</span><span class="p">)</span><span class="n">_bitmaps</span><span class="p">,</span>     <span class="c1">// Character bitmap array</span>
+<span class="p">};</span>
+
+<span class="cm">/*</span>
+
+<span class="cm">Header file:</span>
+
+<span class="cm">#ifndef $(doc_name_ws)_$(fnt_size)pt_H</span>
+<span class="cm">#define $(doc_name_ws)_$(fnt_size)pt_H</span>
+
+<span class="cm">// Font data for $(fnt_family) $(fnt_size)pt</span>
+<span class="cm">extern const uint_8 $(doc_name_ws)_bitmaps[];</span>
+<span class="cm">extern const FONT_INFO $(doc_name_ws)_FontInfo;</span>
+<span class="cm">extern const FONT_CHAR_INFO $(doc_name_ws)_descriptors;</span>
+
+<span class="cm">#endif // $(doc_name_ws)_$(fnt_size)pt_H</span>
+<span class="cm">*/</span>
+</code></pre></div>
+
+<p>Создаём шрифт, корректируем размеры, конвертируем с использованием этого шаблона.
+Получаем:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/*</span>
+
+<span class="cm">// Character&#39;s info struct.</span>
+<span class="cm">typedef struct FontTable {</span>
+<span class="cm">  uint16_t    width; // Character&#39;s width.</span>
+<span class="cm">  uint16_t    start; // Index of first character&#39;s byte.</span>
+<span class="cm">} FONT_CHAR_INFO;</span>
+
+<span class="cm">// Font&#39;s info struct.</span>
+<span class="cm">typedef struct</span>
+<span class="cm">{</span>
+<span class="cm">  uint8_t Height;                  // Character&#39;s height.</span>
+<span class="cm">  uint8_t FirstChar;               // First character.</span>
+<span class="cm">  uint8_t LastChar;                // Last character.</span>
+<span class="cm">  uint8_t FontSpace;               // Width of space character.</span>
+<span class="cm">  const FONT_CHAR_INFO *FontTable; // Character descriptor array</span>
+<span class="cm">  const uint8_t *FontBitmaps;      // Character bitmap array</span>
+<span class="cm">} FONT_INFO;</span>
+
+<span class="cm">*/</span>
+
+
+<span class="c1">// </span>
+<span class="c1">//  Font data for Ubuntu 14pt</span>
+<span class="c1">// </span>
+
+<span class="c1">// Character bitmaps for Ubuntu 14pt</span>
+<span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">Ubuntu_bitmaps</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1">// at 0 &#39;0&#39; #30h (8 pixel(s) wide)</span>
+    <span class="c1">// ██∙∙∙∙██</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// ██∙∙∙∙██</span>
+    <span class="mh">0xc3</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xc3</span>
+<span class="cp">#if (10 &gt; 1)</span>
+    <span class="p">,</span>
+<span class="cp">#endif</span>
+
+    <span class="c1">// at 10 &#39;1&#39; #31h (8 pixel(s) wide)</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ███∙∙███</span>
+    <span class="c1">// ██∙█∙███</span>
+    <span class="c1">// █∙██∙███</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ████∙███</span>
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xe7</span><span class="p">,</span> 
+    <span class="mh">0xd7</span><span class="p">,</span> 
+    <span class="mh">0xb7</span><span class="p">,</span> 
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xf7</span>
+<span class="cp">#if (10 &gt; 1)</span>
+    <span class="p">,</span>
+<span class="cp">#endif</span>
+
+    <span class="c1">// at 20 &#39;2&#39; #32h (8 pixel(s) wide)</span>
+    <span class="c1">// ██∙∙∙∙██</span>
+    <span class="c1">// █∙████∙█</span>
+    <span class="c1">// ██████∙█</span>
+    <span class="c1">// ██████∙█</span>
+    <span class="c1">// █████∙██</span>
+    <span class="c1">// ████∙███</span>
+    <span class="c1">// ███∙████</span>
+    <span class="c1">// ██∙█████</span>
+    <span class="c1">// █∙██████</span>
+    <span class="c1">// █∙∙∙∙∙∙█</span>
+    <span class="mh">0xc3</span><span class="p">,</span> 
+    <span class="mh">0xbd</span><span class="p">,</span> 
+    <span class="mh">0xfd</span><span class="p">,</span> 
+    <span class="mh">0xfd</span><span class="p">,</span> 
+    <span class="mh">0xfb</span><span class="p">,</span> 
+    <span class="mh">0xf7</span><span class="p">,</span> 
+    <span class="mh">0xef</span><span class="p">,</span> 
+    <span class="mh">0xdf</span><span class="p">,</span> 
+    <span class="mh">0xbf</span><span class="p">,</span> 
+    <span class="mh">0x81</span>
+<span class="cp">#if (10 &gt; 1)</span>
+
+<span class="cp">#endif</span>
+
+<span class="p">};</span>
+
+<span class="c1">// Character descriptors for Ubuntu 14pt</span>
+<span class="c1">// { [Char width in bits], [Offset into Ubuntu_bitmaps in bytes] }</span>
+<span class="k">const</span> <span class="n">FONT_CHAR_INFO</span> <span class="n">Ubuntu_descriptors</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="p">{</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span> <span class="p">}</span> <span class="c1">// &#39;0&#39; #30h</span>
+    <span class="p">,</span>
+
+    <span class="p">{</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span> <span class="p">}</span> <span class="c1">// &#39;1&#39; #31h</span>
+    <span class="p">,</span>
+
+    <span class="p">{</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">20</span> <span class="p">}</span> <span class="c1">// &#39;2&#39; #32h</span>
+
+
+<span class="p">};</span>
+
+
+<span class="cp">#ifndef FIRST_CHAR</span>
+<span class="cp">#define FIRST_CHAR &#39;0&#39;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef LAST_CHAR</span>
+<span class="cp">#undef LAST_CHAR</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define LAST_CHAR &#39;0&#39;</span>
+
+<span class="cp">#if (0x30 == 32)</span>
+<span class="cp">#define SPACE_WIDTH 10</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifndef FIRST_CHAR</span>
+<span class="cp">#define FIRST_CHAR &#39;1&#39;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef LAST_CHAR</span>
+<span class="cp">#undef LAST_CHAR</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define LAST_CHAR &#39;1&#39;</span>
+
+<span class="cp">#if (0x31 == 32)</span>
+<span class="cp">#define SPACE_WIDTH 10</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifndef FIRST_CHAR</span>
+<span class="cp">#define FIRST_CHAR &#39;2&#39;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef LAST_CHAR</span>
+<span class="cp">#undef LAST_CHAR</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define LAST_CHAR &#39;2&#39;</span>
+
+<span class="cp">#if (0x32 == 32)</span>
+<span class="cp">#define SPACE_WIDTH 10</span>
+<span class="cp">#endif</span>
+
+
+<span class="c1">// Space width by default.</span>
+<span class="cp">#ifndef SPACE_WIDTH</span>
+<span class="cp">#define SPACE_WIDTH 0</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// Font information for Ubuntu 14pt</span>
+<span class="k">const</span> <span class="n">FONT_INFO</span> <span class="n">Ubuntu_FontInfo</span> <span class="o">=</span>
+<span class="p">{</span>
+    <span class="p">(</span><span class="mi">10</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">10</span><span class="o">%</span><span class="mi">8</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span><span class="p">),</span> <span class="c1">// Character height</span>
+    <span class="n">FIRST_CHAR</span><span class="p">,</span>  <span class="c1">// Start character</span>
+    <span class="n">LAST_CHAR</span><span class="p">,</span>   <span class="c1">// End character</span>
+    <span class="n">SPACE_WIDTH</span><span class="p">,</span> <span class="c1">// Width, in pixels, of space character</span>
+    <span class="n">Ubuntu_descriptors</span><span class="p">,</span> <span class="c1">// Character descriptor array</span>
+    <span class="n">Ubuntu_bitmaps</span><span class="p">,</span>     <span class="c1">// Character bitmap array</span>
+<span class="p">};</span>
+
+<span class="cm">/*</span>
+
+<span class="cm">Header file:</span>
+
+<span class="cm">#ifndef Ubuntu_14pt_H</span>
+<span class="cm">#define Ubuntu_14pt_H</span>
+
+<span class="cm">// Font data for Ubuntu 14pt</span>
+<span class="cm">extern const uint_8 Ubuntu_bitmaps[];</span>
+<span class="cm">extern const FONT_INFO Ubuntu_FontInfo;</span>
+<span class="cm">extern const FONT_CHAR_INFO Ubuntu_descriptors;</span>
+
+<span class="cm">#endif // Ubuntu_14pt_H</span>
+<span class="cm">*/</span>
+</code></pre></div>
+
+<p>Нюансы:</p>
+<p>TDF добавляет в шрифт, помимо используемых символов, также и все остальные между первым и последним, что даёт возмоджность обращаться к ним по индексу.
+Для решения проблемы перерасхода памяти из-за этого, TDF имеет опцию разбиения набора символов на отдельные блоки.</p>
+<p>В LIC это не предусмотрено, в результирующий шрифт встраиваются только заранее добавленные символы. А выборка нужного производится алгоритмом <a href="https://ru.wikipedia.org/wiki/%D0%94%D0%B2%D0%BE%D0%B8%D1%87%D0%BD%D1%8B%D0%B9_%D0%BF%D0%BE%D0%B8%D1%81%D0%BA">бинарного поиска</a>.</p>
+<p>Возможно создать непрерывную последовательность символов, добавив их все. А чтобы ненужные занимали меньше места в памяти, устанавливаем им размеры 1*1 пиксел и исключаем по этому признаку с помощью макросов.</p>
+  </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+  <div class="category">
+    <a href="https://www.riuson.com/category/lcd-image-converter.html">/LCD Image Converter</a>
+  </div>
+
+<hr>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://www.riuson.com/theme/vendor/jquery/jquery.min.js"></script>
+  <script src="https://www.riuson.com/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="https://www.riuson.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+</html>
